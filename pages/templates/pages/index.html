@@ -1,9 +1,36 @@
+
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
     <section class="container py-5">
-        <h1 id="homepage-intro">Frank Moth is an Artist duo<br>
-            based in Veria, Greece.</h1>
-        <p>Artist portfolio — homepage under construction.</p>
+        <h1 id="homepage-intro" class="mb-5">
+            Frank Moth is an Artist duo<br>
+            based in Veria, Greece.
+        </h1>
+
+       <figure class="m-0">
+            <video
+                id="blois-video"
+                class="w-100"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                tabindex="0"
+                aria-label="Blois artwork video. Press Enter or Space to pause or play."
+                style="height: auto; cursor: pointer;"
+            >
+                <source src="{% static 'videos/blois.mp4' %}" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+
+            <figcaption class="artwork-caption mt-2">
+                The monumental Denis-Papin staircase in Blois, France,
+                featuring our "My World Blossomed When I Loved You" collage.
+                <span class="d-block">2023</span>
+            </figcaption>
+        </figure>
     </section>
 {% endblock %}
