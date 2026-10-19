@@ -1,0 +1,331 @@
+
+/* CSS Variables */
+
+:root {
+    /* ------------------------------------------- Typography */
+    --primary-font: "Bodoni Moda", serif;
+    --secondary-font: "IBM Plex Mono", monospace;
+    --body-font: "IBM Plex Sans", sans-serif;
+
+    /* --------------------------------------------- Colours */
+    --dark-accent-color: #263E60;
+    --accent-color: #80E633;
+    --text-color: #383838;
+    --background-color: #F2F2F2;
+    --off-white-color: #FDFCFA;
+}
+
+
+/*----------------------------------------------- Global Styles */
+
+body {
+    font-family: var(--body-font);
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--secondary-font);
+    color: var(--text-color);
+}
+
+h1 {
+    font-weight: 500;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: var(--secondary-font);
+}
+
+a {
+    color: var(--dark-accent-color);
+}
+
+a:hover {
+    color: var(--text-color);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+
+/*----------------------------------------------------- Navbar */
+
+.site-navbar {
+    background-color: var(--background-color);
+    padding: 0.65rem 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-brand {
+    font-family: var(--primary-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: 0.03em;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-brand:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.navbar-brand:focus-visible {
+    color: var(--text-color);
+}
+
+.navbar-nav {
+    gap: 1rem;
+}
+
+.navbar-nav .nav-link {
+    font-family: var(--secondary-font);
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+/* Navigation link indicators */
+
+.navbar-nav .nav-link:not(.account-link) {
+    position: relative;
+    display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+/* Green dot */
+
+.navbar-nav .nav-link:not(.account-link)::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    opacity: 0;
+}
+
+/* Charcoal underline */
+
+.navbar-nav .nav-link:not(.account-link)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 9px;
+    height: 1px;
+    background-color: var(--text-color);
+    opacity: 0;
+}
+
+/* Hover, focus and active indicators */
+
+.navbar-nav .nav-link:not(.account-link):hover::before,
+.navbar-nav .nav-link:not(.account-link):hover::after,
+.navbar-nav .nav-link:not(.account-link):focus-visible::before,
+.navbar-nav .nav-link:not(.account-link):focus-visible::after,
+.navbar-nav .nav-link:not(.account-link).active::before,
+.navbar-nav .nav-link:not(.account-link).active::after {
+    opacity: 1;
+}
+
+/* Movement only on hover */
+
+.navbar-nav .nav-link:not(.account-link):hover {
+    transform: translateY(-2px);
+}
+
+/* Account control */
+
+.account-link {
+    display: inline-block;
+    font-family: var(--secondary-font);
+    font-size: 0.85rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.account-link:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px) scale(1.08);
+}
+
+.account-link:focus-visible {
+    color: var(--text-color);
+}
+
+/* Mobile navigation toggle */
+
+.navbar-toggler {
+    border: none;
+    padding: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.navbar-toggler:hover {
+    transform: translateY(-2px);
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+    filter: invert(73%) sepia(74%) saturate(522%) hue-rotate(41deg) brightness(103%) contrast(93%);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler:focus-visible {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+
+/*------------------------------------------------------------- Buttons */
+
+.btn {
+    font-family: var(--secondary-font);
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: var(--dark-accent-color);
+    border-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--text-color);
+    border-color: var(--text-color);
+    color: var(--off-white-color);
+}
+
+
+/*----------------------------------------------------------- Forms */
+
+.form-control {
+    border-radius: 0;
+    border-color: var(--dark-accent-color);
+    background-color: var(--off-white-color);
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    border-color: var(--dark-accent-color);
+    box-shadow: 0 0 0 0.15rem rgba(38, 62, 96, 0.15);
+}
+
+
+/*-------------------------------------------- Django Messages */
+
+.alert {
+    border-radius: 0;
+    font-family: var(--body-font);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+/*------------------------------------------------------ Footer */
+
+.site-footer {
+    background-color: var(--background-color);
+    padding: 0.75rem 2rem;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+    padding-top: 0;
+}
+
+.footer-link,
+.footer-socials a {
+    font-family: var(--secondary-font);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link {
+    display: inline-block;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-underline-offset: 0.35rem;
+}
+
+.footer-link:hover {
+    transform: translateY(-2px);
+}
+
+.footer-socials a {
+    display: inline-block;
+    font-size: 0.95rem;
+}
+
+.footer-socials a:hover {
+    color: var(--accent-color);
+    transform: scale(1.08);
+}
+
+.footer-socials a:focus-visible {
+    color: var(--text-color);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-underline-offset: 0.35rem;
+}
+
+/* -------------------------------------------------------- Home Page */
+
+#homepage-intro {
+    line-height: 1.4;
+}
+
+
+/*------------------------------------------------------- Media Queries */
+
+@media screen and (max-width: 991.98px) {
+    .site-navbar {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-collapse {
+        padding-top: 1rem;
+    }
+
+    .navbar-nav {
+        gap: 0.25rem;
+    }
+
+    .site-footer {
+        padding: 0.75rem 1rem;
+    }
+}
+
+@media screen and (max-width: 767.98px) {
+    .footer-content {
+        text-align: center;
+    }
+}
