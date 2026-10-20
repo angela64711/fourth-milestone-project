@@ -1,36 +1,293 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block content %}
-    <section class="container py-5">
+<section class="homepage-hero pt-5 pb-3 pb-sm-5">
+    <div class="container">
         <h1 id="homepage-intro" class="mb-5">
             Frank Moth is an Artist duo<br>
             based in Veria, Greece.
         </h1>
 
-       <figure class="m-0">
-            <video
-                id="blois-video"
-                class="w-100"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="metadata"
-                tabindex="0"
+        <figure class="m-0">
+            <video id="blois-video" class="w-100" autoplay muted loop playsinline preload="metadata" tabindex="0"
                 aria-label="Blois artwork video. Press Enter or Space to pause or play."
-                style="height: auto; cursor: pointer;"
-            >
+                style="height: auto; cursor: pointer;">
                 <source src="{% static 'videos/blois.mp4' %}" type="video/mp4">
                 Your browser does not support HTML5 video.
             </video>
 
-            <figcaption class="artwork-caption mt-2">
+            <figcaption class="artwork-caption mt-1">
                 The monumental Denis-Papin staircase in Blois, France,
                 featuring our "My World Blossomed When I Loved You" collage.
                 <span class="d-block">2023</span>
             </figcaption>
         </figure>
-    </section>
+        <p id="artist-philosophy" class="my-5">
+            They explore universal concepts of love, humility, truth,
+            nostalgia and forgiveness in colorful, surreal floral
+            portraits and futuristic retro compositions.
+        </p>
+    </div>
+</section>
+
+
+<section class="homepage-explore pt-3 pb-5 pt-sm-5" aria-labelledby="explore-heading">
+    <div class="container">
+
+        <h2 id="explore-heading" class="mb-5 pe-5">
+            Inside Frank Moth's World
+        </h2>
+
+        <!-- Desktop and tablet carousel: 576px and above -->
+        <div class="d-none d-sm-flex align-items-center gap-3">
+
+            <!-- Previous button -->
+            <button class="featured-prev" type="button"
+                data-bs-target="#featured-artworks"
+                data-bs-slide="prev"
+                aria-label="Previous artworks">
+                <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+            </button>
+
+            <!-- Bootstrap carousel -->
+            <div id="featured-artworks"
+                class="carousel slide flex-grow-1"
+                data-bs-interval="false">
+
+                <div class="carousel-inner">
+
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="row g-3">
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/LDN.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork one">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Peach-Blossoms-of-Veria.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork two">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Dying-in-your-arms.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork three">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Beautiful-Way.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork four">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="row g-3">
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/All-the-Springs-She-Remembered.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork five">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Just-when-You-Thought-You-were-Alone.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork six">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/As-a-Child-I-was-a-Misfit.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork seven">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Angel-Came.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork eight">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <div class="row g-3">
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/The-Pursuit-of-Recovery.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork nine">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/You-Loved-me-a-Thousand-Summers-ago.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork ten">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Patience-II.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork eleven">
+                            </div>
+
+                            <div class="col-6 col-lg-3">
+                                <img src="{% static 'images/featured/Beirut-Sky.webp' %}"
+                                    class="d-block w-100 img-fluid"
+                                    alt="Artwork twelve">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Next button -->
+            <button class="featured-next" type="button"
+                data-bs-target="#featured-artworks"
+                data-bs-slide="next"
+                aria-label="Next artworks">
+                <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+        <!-- Mobile carousel: below 576px -->
+        <div class="d-flex d-sm-none align-items-center gap-1">
+
+            <!-- Previous button -->
+            <button class="featured-prev" type="button"
+                data-bs-target="#featured-artworks-mobile"
+                data-bs-slide="prev"
+                aria-label="Previous artwork">
+                <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+            </button>
+
+            <!-- Bootstrap mobile carousel -->
+            <div id="featured-artworks-mobile"
+                class="carousel slide flex-grow-1"
+                data-bs-interval="false">
+
+                <div class="carousel-inner">
+
+                    <!-- Slide 1: LDN -->
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/featured/LDN.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork one">
+                    </div>
+
+                    <!-- Slide 2: Peach Blossoms of Veria -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Peach-Blossoms-of-Veria.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork two">
+                    </div>
+
+                    <!-- Slide 3: Dying in your arms -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Dying-in-your-arms.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork three">
+                    </div>
+
+                    <!-- Slide 4: Beautiful Way -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Beautiful-Way.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork four">
+                    </div>
+
+                    <!-- Slide 5: All the Springs She Remembered -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/All-the-Springs-She-Remembered.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork five">
+                    </div>
+
+                    <!-- Slide 6: Just when You Thought You were Alone -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Just-when-You-Thought-You-were-Alone.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork six">
+                    </div>
+
+                    <!-- Slide 7: As a Child I was a Misfit -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/As-a-Child-I-was-a-Misfit.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork seven">
+                    </div>
+
+                    <!-- Slide 8: Angel Came -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Angel-Came.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork eight">
+                    </div>
+
+                    <!-- Slide 9: The Pursuit of Recovery -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/The-Pursuit-of-Recovery.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork nine">
+                    </div>
+
+                    <!-- Slide 10: You Loved me a Thousand Summers ago -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/You-Loved-me-a-Thousand-Summers-ago.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork ten">
+                    </div>
+
+                    <!-- Slide 11: Patience II -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Patience-II.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork eleven">
+                    </div>
+
+                    <!-- Slide 12: Beirut Sky -->
+                    <div class="carousel-item">
+                        <img src="{% static 'images/featured/Beirut-Sky.webp' %}"
+                            class="d-block w-100 img-fluid"
+                            alt="Artwork twelve">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Next button -->
+            <button class="featured-next" type="button"
+                data-bs-target="#featured-artworks-mobile"
+                data-bs-slide="next"
+                aria-label="Next artwork">
+                <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+        <!-- Gallery link -->
+        <div class="text-center mt-5">
+            <a href="#" class="artwork-link">
+                Experience the Art
+                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                    aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
 {% endblock %}
