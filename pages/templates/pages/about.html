@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section id="about-intro" class="pt-4 pt-md-5">
+    <div class="container">
+
+        <!-- About image -->
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <figure id="about-image" class="mb-4">
+                    <img src="{% static 'images/temp/Frank-Moth-Mr-Porter-Oct22-2.jpg' %}" alt="Frank Moth artist duo"
+                        class="img-fluid">
+                    <figcaption>Photo by Maria Georgiou</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <!-- About introduction -->
+        <div class="row">
+            <div class="col-12 col-lg-10">
+                <p id="about-intro-text" class="mb-5">
+                    Frank Moth is Eleftherios S. &amp; Marianna M.
+                    born and raised in Veria and Heraklion, Greece.
+                    In 2014 they created and developed the brand
+                    <em>Frank Moth</em> as an artist alias in an attempt
+                    to escape from the ephemeral and hard present
+                    to a nostalgic past future.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Journey section -->
+
+<section id="about-journey" class="py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p id="about-journey-text" class="mb-0">
+                    Veria &amp; Heraklion → Athens → Thessaloniki → Veria → ∞
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Substack section -->
+
+<section id="about-substack" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 id="about-substack-title" class="mb-3">Frank Moth Substack</h2>
+
+                <p id="about-substack-text" class="mb-3">
+                    Small Notes on Life and Art.
+                </p>
+
+                <a href="https://frankmoth.substack.com/" id="about-substack-link" target="_blank"
+                    rel="noopener noreferrer" class="underline-link">
+                    Read on Substack<i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
