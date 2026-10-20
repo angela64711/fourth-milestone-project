@@ -176,6 +176,13 @@ input:focus-visible {
     transition: transform 0.2s ease;
 }
 
+/* Mobile navigation toggler */
+
+.navbar-toggler-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .navbar-toggler:hover {
     transform: translateY(-2px);
 }
@@ -440,6 +447,225 @@ input:focus-visible {
 }
 
 
+/* Artist introduction */
+
+.homepage-about {
+    background-color: var(--off-white-color);
+}
+
+.about-intro {
+    font-family: var(--secondary-font);
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 100%;
+}
+
+.about-intro::before {
+    content: "••";
+    display: block;
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.about-link {
+    display: inline-block;
+    font-family: var(--secondary-font);
+    font-size: 0.9rem;
+    color: var(--off-white-color);
+    background-color: var(--dark-accent-color);
+    padding: 0.85rem 1.25rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+
+.about-link .artwork-link-arrow {
+    color: var(--accent-color);
+}
+
+
+.about-link:hover {
+    background-color: var(--text-color);
+    color: var(--off-white-color);
+    transform: translateY(-2px);
+}
+
+.about-link:focus-visible {
+    color: var(--off-white-color);
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+
+
+
+/* ------------------------------------------------ Art Beyond the Frame */
+
+.homepage-beyond {
+    background-color: var(--background-color);
+}
+
+.homepage-beyond h2,
+.beyond-subheading {
+    color: var(--dark-accent-color);
+    font-weight: 400;
+}
+
+.homepage-beyond h2 {
+    font-size: 1.75rem;
+}
+
+
+.beyond-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.beyond-dots {
+    color: var(--accent-color);
+    font-family: var(--secondary-font);
+    font-size: 1.125rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+.beyond-subheading {
+    font-size: 1.375rem;
+}
+
+.homepage-beyond .artwork-link {
+    font-size: 0.875rem;
+    align-self: flex-start;
+}
+
+/* Images */
+
+.beyond-landscape,
+.beyond-portrait {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.beyond-landscape {
+    aspect-ratio: 16 / 9;
+}
+
+.beyond-portrait {
+    aspect-ratio: 3 / 4;
+}
+
+
+/* ------------------------------------------------ Something Personal */
+
+.homepage-personal {
+    background-color: var(--background-color);
+}
+
+.personal-divider {
+    border: 0;
+    border-top: 1px solid var(--text-color);
+    opacity: 0.15;
+    margin: 0 0 2rem;
+}
+
+#personal-heading::before {
+    content: "••";
+    display: block;
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.homepage-personal h2 {
+    color: var(--dark-accent-color);
+    font-size: 1.75rem;
+    font-weight: 400;
+}
+
+.personal-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.personal-card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+}
+
+.personal-card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+    background-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    box-shadow: 0 -3px 8px rgba(253, 252, 250, 0.25);
+}
+
+.personal-card-content h3 {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.personal-card-content p {
+    flex-grow: 1;
+}
+
+.personal-card-link {
+    align-self: flex-start;
+    color: var(--off-white-color);
+    font-family: var(--secondary-font);
+    font-size: 0.875rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.personal-card-link .artwork-link-arrow {
+    color: var(--accent-color);
+}
+
+.personal-card-link:hover,
+.personal-card-link:focus-visible {
+    color: var(--accent-color);
+}
+
+
+
+/* ------------------------------------------------ Stay Connected */
+
+.homepage-connect {
+    background-color: var(--off-white-color);
+}
+
+.homepage-connect h2 {
+    color: var(--dark-accent-color);
+    font-size: 1.75rem;
+    font-weight: 400;
+}
+
+.connect-intro {
+    max-width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
 /*------------------------------------------------------- Media Queries */
 
 /* Small devices: 576px and above */
@@ -481,8 +707,41 @@ input:focus-visible {
     }
 
     .artwork-link {
-    font-size: 1.2rem;
+        font-size: 1.2rem;
     }
+
+    .about-intro {
+        max-width: 85%;
+    }
+
+    .about-link {
+        font-size: 1rem;
+    }
+
+    .homepage-beyond h2 {
+        font-size: clamp(2rem, 3vw, 2.75rem);
+    }
+
+    .beyond-subheading {
+        font-size: clamp(1.5rem, 2vw, 1.875rem);
+    }
+
+    .homepage-beyond .artwork-link {
+        font-size: 1rem;
+    }
+
+    .homepage-personal h2 {
+        font-size: clamp(2rem, 3vw, 2.75rem);
+    }
+
+    .personal-card-content {
+        padding: 1.25rem;
+    }
+
+    .homepage-connect h2 {
+        font-size: clamp(2rem, 3vw, 2.75rem);
+    }
+
 }
 
 /* Medium devices: 768px and above */
@@ -491,6 +750,15 @@ input:focus-visible {
     .footer-content {
         text-align: left;
     }
+
+    .personal-card-image {
+        aspect-ratio: 4 / 5;
+    }
+
+    .homepage-personal .row {
+        --bs-gutter-x: 2rem;
+    }
+    
 }
 
 /* Large devices: 992px and above */

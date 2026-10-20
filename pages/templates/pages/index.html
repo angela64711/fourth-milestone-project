@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+
+<!-- Hero Section with video -->
+
 <section class="homepage-hero pt-5 pb-3 pb-sm-5">
     <div class="container">
         <h1 id="homepage-intro" class="mb-5">
@@ -31,6 +34,7 @@
     </div>
 </section>
 
+<!-- Art Preview Section -->
 
 <section class="homepage-explore pt-3 pb-5 pt-sm-5" aria-labelledby="explore-heading">
     <div class="container">
@@ -289,5 +293,215 @@
 
     </div>
 </section>
+
+<!-- About the artists preview section -->
+
+
+<!-- Artist introduction -->
+<section class="homepage-about py-5" aria-label="About Frank Moth">
+    <div class="container">
+        <p class="about-intro mb-5">
+            Frank Moth creates nostalgic postcards from the future,
+            using mostly digital collage techniques in a struggle
+            for eternity through pixels.
+        </p>
+
+        <div class="text-end">
+            <a href="#" class="about-link">
+                Meet Frank Moth
+                <i class="fa-solid fa-arrow-right artwork-link-arrow ms-2"
+                    aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- In Situ and Collaborations Preview -->
+
+<section class="homepage-beyond py-5" aria-labelledby="beyond-heading">
+    <div class="container">
+        <h2 id="beyond-heading" class="mb-3">
+            Art Beyond the Frame
+        <span class="beyond-dots" aria-hidden="true">● ●</span>
+        </h2>
+
+        <p class="mb-4">
+            Discover how Frank Moth's work finds its place in real
+            environments and through creative collaborations.
+        </p>
+
+        <div class="row g-4">
+
+            <!-- In Situ -->
+            <div class="col-12 col-md-6 d-flex flex-column">
+                <div class="row g-2">
+                    <div class="col-12">
+                        <img src="{% static 'images/temp/Frank-Moth-Mr-Porter-Oct22-2.jpg' %}"
+                            class="img-fluid w-100 beyond-landscape"
+                            alt="Frank Moth artwork displayed in an interior">
+                    </div>
+
+                    <div class="col-6">
+                        <img src="{% static 'images/temp/Coulter-Lee-Brown-EP-2-front.jpg' %}"
+                            class="img-fluid w-100 beyond-portrait"
+                            alt="Frank Moth artwork in a real-world setting">
+                    </div>
+
+                    <div class="col-6">
+                        <img src="{% static 'images/temp/Does-This-still-apply.jpg' %}"
+                            class="img-fluid w-100 beyond-portrait"
+                            alt="Another example of Frank Moth artwork on display">
+                    </div>
+                </div>
+
+                <h3 class="beyond-subheading mt-3">
+                    Artwork in Real Spaces
+                </h3>
+
+                <a href="#" class="artwork-link mt-auto">
+                    Explore In Situ
+                    <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                        aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <!-- Collaborations -->
+            <div class="col-12 col-md-6 d-flex flex-column">
+                <div class="row g-2">
+                    <div class="col-12">
+                        <img src="{% static 'images/temp/Frank-Moth-Mr-Porter-Selling-Dec-22-.jpg' %}"
+                            class="img-fluid w-100 beyond-landscape"
+                            alt="Creative collaboration featuring Frank Moth artwork">
+                    </div>
+
+                    <div class="col-6">
+                        <img src="{% static 'images/temp/frankmothyellfirecoverart.jpg' %}"
+                            class="img-fluid w-100 beyond-portrait"
+                            alt="Book or album artwork by Frank Moth">
+                    </div>
+
+                    <div class="col-6">
+                        <img src="{% static 'images/temp/veriafrankmoth.jpg' %}"
+                            class="img-fluid w-100 beyond-portrait"
+                            alt="Another creative project by Frank Moth">
+                    </div>
+                </div>
+
+                <h3 class="beyond-subheading mt-3">
+                    Selected Creative Partnerships
+                </h3>
+
+                <a href="#" class="artwork-link mt-auto">
+                    Explore Collaborations
+                    <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                        aria-hidden="true"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Something Personal. Something to Keep. -->
+ 
+<section class="homepage-personal py-5" aria-labelledby="personal-heading">
+    <div class="container px-md-5">
+        <hr class="personal-divider">
+
+        <h2 id="personal-heading" class="mb-3">
+            Something Personal. Something to Keep.
+        </h2>
+
+        <p class="personal-intro mb-4">
+            Discover existing Frank Moth artwork or explore the possibility
+            of something created especially for you.
+        </p>
+
+        <div class="row g-4">
+            <!-- Commission -->
+            <div class="col-12 col-md-6">
+                <div class="personal-card h-100">
+                    <img
+                        src="{% static 'images\temp\veriafrankmoth.jpg' %}"
+                        class="personal-card-image"
+                        alt="Example of a commissioned artwork by Frank Moth">
+
+                    <div class="personal-card-content">
+                        <h3>Request a Commission</h3>
+
+                        <p>
+                            A memory, a feeling, a story, or simply an idea.
+                            Make it the starting point for something unique.
+                        </p>
+
+                        <a href="#" class="personal-card-link">
+                            Explore Commissions
+                            <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                                aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Where to Buy -->
+            <div class="col-12 col-md-6">
+                <div class="personal-card h-100">
+                    <img
+                        src="{% static 'images\temp\frankmothyellfirecoverart.jpg' %}"
+                        class="personal-card-image"
+                        alt="Frank Moth artwork presented as a framed print">
+
+                    <div class="personal-card-content">
+                        <h3>Where to Buy</h3>
+
+                        <p>
+                            Find existing artwork and products through
+                            selected independent retailers.
+                        </p>
+
+                        <a href="#" class="personal-card-link">
+                            Find Artwork
+                            <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                                aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Stay Connected -->
+<section class="homepage-connect py-5" aria-labelledby="connect-heading">
+    <div class="container text-center">
+        <h2 id="connect-heading" class="mb-3">
+            Stay Connected
+        </h2>
+
+        <p class="connect-intro mb-4">
+            Stay up to date with Frank Moth's latest work,
+            news and creative projects.
+        </p>
+
+        <div class="connect-links d-flex flex-column flex-sm-row
+                    justify-content-center align-items-center gap-5">
+            <a href="#" class="artwork-link">
+                Newsletter
+                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                    aria-hidden="true"></i>
+            </a>
+
+            <a href="#" class="artwork-link">
+                Get in Touch
+                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                    aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}
