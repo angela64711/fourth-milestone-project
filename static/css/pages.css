@@ -58,3 +58,76 @@
     font-size: 1rem;
     line-height: 1.6;
 }
+
+#about-info {
+    background-color: var(--off-white-color);
+}
+
+#about-philosophy {
+    font-family: var(--secondary-font);
+    font-size: 0.875rem;
+    line-height: 1.7;
+}
+
+.testimonial-quote {
+  font-size: clamp(3rem, 5vw, 4rem);
+  font-style: italic;
+  color: var(--accent-color);
+  display: block;
+  line-height: 1;
+  margin-bottom: -1rem;
+}
+
+/* About recognition */
+
+.about-column-line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-accent-color);
+}
+
+.about-column-title {
+    font-family: var(--primary-font);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.about-recognition-list {
+    font-family: var(--secondary-font);
+    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+    line-height: 1.6;
+}
+
+.about-recognition-list li {
+    margin-bottom: 0.25rem;
+}
+
+.about-exhibitions-list li {
+    margin-bottom: 1rem;
+}
+
+.recognition-link {
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+    text-underline-offset: 2px;
+}
+
+.recognition-link:hover,
+.recognition-link:focus-visible {
+    color: var(--primary-color);
+}
+
+/*--------------------------------------------------Media Queries */
+
+@media screen and (min-width: 768px) {
+    #about-philosophy {
+        font-size: 1rem;
+    }
+
+    .about-column-title {
+        min-height: 4.5rem;
+    }
+}
