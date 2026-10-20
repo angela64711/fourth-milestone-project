@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <!-- Hero Section with video -->
@@ -20,14 +24,14 @@
                 Your browser does not support HTML5 video.
             </video>
 
-            <figcaption class="artwork-caption mt-1">
+            <figcaption class="video-caption mt-1">
                 The monumental Denis-Papin staircase in Blois, France,
                 featuring our "My World Blossomed When I Loved You" collage.
                 <span class="d-block">2023</span>
             </figcaption>
         </figure>
-        <p id="artist-philosophy" class="my-5">
-            They explore universal concepts of love, humility, truth,
+        <p id="#homepage-artist-statement" class="my-5">
+            The artists explore universal concepts of love, humility, truth,
             nostalgia and forgiveness in colorful, surreal floral
             portraits and futuristic retro compositions.
         </p>
@@ -284,9 +288,9 @@
 
         <!-- Gallery link -->
         <div class="text-center mt-5">
-            <a href="#" class="artwork-link">
+            <a href="#" class="underline-link">
                 Experience the Art
-                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                <i class="fa-solid fa-arrow-right  diagonal-arrow"
                     aria-hidden="true"></i>
             </a>
         </div>
@@ -309,7 +313,7 @@
         <div class="text-end">
             <a href="#" class="about-link">
                 Meet Frank Moth
-                <i class="fa-solid fa-arrow-right artwork-link-arrow ms-2"
+                <i class="fa-solid fa-arrow-right diagonal-arrow ms-2"
                     aria-hidden="true"></i>
             </a>
         </div>
@@ -358,9 +362,9 @@
                     Artwork in Real Spaces
                 </h3>
 
-                <a href="#" class="artwork-link mt-auto">
+                <a href="#" class="underline-link mt-auto">
                     Explore In Situ
-                    <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                    <i class="fa-solid fa-arrow-right diagonal-arrow"
                         aria-hidden="true"></i>
                 </a>
             </div>
@@ -391,9 +395,9 @@
                     Selected Creative Partnerships
                 </h3>
 
-                <a href="#" class="artwork-link mt-auto">
+                <a href="#" class="underline-link mt-auto">
                     Explore Collaborations
-                    <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                    <i class="fa-solid fa-arrow-right diagonal-arrow"
                         aria-hidden="true"></i>
                 </a>
             </div>
@@ -437,7 +441,7 @@
 
                         <a href="#" class="personal-card-link">
                             Explore Commissions
-                            <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                            <i class="fa-solid fa-arrow-right diagonal-arrow"
                                 aria-hidden="true"></i>
                         </a>
                     </div>
@@ -462,7 +466,7 @@
 
                         <a href="#" class="personal-card-link">
                             Find Artwork
-                            <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                            <i class="fa-solid fa-arrow-right diagonal-arrow"
                                 aria-hidden="true"></i>
                         </a>
                     </div>
@@ -488,15 +492,15 @@
 
         <div class="connect-links d-flex flex-column flex-sm-row
                     justify-content-center align-items-center gap-5">
-            <a href="#" class="artwork-link">
+            <a href="#" class="underline-link">
                 Newsletter
-                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                <i class="fa-solid fa-arrow-right diagonal-arrow"
                     aria-hidden="true"></i>
             </a>
 
-            <a href="#" class="artwork-link">
+            <a href="#" class="underline-link">
                 Get in Touch
-                <i class="fa-solid fa-arrow-right artwork-link-arrow"
+                <i class="fa-solid fa-arrow-right diagonal-arrow"
                     aria-hidden="true"></i>
             </a>
         </div>
