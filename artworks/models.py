@@ -1,6 +1,6 @@
 from django.db import models
-
 from django.db.models import Max
+from django.db.models.deletion import PROTECT
 
 
 class Collection(models.Model):
@@ -42,11 +42,27 @@ class Collection(models.Model):
 
 class Artwork(models.Model):
     """
-    Stores an individual artwork with its title and image.
+    Stores an individual artwork belonging to a collection.
     """
 
     title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(
+        max_length=220,
+        unique=True,
+    )
+    collection = models.ForeignKey(
+        Collection,
+        on_delete=PROTECT,
+        related_name="artworks",
+    )
+    year = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+    description = models.TextField(blank=True)
     image = models.ImageField(upload_to="artworks/")
+    etsy_url = models.URLField(blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
