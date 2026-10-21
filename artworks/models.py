@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.db.models import Max
+
 
 class Collection(models.Model):
     """
@@ -36,3 +38,15 @@ class Collection(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Artwork(models.Model):
+    """
+    Stores an individual artwork with its title and image.
+    """
+
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to="artworks/")
+
+    def __str__(self):
+        return self.title
