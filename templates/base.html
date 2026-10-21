@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-   
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,101 +38,117 @@
 <body class="d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
- <header>
-    <nav class="navbar navbar-expand-xl site-navbar"
-         aria-label="Main navigation">
-        <div class="container-fluid">
 
-            <!-- Brand / Homepage -->
-            <a class="navbar-brand" href="{% url 'home' %}">
-                FRANK MOTH
-            </a>
+    <header>
+        <nav class="navbar navbar-expand-xl site-navbar" aria-label="Main navigation">
+            <div class="container-fluid">
 
-            <!-- Mobile account control and menu toggle -->
-            <div class="d-flex align-items-center gap-3 d-xl-none">
-
-                <a href="#"
-                   class="account-link d-inline-flex align-items-center gap-2"
-                   aria-label="My Account">
-
-                    {% if user.is_authenticated %}
-                        <i class="fa-solid fa-user" aria-hidden="true"></i>
-                        <span>My Account</span>
-                    {% else %}
-                        <i class="fa-regular fa-user" aria-hidden="true"></i>
-                    {% endif %}
+                <!-- Brand / Homepage -->
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    FRANK MOTH
                 </a>
 
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#mainNavbar"
-                        aria-controls="mainNavbar"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
+                <!-- Mobile account control and menu toggle -->
+                <div class="d-flex align-items-center gap-3 d-xl-none">
 
-            <!-- Main navigation -->
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="navbar-nav ms-auto align-items-xl-center">
+                    <a href="#" class="account-link d-inline-flex align-items-center gap-2" aria-label="My Account">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Art</a>
-                    </li>
+                        {% if user.is_authenticated %}
+                        <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        <span>My Account</span>
+                        {% else %}
+                        <i class="fa-regular fa-user" aria-hidden="true"></i>
+                        {% endif %}
+                    </a>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">In Situ</a>
-                    </li>
+                <!-- Main navigation -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav ms-auto align-items-xl-center">
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Collaborations</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'art' %}active{% endif %}"
+                                href="{% url 'art' %}"
+                                {% if request.resolver_match.url_name == 'art' %}aria-current="page" {% endif %}>
+                                Art
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Commissions</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                                href="{% url 'about' %}"
+                                {% if request.resolver_match.url_name == 'about' %}aria-current="page" {% endif %}>
+                                About
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Where to Buy</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'in_situ' %}active{% endif %}"
+                                href="#" {% if request.resolver_match.url_name == 'in_situ' %}aria-current="page"
+                                {% endif %}>
+                                In Situ
+                            </a>
+                        </li>
 
-                    <!-- Desktop account control -->
-                    <li class="nav-item d-none d-xl-block">
-                        <a href="#"
-                           class="nav-link account-link d-inline-flex align-items-center gap-2"
-                           aria-label="My Account">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'collaborations' %}active{% endif %}"
+                                href="#" {% if request.resolver_match.url_name == 'collaborations' %}aria-current="page"
+                                {% endif %}>
+                                Collaborations
+                            </a>
+                        </li>
 
-                            {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'commissions' %}active{% endif %}"
+                                href="#" {% if request.resolver_match.url_name == 'commissions' %}aria-current="page"
+                                {% endif %}>
+                                Commissions
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'where_to_buy' %}active{% endif %}"
+                                href="#" {% if request.resolver_match.url_name == 'where_to_buy' %}aria-current="page"
+                                {% endif %}>
+                                Where to Buy
+                            </a>
+                        </li>
+
+                        <!-- Desktop account control -->
+                        <li class="nav-item d-none d-xl-block">
+                            <a href="#" class="nav-link account-link d-inline-flex align-items-center gap-2"
+                                aria-label="My Account">
+
+                                {% if user.is_authenticated %}
                                 <i class="fa-solid fa-user" aria-hidden="true"></i>
                                 <span>My Account</span>
-                            {% else %}
+                                {% else %}
                                 <i class="fa-regular fa-user" aria-hidden="true"></i>
-                            {% endif %}
-                        </a>
-                    </li>
+                                {% endif %}
+                            </a>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
+
 
     <!-- Django messages -->
     {% if messages %}
-        <div class="container mt-3" aria-live="polite">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags|default:'info' }}"
-                     role="status">
-                    {{ message }}
-                </div>
-            {% endfor %}
+    <div class="container mt-3" aria-live="polite">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }}" role="status">
+            {{ message }}
         </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
     <!-- Main page content -->
@@ -197,10 +213,11 @@
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"></script>
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
 
     {% block extra_js %}{% endblock %}
 
 </body>
+
 </html>

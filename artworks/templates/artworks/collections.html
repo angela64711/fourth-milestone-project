@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Art | Frank Moth{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/art.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section id="collections-section" class="container py-5">
+
+    <!-- Page introduction -->
+    <div id="collections-intro" class="mb-5 text-center">
+        <p>ongoing life project. collaging pictures.</p>
+        <p>here is an attempt to sort and organize chaos.</p>
+    </div>
+
+    <!-- Collections -->
+    <div id="collections-list">
+
+        {% for collection in collections %}
+
+        <article id="collection-{{ collection.pk }}" class="row align-items-center gy-4 mb-5">
+
+            <!-- Collection image -->
+            <div class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
+                <img src="{{ collection.ordered_artworks.0.image.url }}"
+                    alt="Artwork from the {{ collection.name }} collection" class="img-fluid w-100" loading="lazy">
+            </div>
+
+            <!-- Collection information -->
+            <div class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-1{% endif %}">
+                <div id="collection-info-{{ collection.pk }}">
+                    <h2>{{ collection.name }}</h2>
+                    <p>{{ collection.description }}</p>
+
+                    <a href="#" class="underline-link">
+                        Explore Collection
+                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
