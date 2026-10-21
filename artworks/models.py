@@ -45,7 +45,7 @@ class Artwork(models.Model):
     Stores an individual artwork with its title and image.
     """
 
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     image = models.ImageField(upload_to="artworks/")
 
     def __str__(self):
