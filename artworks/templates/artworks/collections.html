@@ -9,10 +9,10 @@
 
 {% block content %}
 
-<section id="collections-section" class="container py-5">
+<section id="collections-section">
 
     <!-- Page introduction -->
-    <div id="collections-intro" class="mb-5 text-center">
+    <div id="collections-intro" class="container py-3 py-lg-5 text-center">
         <p>ongoing life project. collaging pictures.</p>
         <p>here is an attempt to sort and organize chaos.</p>
     </div>
@@ -22,33 +22,40 @@
 
         {% for collection in collections %}
 
-        <article id="collection-{{ collection.pk }}" class="row align-items-center gy-4 mb-5">
+        <article class="collection-section">
+            <div class="container">
+                <div class="row align-items-center px-4 gy-4 gy-md-0">
 
-            <!-- Collection image -->
-            <div class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
-                <img src="{{ collection.ordered_artworks.0.image.url }}"
-                    alt="Artwork from the {{ collection.name }} collection" class="img-fluid w-100" loading="lazy">
-            </div>
+                    <!-- Collection image -->
+                    <div
+                        class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-2 text-md-end{% endif %}">
+                        <img src="{{ collection.ordered_artworks.0.image.url }}"
+                            alt="Artwork from the {{ collection.name }} collection" class="img-fluid d-block mx-auto mx-md-0" loading="lazy">
+                    </div>
 
-            <!-- Collection information -->
-            <div class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-1{% endif %}">
-                <div id="collection-info-{{ collection.pk }}">
-                    <h2>{{ collection.name }}</h2>
-                    <p>{{ collection.description }}</p>
+                    <!-- Collection information -->
+                    <div
+                        class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-1{% else %}ps-md-4 ps-lg-5{% endif %}">
+                        <h2>{{ collection.name }}</h2>
+                        <p>{{ collection.description }}</p>
+                        <a href="{% url 'artworks' collection.slug %}" class="underline-link">
+                            Explore Collection
+                            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                        </a>
+                    </div>
 
-                    <a href="{% url 'collection_detail' collection.slug %}" class="underline-link">
-                        Explore Collection
-                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
-                    </a>
                 </div>
             </div>
-
         </article>
-
         {% endfor %}
 
     </div>
-
+    <div id="collections-end-decoration" class="py-3 py-lg-5" aria-hidden="true">
+        <div class="container text-center">
+            <div id="collections-end-line"></div>
+            <span id="collections-end-dots">••</span>
+        </div>
+    </div>
 </section>
 
 {% endblock %}

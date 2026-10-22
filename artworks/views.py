@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Artwork, Collection
 
 
-def collection_list(request):
+def collections(request):
     """
     Display collections containing artworks, with automatic covers.
     """
@@ -24,7 +24,7 @@ def collection_list(request):
     return render(request, "artworks/collections.html", {"collections": collections})
 
 
-def collection_detail(request, slug):
+def artworks(request, slug):
     """
     Display a collection and its paginated artworks.
     """

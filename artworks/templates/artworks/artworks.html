@@ -10,10 +10,10 @@
 
 {% block content %}
 
-<section id="collection-detail-section" class="container py-5">
+<section id="artworks-section" class="container py-5">
 
     <!-- Collection introduction -->
-    <header id="collection-detail-intro" class="text-center mb-5">
+    <header id="artworks-intro" class="text-center mb-5">
         <h1>{{ collection.name }}</h1>
         <p>{{ collection.description }}</p>
     </header>
@@ -32,46 +32,61 @@
             </a>
         </div>
 
-        {% empty %}
-
-        <div class="col-12 text-center">
-            <p>No artworks available in this collection yet.</p>
-        </div>
-
         {% endfor %}
 
     </div>
 
     <!-- Pagination -->
-    {% if page_obj.has_other_pages %}
-    <nav aria-label="Artwork gallery pagination" class="mt-5">
-        <ul class="pagination justify-content-center">
+{% if page_obj.has_other_pages %}
+<nav id="artwork-pagination" aria-label="Artwork gallery pagination" class="mt-5">
+    <ul class="pagination justify-content-center align-items-center flex-wrap gap-2">
 
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                    Previous
-                </a>
-            </li>
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ page_obj.previous_page_number }}"
+                aria-label="Previous page">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for number in page_obj.paginator.page_range %}
+        <li class="page-item">
+            {% if number == page_obj.number %}
+            <span class="page-link active-page" aria-current="page">
+                {{ number }}
+            </span>
+            {% else %}
+            <a class="page-link"
+                href="?page={{ number }}"
+                aria-label="Page {{ number }}">
+                {{ number }}
+            </a>
             {% endif %}
+        </li>
+        {% endfor %}
 
-            <li class="page-item">
-                <span class="page-link">
-                    {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
-                </span>
-            </li>
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ page_obj.next_page_number }}"
+                aria-label="Next page">
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </li>
+        {% endif %}
 
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-                    Next
-                </a>
-            </li>
-            {% endif %}
-
-        </ul>
-    </nav>
-    {% endif %}
+    </ul>
+</nav>
+{% endif %}
+<!-- Back to Collections -->
+<div class="text-end px-2 mt-4">
+    <a href="{% url 'art' %}" class="underline-link">
+        Back to Collections
+        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+    </a>
+</div>
 
 </section>
 

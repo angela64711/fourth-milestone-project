@@ -172,7 +172,7 @@ input:focus-visible {
 
 /* Movement only on hover */
 
-.navbar-nav .nav-link:not(.account-link):hover {
+.navbar-nav .nav-link:not(.account-link):not(.active):hover {
     transform: translateY(-2px);
 }
 
