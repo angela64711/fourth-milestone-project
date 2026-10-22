@@ -10,10 +10,10 @@
 
 {% block content %}
 
-<section id="artworks-section" class="container py-5">
+<section id="artworks-section" class="container py-4 py-lg-5">
 
     <!-- Collection introduction -->
-    <header id="artworks-intro" class="text-center mb-5">
+    <header id="artworks-intro" class="text-center mb-3 mb-md-4 mb-lg-5">
         <h1>{{ collection.name }}</h1>
         <p>{{ collection.description }}</p>
     </header>
@@ -38,7 +38,7 @@
 
     <!-- Pagination -->
 {% if page_obj.has_other_pages %}
-<nav id="artwork-pagination" aria-label="Artwork gallery pagination" class="mt-5">
+<nav id="artwork-pagination" aria-label="Artwork gallery pagination" class="mt-2 mt-lg-5">
     <ul class="pagination justify-content-center align-items-center flex-wrap gap-2">
 
         {% if page_obj.has_previous %}
@@ -81,7 +81,7 @@
 </nav>
 {% endif %}
 <!-- Back to Collections -->
-<div class="text-end px-2 mt-4">
+<div class="text-center text-md-end px-2 mt-4">
     <a href="{% url 'art' %}" class="underline-link">
         Back to Collections
         <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
