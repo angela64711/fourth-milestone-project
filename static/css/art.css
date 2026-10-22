@@ -24,3 +24,19 @@
 #collections-list p {
     color: var(--text-color);
 }
+
+
+
+/* ------------------------------------------- Individual Collection */
+
+#collection-detail-intro {
+    border-top: 2px solid var(--dark-accent-color);
+}
+
+#collection-detail-intro h1 {
+    color: var(--dark-accent-color);
+}
+
+#collection-detail-intro p {
+    color: var(--text-color);
+}

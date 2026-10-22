@@ -36,7 +36,7 @@
                     <h2>{{ collection.name }}</h2>
                     <p>{{ collection.description }}</p>
 
-                    <a href="#" class="underline-link">
+                    <a href="{% url 'collection_detail' collection.slug %}" class="underline-link">
                         Explore Collection
                         <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                     </a>
