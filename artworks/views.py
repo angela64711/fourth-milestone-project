@@ -42,3 +42,17 @@ def artworks(request, slug):
     }
 
     return render(request, "artworks/artworks.html", context)
+
+
+def artwork_detail(request, slug):
+    """
+    Display an individual artwork and its details.
+    """
+    artwork = get_object_or_404(Artwork, slug=slug)
+
+    context = {
+        "artwork": artwork,
+        "gallery_page": request.GET.get("page", "1"),
+    }
+
+    return render(request, "artworks/artwork_detail.html", context)

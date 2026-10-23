@@ -1,8 +1,96 @@
+
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Art | Frank Moth{% endblock %}
+{% block title %}{{ artwork.title }} | Frank Moth{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/art.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main id="artwork-detail" class="container py-4">
+
+    <!-- Back to collection gallery -->
+    <div class="mb-1 mb-lg-2 text-center text-lg-start">
+        <a href="{% url 'artworks' artwork.collection.slug %}?page={{ gallery_page }}" class="underline-link">
+            <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
+            Back to Collection
+        </a>
+    </div>
+
+    <!-- Decorative heading -->
+    <div id="artwork-detail-decoration" class="text-center mb-3 mb-lg-5" aria-hidden="true">
+        <span>••</span>
+        <div class="border-top border-3"></div>
+    </div>
+
+    <!-- Artwork and information -->
+    <div class="row g-4">
+
+        <!-- Artwork image -->
+        <div class="col-12 col-lg-6">
+            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-fluid mx-auto">
+        </div>
+
+        <!-- Artwork information -->
+        <div class="col-12 col-lg-6 py-2 py-lg-0 d-flex flex-column justify-content-between">
+
+            <!-- Artwork title and description -->
+            <div>
+                <h1 class="mt-3 mt-lg-0">{{ artwork.title }}</h1>
+
+                <p id="artwork-detail-meta">
+                    {% if artwork.year %}
+                    Created in {{ artwork.year }} ·
+                    {% endif %}
+                    Collection: {{ artwork.collection.name }}
+                </p>
+
+                {% if artwork.description %}
+                <p id="artwork-detail-description" class="mt-4 mt-lg-5">{{ artwork.description }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Buying options -->
+            <section class="border-top mt-3 mt-xl-5 pt-4" aria-labelledby="buying-options-heading">
+
+                <h2 id="buying-options-heading">
+                    Interested in owning this artwork?
+                </h2>
+
+                <p class="mt-4">
+                    Discover prints, home décor and other ways to bring
+                    Frank Moth's art into your space.
+                </p>
+
+                {% if artwork.etsy_url %}
+                <p class="mt-4">
+                    <a href="{{ artwork.etsy_url }}" class="underline-link" target="_blank" rel="noopener noreferrer">
+                        View this artwork on Etsy
+                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                    </a>
+                </p>
+                {% endif %}
+
+                <p class="mt-4">
+                    <!-- TODO: Replace with Where to Buy URL -->
+                    <a href="#" class="underline-link">
+                        {% if artwork.etsy_url %}
+                        Explore more buying options
+                        {% else %}
+                        Explore buying options
+                        {% endif %}
+                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                    </a>
+                </p>
+
+            </section>
+
+        </div>
+    </div>
+
+</main>
+
 {% endblock %}

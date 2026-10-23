@@ -56,7 +56,7 @@
 }
 
 #collections-end-decoration {
-    background-color: var(--off-white-color);  
+    background-color: var(--off-white-color);
 }
 
 #collections-end-line {
@@ -142,6 +142,74 @@
     text-decoration: none;
 }
 
+
+
+/* -------------------------------------------------------- Artwork Detail */
+
+#artwork-detail-decoration span {
+    display: block;
+    color: var(--accent-color);
+    font-family: var(--secondary-font);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+}
+
+#artwork-detail-decoration .border-top {
+    border-color: var(--dark-accent-color) !important;
+}
+
+#artwork-detail h1 {
+    color: var(--dark-accent-color);
+}
+
+#artwork-detail-meta {
+    color: var(--text-color);
+    font-family: var(--secondary-font);
+    font-size: 0.95rem;
+}
+
+#artwork-detail-description {
+    font-family: var(--primary-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1.4;
+    color: var(--text-color);
+    /* Indent the paragraph, then pull only the first line left
+    to make room for the dots and align wrapped text. */
+    padding-left: 2rem;
+    text-indent: -2rem;
+}
+
+
+#artwork-detail-description::before {
+    content: "••";
+    display: inline;
+    color: var(--accent-color);
+    font-family: var(--secondary-font);
+    font-size: 1.5rem;
+    letter-spacing: 0;
+    margin-right: 0.5rem;
+}
+
+
+#artwork-detail img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    margin-inline: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#buying-options-heading {
+    color: var(--dark-accent-color);
+    font-size: 1.4rem;
+    line-height: 1.4;
+}
+
+
+
 /*--------------------------------------------------- Media Queries */
 
 @media screen and (min-width: 992px) {
@@ -149,11 +217,18 @@
         margin-top: 1.5rem;
         margin-bottom: 1rem;
     }
+
+    #artwork-detail-decoration span {
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media screen and (min-width: 1200px) {
     #artworks-section {
         padding-bottom: 5rem;
     }
-}
 
+    #artwork-detail img {
+        max-height: 80vh;
+    }
+}
