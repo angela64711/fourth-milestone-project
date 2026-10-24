@@ -31,12 +31,6 @@
     text-align: left;
 }
 
-#commission-intro-closing {
-    font-family: var(--secondary-font);
-    font-size: clamp(1.125rem, 1.8vw, 1.375rem);
-    color: var(--dark-accent-color);
-}
-
 #commission-dots {
     color: var(--accent-color);
     font-family: var(--secondary-font);
@@ -44,7 +38,6 @@
     line-height: 1;
     letter-spacing: 0.10em;
 }
-
 
 /* --------------------------------------------------- Decorative divider */
 
@@ -57,128 +50,208 @@
     border-top: 3px solid var(--dark-accent-color);
 }
 
-
 /* --------------------------------------------- Creative form */
 
-#commission-preferences {
+#preferences {
     background-color: var(--background-color);
 }
 
-#commission-preferences-title {
+/* Full-width background sections */
+.preferences-band {
+    padding-block: 2rem;
+}
+
+.band-content {
+    max-width: 960px;
+    margin-inline: auto;
+}
+
+.band-grey {
+    position: relative;
+    z-index: 1;
+    background-color: var(--background-color);
+    box-shadow:
+        0 -3px 8px rgba(0, 0, 0, 0.07),
+        0 3px 8px rgba(0, 0, 0, 0.07);
+}
+
+.band-light {
+    background-color: var(--off-white-color);
+}
+
+#preferences-title {
     font-family: var(--primary-font);
     color: var(--dark-accent-color);
     font-size: clamp(2rem, 5vw, 3rem);
     line-height: 1.2;
 }
 
-#commission-preferences-title+p {
+#preferences-title+p {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
     line-height: 1.6;
 }
 
-#commission-form {
-    max-width: 960px;
-    margin-inline: auto;
+#preferences-form {
+    width: 100%;
 }
 
-#commission-form fieldset {
-    border-bottom: 1px solid rgba(38, 62, 96, 0.2);
-    padding-bottom: 2rem;
+#preferences-form fieldset {
+    border: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
 }
 
-#commission-form legend {
+#preferences-form legend {
     font-family: var(--secondary-font);
     font-size: 1.3rem;
     font-weight: 500;
 }
 
-#commission-form legend:not(.visually-hidden) {
+#preferences-form legend:not(.visually-hidden) {
     font-size: clamp(1.5rem, 3vw, 1.85rem);
     color: var(--dark-accent-color);
 }
 
-#commission-form p {
+#preferences-form p {
     line-height: 1.6;
 }
 
-/* --------------------------------------------- Selectable cards */
+#story .form-control {
+    border: 1px solid var(--dark-accent-color);
+    border-radius: 0;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.12);
+}
 
-.commission-option {
+/* ----------------------------------------------------- Selectable choice cards */
+
+/* Shared card appearance and selection behaviour */
+.choice-card {
     position: relative;
-    border: 1px solid rgba(38, 62, 96, 0.3);
-    border-radius: 5px;
     background-color: var(--off-white-color);
-    overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.commission-option:hover {
-    border-color: var(--dark-accent-color);
-}
-
-.commission-card>input {
+/* Keep native inputs accessible but hide their visual controls. */
+.choice-card>input {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 1rem;
-    height: 1rem;
-    accent-color: var(--dark-accent-color);
-    z-index: 1;
-    cursor: pointer;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
 
-.commission-option-label {
+.choice-label {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 2.5rem 1rem 1.25rem;
     cursor: pointer;
     font-family: var(--body-font);
 }
 
-.commission-option-label small {
+.choice-label small {
     color: var(--text-color);
     line-height: 1.5;
 }
 
-/* Selected card */
-.commission-card>input:checked+.commission-option-label {
-    background-color: var(--off-white-color);
-    box-shadow: inset 0 0 0 2px var(--dark-accent-color);
+/* Hover only when the card is not already selected. */
+.choice-card:not(:has(> input:checked)):hover {
+    box-shadow: 0 0 0 1px var(--accent-color),
+        0 5px 14px rgba(0, 0, 0, 0.16);
+    transform: translateY(-3px);
 }
 
-/* Keyboard focus */
-.commission-card>input:focus-visible+.commission-option-label {
+.choice-card:has(> input:checked) {
+    box-shadow: 0 0 0 1px var(--dark-accent-color),
+        0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.choice-card:has(> input:focus-visible) {
     outline: 2px solid var(--dark-accent-color);
-    outline-offset: -4px;
+    outline-offset: 3px;
 }
 
-/* --------------------------------------------- Compact mood cards */
+/* ---------------Creative direction and imagery: independent spacing, matching typography. */
 
-.commission-card-compact>input {
-    top: 0.75rem;
-    right: 0.75rem;
+#imagery .choice-label {
+    padding: 1.25rem;
 }
 
-.commission-card-compact .commission-option-label {
-    padding: 1.5rem 0.75rem;
-    font-size: 0.9rem;
+#creative-direction .choice-label {
+    padding: 0.75rem 1.25rem 1.25rem;
 }
 
-/* --------------------------------------------- Colour selections */
+#creative-direction .choice-label>span{
+    display: block;
+    color: var(--dark-accent-color);
+    font-family: var(--secondary-font);
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.35;
+    padding-left: 1.25rem;
+    text-indent: -1.25rem;
+}
 
-.commission-colour-option {
+#imagery .choice-label>span {
+    display: block;
+    color: var(--dark-accent-color);
+    font-family: var(--secondary-font);
+    font-size: clamp(1.125rem, 2.3vw, 1.3rem);
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+#creative-direction .choice-label small,
+#imagery .choice-label small {
+    margin-top: 0.9rem;
+}
+
+/* Green dots retain their decorative purpose. */
+#creative-direction .choice-label>span::before,
+#imagery .choice-label>span::before {
+    content: "•";
+    color: var(--accent-color);
+    font-size: 1.5rem;
+   
+}
+
+/* Mood-only spacing, not a shared card override. */
+#moods .choice-label {
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .choice-card {
+        transition: none;
+    }
+
+    .choice-card:not(:has(> input:checked)):hover {
+        transform: none;
+    }
+}
+
+/* ------------------------------------------------------ Colour selections */
+
+.colour-option {
     position: relative;
 }
 
-.commission-colour-option>input {
+.colour-option>input {
     position: absolute;
     opacity: 0;
     width: 1px;
     height: 1px;
 }
 
-.commission-colour-label {
+.colour-label {
     display: block;
     height: 100%;
     padding: 0.75rem 0.25rem;
@@ -187,14 +260,15 @@
     font-family: var(--body-font);
 }
 
-.commission-colour-swatch {
+.colour-swatch {
     display: block;
     width: 2.75rem;
     height: 2.75rem;
     margin: 0 auto;
     border-radius: 50%;
     border: 2px solid var(--off-white-color);
-    box-shadow: 0 0 0 1px rgba(38, 62, 96, 0.15);
+    box-shadow: 0 0 0 1px rgba(38, 62, 96, 0.15),
+        0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Colour palette previews */
@@ -228,7 +302,7 @@
 }
 
 [data-colour="yellow"] {
-    background-color: #f0df8b;
+    background-color: #f2e39a;
 }
 
 [data-colour="terracotta"] {
@@ -249,106 +323,144 @@
             #ffffff 50%);
 }
 
-/* Selected colour */
-.commission-colour-option>input:checked+.commission-colour-label {
-    border-color: var(--dark-accent-color);
+/* Hover effect on unselected colours */
+.colour-option:not(:has(> input:checked)) .colour-label:hover .colour-swatch {
+    box-shadow: 0 0 0 2px var(--accent-color),
+    0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
-.commission-colour-option>input:checked+.commission-colour-label .commission-colour-swatch {
-    box-shadow: 0 0 0 3px var(--accent-color);
+/* Selected colour */
+.colour-option>input:checked+.colour-label .colour-swatch {
+    box-shadow: 0 0 0 2px var(--dark-accent-color),
+    0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 /* Keyboard focus */
-.commission-colour-option>input:focus-visible+.commission-colour-label {
+.colour-option>input:focus-visible+.colour-label .colour-swatch {
     outline: 2px solid var(--dark-accent-color);
-    outline-offset: 3px;
+    outline-offset: 6px;
 }
 
-/* --------------------------------------------- Imagery cards */
+/* ----------------------------------------------------------- Artwork format */
 
-.commission-imagery-title::before {
-    content: "•";
-    color: var(--accent-color);
-    font-size: 1.5rem;
-    line-height: 0;
-    margin-right: 0.5rem;
+/* Unlike creative cards, format radios remain visible. */
+#artwork-format .choice-card>input {
+    top: 1rem;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+    accent-color: var(--dark-accent-color);
+    z-index: 1;
+    cursor: pointer;
 }
 
-/* --------------------------------------------- Format cards */
-
-.commission-format-card .commission-option-label {
+#artwork-format .choice-label {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-top: 1.5rem;
+    padding: 0.75rem 1.25rem;
 }
 
-.commission-format-icon {
+#artwork-format .choice-label span {
+    font-size: 1.125rem;
+}
+
+.format-icon {
     display: block;
     align-self: center;
     font-size: 1.4rem;
     color: var(--dark-accent-color);
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem;
 }
 
-.commission-format-price {
-    margin-top: auto !important;
+.format-price {
+    margin-top: auto;
     padding-top: 1rem;
     color: var(--text-color);
     font-family: var(--secondary-font);
 }
 
-/* --------------------------------------------- Artwork size */
+/* --------------------------------------------------------- Artwork size */
 
-.commission-size-option {
+.artwork-size-option {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 }
 
-.commission-size-option input {
+.artwork-size-option input {
     accent-color: var(--dark-accent-color);
     width: 1rem;
     height: 1rem;
 }
 
-.commission-size-option label {
+.artwork-size-option label {
     cursor: pointer;
 }
 
-/* --------------------------------------------- Form actions */
+/* ------------------------------------------------------ Form actions */
 
-#commission-continue {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid var(--accent-color);
+#continue-button {
+    display: inline-block;
+    font-family: var(--secondary-font);
+    font-size: 0.9rem;
+    color: var(--off-white-color);
+    background-color: var(--dark-accent-color);
+    padding: 0.85rem 0.75rem;
+    text-decoration: none;
+    border: 0;
     border-radius: 0;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-#commission-continue:focus-visible {
+#continue-button .diagonal-arrow {
+    color: var(--accent-color);
+}
+
+#continue-button:hover {
+    background-color: var(--text-color);
+    color: var(--off-white-color);
+    transform: translateY(-2px);
+}
+
+#continue-button:focus-visible {
+    color: var(--off-white-color);
     outline: 2px solid var(--dark-accent-color);
     outline-offset: 3px;
 }
 
-#commission-form-actions p {
+#form-actions p {
     font-size: 0.85rem;
 }
 
 /* -------------------------------------------------------- Media Queries */
 
-@media screen and (min-width: 768px) {
-    .commission-card-compact .commission-option-label {
-        padding: 1.75rem 0.75rem;
-    }
+@media screen and (min-width: 576px) {
 
-    .commission-format-card .commission-option-label {
+    /* Align direction descriptions when a title wraps. */
+    #creative-direction .choice-label>span {
+        min-height: 3.5rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #artwork-format .choice-label {
         min-height: 210px;
     }
 }
 
-/* Desktop: strong overlay on left, fading towards right */
+
 @media screen and (min-width: 992px) {
+
+    .preferences-band {
+        padding-block: 3rem;
+    }
+
+    /* Desktop: strong overlay on left, fading towards right */
     #commission-intro {
         background-image:
             linear-gradient(to right,
@@ -362,4 +474,17 @@
     #commission-intro-description p {
         line-height: 1.8;
     }
+
+    #artwork-format .choice-label {
+        padding-top: 1.5rem;
+    }
+
+    .format-icon {
+        margin-bottom: 2rem;
+    }
+
+    #continue-button {
+        padding: 0.85rem 1.25rem;
+    }
 }
+

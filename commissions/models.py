@@ -15,7 +15,7 @@ class CommissionOrder(models.Model):
 
     CREATIVE_DIRECTION_CHOICES = [
         ("idea", "Give form to a thought"),
-        ("surprise", "Be surprised"),
+        ("surprise", "Let us surprise you"),
     ]
 
     MOOD_CHOICES = [
@@ -30,17 +30,17 @@ class CommissionOrder(models.Model):
     ]
 
     COLOUR_CHOICES = [
-        ("pink", "Pink"),
-        ("red", "Red"),
-        ("purple", "Purple"),
-        ("blue", "Blue"),
-        ("blue_grey", "Blue-Grey"),
+        ("pink", "Dusty Rose"),
+        ("red", "Ruby Red"),
+        ("purple", "Soft Purple"),
+        ("blue", "Navy Blue"),
+        ("blue_grey", "Blue Grey"),
         ("sage_green", "Sage Green"),
         ("olive_green", "Olive Green"),
-        ("yellow", "Yellow"),
+        ("yellow", "Primrose Yellow"),
         ("terracotta", "Terracotta"),
         ("off_white", "Off-White"),
-        ("beige", "Beige"),
+        ("beige", "Sand"),
         ("black_white", "Black & White"),
     ]
 

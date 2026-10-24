@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -8,7 +9,6 @@
 {% block content %}
 
 <!-- Introduction -->
-
 <section id="commission-intro" class="py-3 py-lg-5">
     <div class="container-fluid px-4 px-lg-5">
         <div class="row">
@@ -36,7 +36,7 @@
                         interpreted through our artistic world.
                     </p>
 
-                    <div id="commission-dots" class="m2-3" aria-hidden="true">
+                    <div id="commission-dots" class="my-3" aria-hidden="true">
                         ••
                     </div>
 
@@ -51,335 +51,405 @@
     </div>
 </section>
 
-
-
-
 <!-- Creative preferences -->
-<section id="commission-preferences" class="py-5">
-    <div class="container">
+<section id="preferences">
+    <form id="preferences-form" method="post"
+        action="{% url 'commissions:creative' %}">
 
-        <div class="text-center mb-5">
-            <h2 id="commission-preferences-title" class="mb-3">
-                How would you like to inspire your artwork?
-            </h2>
-            <p>
-                Share your ideas or leave the creative direction
-                entirely to us...
-            </p>
+        {% csrf_token %}
+
+        <!-- Creative direction -->
+        <div class="preferences-band band-grey">
+            <div class="container">
+                <div class="band-content">
+
+                    <div class="text-center mb-3 mb-lg-5">
+                        <h2 id="preferences-title" class="mb-3">
+                            How would you like to inspire your artwork?
+                        </h2>
+                        <p>
+                            Share your ideas or leave the creative direction
+                            entirely to us...
+                        </p>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <fieldset id="creative-direction" class="mb-0">
+                        <legend class="visually-hidden">
+                            Creative direction
+                        </legend>
+
+                        <div class="row g-3">
+                            {% for choice in form.creative_direction %}
+                            <div class="col-12 col-md-6">
+                                <div class="choice-card h-100">
+                                    {{ choice.tag }}
+
+                                    <label for="{{ choice.id_for_label }}"
+                                        class="choice-label">
+
+                                        <span>
+                                            {{ choice.choice_label }}
+                                        </span>
+
+                                        {% if choice.data.value == "idea" %}
+                                        <small class="d-block">
+                                            Describe an idea, a feeling, or a
+                                            concept, and let us interpret it
+                                            through our artistic vision.
+                                        </small>
+                                        {% else %}
+                                        <small class="d-block">
+                                            An unexpected creation, left
+                                            entirely to our imagination.
+                                        </small>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if form.creative_direction.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.creative_direction.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
         </div>
 
-        <form id="commission-form" method="post" action="{% url 'commissions:creative' %}">
+        <!-- Story -->
+        <div class="preferences-band band-light">
+            <div class="container">
+                <div class="band-content">
 
-            {% csrf_token %}
+                    <fieldset id="story" class="mb-0">
+                        <legend class="h2 mb-2">The story...</legend>
 
-            {% if form.non_field_errors %}
-            <div class="alert alert-danger" role="alert">
-                {{ form.non_field_errors }}
-            </div>
-            {% endif %}
+                        <p>
+                            Describe the thought behind the artwork in
+                            as much detail as you'd like.
+                        </p>
 
-            <!-- Creative direction -->
-            <fieldset id="commission-direction" class="mb-5">
-                <legend class="visually-hidden">
-                    Creative direction
-                </legend>
-
-                <div class="row g-3">
-                    {% for choice in form.creative_direction %}
-                    <div class="col-12 col-md-6">
-                        <div class="commission-option commission-card h-100">
-                            {{ choice.tag }}
-
-                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
-
-                                <span class="fw-semibold">
-                                    {{ choice.choice_label }}
-                                </span>
-
-                                {% if choice.data.value == "idea" %}
-                                <small class="d-block mt-2">
-                                    Describe an idea, a feeling, or a
-                                    concept, and let us interpret it
-                                    through our artistic vision.
-                                </small>
-                                {% else %}
-                                <small class="d-block mt-2">
-                                    An unexpected creation, left
-                                    entirely to our imagination.
-                                </small>
-                                {% endif %}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                {% if form.creative_direction.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.creative_direction.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Story -->
-            <fieldset id="commission-story" class="mb-5">
-                <legend class="h2 mb-2">The story...</legend>
-
-                <p>
-                    Describe the thought behind the artwork in
-                    as much detail as you'd like.
-                </p>
-
-                <label for="{{ form.story.id_for_label }}" class="visually-hidden">
-                    Your story
-                </label>
-
-                <textarea name="{{ form.story.html_name }}" id="{{ form.story.id_for_label }}" class="form-control"
-                    rows="5" maxlength="1000"
-                    placeholder="A thought, a dream...">{{ form.story.value|default_if_none:"" }}</textarea>
-
-                <p class="small text-end mt-2">
-                    Maximum 1,000 characters
-                </p>
-
-                {% if form.story.errors %}
-                <div class="text-danger small">
-                    {{ form.story.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Moods -->
-            <fieldset id="commission-moods" class="mb-5">
-                <legend class="h2 mb-2">The moods...</legend>
-
-                <p>
-                    Choose one or two moods that reflect the
-                    feeling you're looking for.
-                </p>
-
-                <div class="row g-2">
-                    {% for choice in form.moods %}
-                    <div class="col-6 col-md-3">
-                        <div class="commission-option commission-card commission-card-compact h-100">
-                            {{ choice.tag }}
-
-                            <label for="{{ choice.id_for_label }}" class="commission-option-label text-center">
-                                {{ choice.choice_label }}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                <p class="small mt-2 mb-0">
-                    Select 1–2 moods.
-                </p>
-
-                {% if form.moods.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.moods.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Colours -->
-            <fieldset id="commission-colours" class="mb-5">
-                <legend class="h2 mb-2">The colours...</legend>
-
-                <p>
-                    Choose up to two colours to guide the palette.
-                    We may adjust shades and introduce
-                    complementary colours.
-                </p>
-
-                <div class="row g-3">
-                    {% for choice in form.colours %}
-                    <div class="col-4 col-sm-3 col-lg-2">
-                        <div class="commission-colour-option text-center">
-                            {{ choice.tag }}
-
-                            <label for="{{ choice.id_for_label }}" class="commission-colour-label">
-
-                                <span class="commission-colour-swatch" data-colour="{{ choice.data.value }}"
-                                    aria-hidden="true"></span>
-
-                                <span class="d-block small mt-2">
-                                    {{ choice.choice_label }}
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                <p class="small mt-3 mb-0">
-                    Select 1–2 colours.
-                </p>
-
-                {% if form.colours.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.colours.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Imagery -->
-            <fieldset id="commission-imagery" class="mb-5">
-                <legend class="h2 mb-2">The imagery...</legend>
-
-                <p>
-                    Choose one visual direction to guide
-                    the composition.
-                </p>
-
-                <div class="row g-3">
-                    {% for choice in form.imagery %}
-                    <div class="col-12 col-md-6">
-                        <div class="commission-option commission-card h-100">
-                            {{ choice.tag }}
-
-                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
-
-                                <span class="fw-semibold commission-imagery-title">
-                                    {{ choice.choice_label }}
-                                </span>
-
-                                <small class="d-block mt-2">
-                                    {% if choice.data.value == "nature" %}
-                                    Flowers, plants, landscapes and the natural world.
-                                    {% elif choice.data.value == "classical" %}
-                                    Timeless figures, ancient forms and classical beauty.
-                                    {% elif choice.data.value == "cosmic" %}
-                                    Celestial worlds, impossible places and dreamlike imagery.
-                                    {% elif choice.data.value == "human" %}
-                                    Portraits, memories, human connections and traces of the past.
-                                    {% endif %}
-                                </small>
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                {% if form.imagery.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.imagery.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Artwork format -->
-            <fieldset id="commission-format" class="mb-5">
-                <legend class="h2 mb-2">The format...</legend>
-
-                <p>
-                    Select how the finished artwork will be delivered.
-                </p>
-
-                <div class="row g-3">
-                    {% for choice in form.artwork_format %}
-                    <div class="col-12 col-md-4">
-                        <div class="commission-option commission-card commission-format-card h-100">
-                            {{ choice.tag }}
-
-                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
-
-                                {% if choice.data.value == "digital" %}
-                                <i class="fa-solid fa-desktop commission-format-icon" aria-hidden="true"></i>
-
-                                {% elif choice.data.value == "print" %}
-                                <i class="fa-regular fa-image commission-format-icon" aria-hidden="true"></i>
-
-                                {% else %}
-                                <i class="fa-solid fa-border-all commission-format-icon" aria-hidden="true"></i>
-                                {% endif %}
-
-                                <span class="d-block fw-semibold">
-                                    {{ choice.choice_label }}
-                                </span>
-
-                                {% if choice.data.value == "digital" %}
-                                <small class="d-block mt-2">
-                                    High-resolution digital file
-                                </small>
-                                <strong class="commission-format-price d-block mt-3">
-                                    €180
-                                </strong>
-
-                                {% elif choice.data.value == "print" %}
-                                <small class="d-block mt-2">
-                                    Fine art paper, unframed
-                                </small>
-                                <strong class="commission-format-price d-block mt-3">
-                                    From €200
-                                </strong>
-
-                                {% else %}
-                                <small class="d-block mt-2">
-                                    Professionally printed and framed
-                                </small>
-                                <strong class="commission-format-price d-block mt-3">
-                                    From €260
-                                </strong>
-                                {% endif %}
-
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                {% if form.artwork_format.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.artwork_format.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Artwork size -->
-            <fieldset id="commission-size" class="mb-5">
-                <legend class="h2 mb-2">Artwork size</legend>
-
-                <p>
-                    Choose a size for printed or framed artwork.
-                    Digital commissions don't require a size.
-                </p>
-
-                <div class="d-flex flex-column gap-3">
-                    {% for choice in form.artwork_size %}
-                    <div class="commission-size-option">
-                        {{ choice.tag }}
-                        <label for="{{ choice.id_for_label }}">
-                            {{ choice.choice_label }}
+                        <label for="{{ form.story.id_for_label }}"
+                            class="visually-hidden">
+                            Your story
                         </label>
-                    </div>
-                    {% endfor %}
+
+                        <textarea name="{{ form.story.html_name }}"
+                            id="{{ form.story.id_for_label }}"
+                            class="form-control"
+                            rows="5" maxlength="1000"
+                            placeholder="A thought, a dream...">{{ form.story.value|default_if_none:"" }}</textarea>
+
+                        <p class="small text-end mt-2">
+                            Maximum 1.000 characters
+                        </p>
+
+                        {% if form.story.errors %}
+                        <div class="text-danger small">
+                            {{ form.story.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
                 </div>
-
-                {% if form.artwork_size.errors %}
-                <div class="text-danger small mt-2">
-                    {{ form.artwork_size.errors }}
-                </div>
-                {% endif %}
-            </fieldset>
-
-            <!-- Continue -->
-            <div id="commission-form-actions" class="text-center">
-
-                <button id="commission-continue" type="submit" class="underline-link">
-                    Continue to order details
-                    <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
-                </button>
-
-                <p class="small mt-3">
-                    You'll review your commission details and
-                    pricing before making a payment.
-                </p>
             </div>
+        </div>
 
-        </form>
-    </div>
+        <!-- Moods -->
+        <div class="preferences-band band-grey">
+            <div class="container">
+                <div class="band-content">
+
+                    <fieldset id="moods" class="mb-0">
+                        <legend class="h2 mb-2">The moods...</legend>
+
+                        <p>
+                            Choose one or two moods that reflect the
+                            feeling you're looking for.
+                        </p>
+
+                        <div class="row g-2">
+                            {% for choice in form.moods %}
+                            <div class="col-6 col-md-3">
+                                <div class="choice-card h-100">
+                                    {{ choice.tag }}
+
+                                    <label for="{{ choice.id_for_label }}"
+                                        class="choice-label">
+                                        {{ choice.choice_label }}
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <p class="small mt-2 mb-0">
+                            Select 1 or 2 moods
+                        </p>
+
+                        {% if form.moods.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.moods.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Colours -->
+        <div class="preferences-band band-light">
+            <div class="container">
+                <div class="band-content">
+
+                    <fieldset id="colours" class="mb-0">
+                        <legend class="h2 mb-2">The colours...</legend>
+
+                        <p>
+                            Choose up to two colours to guide the palette.
+                            We may adjust shades and introduce
+                            complementary colours.
+                        </p>
+
+                        <div class="row g-3">
+                            {% for choice in form.colours %}
+                            <div class="col-4 col-sm-3 col-lg-2">
+                                <div class="colour-option text-center">
+                                    {{ choice.tag }}
+
+                                    <label for="{{ choice.id_for_label }}"
+                                        class="colour-label">
+
+                                        <span class="colour-swatch"
+                                            data-colour="{{ choice.data.value }}"
+                                            aria-hidden="true"></span>
+
+                                        <span class="d-block small mt-2">
+                                            {{ choice.choice_label }}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <p class="small mt-3 mb-0">
+                            Select 1 or 2 colours
+                        </p>
+
+                        {% if form.colours.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.colours.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Imagery -->
+        <div class="preferences-band band-grey">
+            <div class="container">
+                <div class="band-content">
+
+                    <fieldset id="imagery" class="mb-0">
+                        <legend class="h2 mb-2">The imagery...</legend>
+
+                        <p>
+                            Choose one visual direction to guide
+                            the composition.
+                        </p>
+
+                        <div class="row g-3">
+                            {% for choice in form.imagery %}
+                            <div class="col-12 col-lg-6">
+                                <div class="choice-card h-100">
+                                    {{ choice.tag }}
+
+                                    <label for="{{ choice.id_for_label }}"
+                                        class="choice-label">
+
+                                        <span class="imagery-title">
+                                            {{ choice.choice_label }}
+                                        </span>
+
+                                        <small class="d-block">
+                                            {% if choice.data.value == "nature" %}
+                                            Flowers, plants, landscapes and the natural world.
+                                            {% elif choice.data.value == "classical" %}
+                                            Timeless figures, ancient forms and classical beauty.
+                                            {% elif choice.data.value == "cosmic" %}
+                                            Celestial worlds, impossible places and dreamlike imagery.
+                                            {% elif choice.data.value == "human" %}
+                                            Portraits, memories, human connections and traces of the past.
+                                            {% endif %}
+                                        </small>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if form.imagery.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.imagery.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Artwork format -->
+        <div class="preferences-band band-light">
+            <div class="container">
+                <div class="band-content">
+
+                    <fieldset id="artwork-format" class="mb-0">
+                        <legend class="h2 mb-2">The format...</legend>
+
+                        <p>
+                            Select how the finished artwork will be delivered.
+                        </p>
+
+                        <div class="row g-3 justify-content-center">
+                            {% for choice in form.artwork_format %}
+                            <div class="col-10 col-sm-4">
+                                <div class="choice-card h-100">
+                                    {{ choice.tag }}
+
+                                    <label for="{{ choice.id_for_label }}"
+                                        class="choice-label">
+
+                                        {% if choice.data.value == "digital" %}
+                                        <i class="fa-solid fa-desktop format-icon"
+                                            aria-hidden="true"></i>
+                                        {% elif choice.data.value == "print" %}
+                                        <i class="fa-regular fa-image format-icon"
+                                            aria-hidden="true"></i>
+                                        {% else %}
+                                        <i class="fa-solid fa-border-all format-icon"
+                                            aria-hidden="true"></i>
+                                        {% endif %}
+
+                                        <span class="d-block fw-semibold">
+                                            {{ choice.choice_label }}
+                                        </span>
+
+                                        {% if choice.data.value == "digital" %}
+                                        <small class="d-block mt-2">
+                                            High-resolution digital file
+                                        </small>
+                                        <strong class="format-price d-block">
+                                            €180
+                                        </strong>
+
+                                        {% elif choice.data.value == "print" %}
+                                        <small class="d-block mt-2">
+                                            Fine art paper, unframed
+                                        </small>
+                                        <strong class="format-price d-block">
+                                            From €200
+                                        </strong>
+
+                                        {% else %}
+                                        <small class="d-block mt-2">
+                                            Professionally printed and framed
+                                        </small>
+                                        <strong class="format-price d-block">
+                                            From €260
+                                        </strong>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if form.artwork_format.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.artwork_format.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Artwork size -->
+        <div class="preferences-band band-grey">
+            <div class="container">
+                <div class="band-content">
+
+                    <fieldset id="artwork-size" class="mb-0">
+                        <legend class="h2 mb-2">Artwork size</legend>
+
+                        <p>
+                            Choose a size for printed or framed artwork.
+                            Digital commissions don't require a size.
+                        </p>
+
+                        <div class="d-flex flex-column gap-3 ps-3">
+                            {% for choice in form.artwork_size %}
+                            <div class="artwork-size-option">
+                                {{ choice.tag }}
+                                <label for="{{ choice.id_for_label }}">
+                                    {{ choice.choice_label }}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if form.artwork_size.errors %}
+                        <div class="text-danger small mt-2">
+                            {{ form.artwork_size.errors }}
+                        </div>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue -->
+        <div class="preferences-band band-light">
+            <div class="container">
+                <div class="band-content">
+
+                    <div id="form-actions" class="text-center">
+
+                        <button id="continue-button" type="submit"
+                            class="about-link">
+                            Continue to order details
+                            <i class="fa-solid fa-arrow-right diagonal-arrow ms-2"
+                                aria-hidden="true"></i>
+                        </button>
+
+                        <p class="small mt-3">
+                            You'll review your commission details and
+                            pricing before making a payment.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
 </section>
 
 {% endblock %}
