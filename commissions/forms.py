@@ -74,3 +74,17 @@ class CommissionCreativeForm(forms.Form):
             raise forms.ValidationError("Please select no more than two colours.")
 
         return colours
+
+    def clean(self):
+        """
+        Validate the story based on the selected creative direction.
+        """
+        cleaned_data = super().clean()
+
+        creative_direction = cleaned_data.get("creative_direction")
+        story = cleaned_data.get("story", "")
+
+        if creative_direction == "idea" and not story.strip():
+            self.add_error("story", "Please describe your idea for the artwork.")
+
+        return cleaned_data
