@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load static %}
 
@@ -9,48 +8,51 @@
 {% block content %}
 
 <!-- Introduction -->
-<section id="commission-intro" class="py-5">
-    <div class="container text-center">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
 
-                <p class="small text-uppercase mb-3">
-                    Frank Moth — Personal Commissions
-                </p>
+<section id="commission-intro" class="py-3 py-lg-5">
+    <div class="container-fluid px-4 px-lg-5">
+        <div class="row">
+            <div class="col-12 col-lg-5">
 
                 <h1 id="commission-title" class="mb-4">
-                    Let us create something extraordinary for you.
+                    Let us create something extraordinary for you
                 </h1>
 
-                <p class="fst-italic mb-4">
-                    Some stories deserve to become art.
+                <p class="fst-italic mb-2">
+                    Some stories deserve to become art...
                 </p>
 
-                <p>
-                    A memory, a feeling, a place, or simply a spark
-                    of imagination. Share what inspires you and let
-                    us transform it into a one-of-a-kind artwork,
-                    thoughtfully created around your vision and
-                    interpreted through our artistic world.
-                </p>
+                <!-- Decorative divider -->
+                <div id="commission-divider" class="py-2 py-lg-4" aria-hidden="true">
+                    <div id="commission-divider-line"></div>
+                </div>
 
-                <p class="mt-4 mb-0">
-                    An original piece made especially for you —
-                    something personal and unexpected.
-                </p>
+                <div id="commission-intro-description" class="mt-2">
+                    <p class="mb-0">
+                        A memory, a feeling, a place, or simply a spark
+                        of imagination.<br>Share what inspires you and let
+                        us transform it into a one-of-a-kind artwork,
+                        thoughtfully created around your vision and
+                        interpreted through our artistic world.
+                    </p>
+
+                    <div id="commission-dots" class="m2-3" aria-hidden="true">
+                        ••
+                    </div>
+
+                    <p class="mb-0">
+                        An original piece made especially for you —
+                        something personal and unexpected.
+                    </p>
+                </div>
 
             </div>
         </div>
     </div>
 </section>
 
-<!-- Decorative divider -->
-<div id="commission-divider" class="py-4" aria-hidden="true">
-    <div class="container text-center">
-        <div id="commission-divider-line"></div>
-        <span id="commission-divider-dots">••</span>
-    </div>
-</div>
+
+
 
 <!-- Creative preferences -->
 <section id="commission-preferences" class="py-5">
@@ -62,13 +64,11 @@
             </h2>
             <p>
                 Share your ideas or leave the creative direction
-                entirely to us.
+                entirely to us...
             </p>
         </div>
 
-        <form id="commission-form"
-              method="post"
-              action="{% url 'commissions:creative' %}">
+        <form id="commission-form" method="post" action="{% url 'commissions:creative' %}">
 
             {% csrf_token %}
 
@@ -90,8 +90,8 @@
                         <div class="commission-option commission-card h-100">
                             {{ choice.tag }}
 
-                            <label for="{{ choice.id_for_label }}"
-                                   class="commission-option-label">
+                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
+
                                 <span class="fw-semibold">
                                     {{ choice.choice_label }}
                                 </span>
@@ -130,17 +130,13 @@
                     as much detail as you'd like.
                 </p>
 
-                <label for="{{ form.story.id_for_label }}"
-                       class="visually-hidden">
+                <label for="{{ form.story.id_for_label }}" class="visually-hidden">
                     Your story
                 </label>
 
-                <textarea name="{{ form.story.html_name }}"
-                          id="{{ form.story.id_for_label }}"
-                          class="form-control"
-                          rows="5"
-                          maxlength="1000"
-                          placeholder="A thought, a dream...">{{ form.story.value|default_if_none:"" }}</textarea>
+                <textarea name="{{ form.story.html_name }}" id="{{ form.story.id_for_label }}" class="form-control"
+                    rows="5" maxlength="1000"
+                    placeholder="A thought, a dream...">{{ form.story.value|default_if_none:"" }}</textarea>
 
                 <p class="small text-end mt-2">
                     Maximum 1,000 characters
@@ -167,8 +163,8 @@
                     <div class="col-6 col-md-3">
                         <div class="commission-option commission-card commission-card-compact h-100">
                             {{ choice.tag }}
-                            <label for="{{ choice.id_for_label }}"
-                                   class="commission-option-label text-center">
+
+                            <label for="{{ choice.id_for_label }}" class="commission-option-label text-center">
                                 {{ choice.choice_label }}
                             </label>
                         </div>
@@ -203,11 +199,10 @@
                         <div class="commission-colour-option text-center">
                             {{ choice.tag }}
 
-                            <label for="{{ choice.id_for_label }}"
-                                   class="commission-colour-label">
-                                <span class="commission-colour-swatch"
-                                      data-colour="{{ choice.data.value }}"
-                                      aria-hidden="true"></span>
+                            <label for="{{ choice.id_for_label }}" class="commission-colour-label">
+
+                                <span class="commission-colour-swatch" data-colour="{{ choice.data.value }}"
+                                    aria-hidden="true"></span>
 
                                 <span class="d-block small mt-2">
                                     {{ choice.choice_label }}
@@ -244,9 +239,9 @@
                         <div class="commission-option commission-card h-100">
                             {{ choice.tag }}
 
-                            <label for="{{ choice.id_for_label }}"
-                                   class="commission-option-label">
-                                <span class="fw-semibold">
+                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
+
+                                <span class="fw-semibold commission-imagery-title">
                                     {{ choice.choice_label }}
                                 </span>
 
@@ -288,20 +283,16 @@
                         <div class="commission-option commission-card commission-format-card h-100">
                             {{ choice.tag }}
 
-                            <label for="{{ choice.id_for_label }}"
-                                   class="commission-option-label">
+                            <label for="{{ choice.id_for_label }}" class="commission-option-label">
 
                                 {% if choice.data.value == "digital" %}
-                                <i class="fa-solid fa-desktop commission-format-icon"
-                                   aria-hidden="true"></i>
+                                <i class="fa-solid fa-desktop commission-format-icon" aria-hidden="true"></i>
 
                                 {% elif choice.data.value == "print" %}
-                                <i class="fa-regular fa-image commission-format-icon"
-                                   aria-hidden="true"></i>
+                                <i class="fa-regular fa-image commission-format-icon" aria-hidden="true"></i>
 
                                 {% else %}
-                                <i class="fa-solid fa-border-all commission-format-icon"
-                                   aria-hidden="true"></i>
+                                <i class="fa-solid fa-border-all commission-format-icon" aria-hidden="true"></i>
                                 {% endif %}
 
                                 <span class="d-block fw-semibold">
@@ -375,12 +366,10 @@
 
             <!-- Continue -->
             <div id="commission-form-actions" class="text-center">
-                <button id="commission-continue"
-                        type="submit"
-                        class="btn btn-primary px-4 py-3">
+
+                <button id="commission-continue" type="submit" class="underline-link">
                     Continue to order details
-                    <i class="fa-solid fa-arrow-right ms-2"
-                       aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                 </button>
 
                 <p class="small mt-3">

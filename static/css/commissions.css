@@ -1,0 +1,365 @@
+/* ------------------------------------------------- Commission introduction */
+
+#commission-intro {
+    background-image:
+        linear-gradient(rgba(253, 252, 250, 0.85),
+            rgba(253, 252, 250, 0.85)),
+        url("../images/featured/commissions-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--off-white-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+#commission-title {
+    font-family: var(--primary-font);
+    color: var(--dark-accent-color);
+    font-size: clamp(1.75rem, 5vw, 3.2rem);
+    line-height: 1.2;
+}
+
+#commission-intro-description p {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
+}
+
+#commission-intro-description {
+    font-family: var(--secondary-font);
+    text-align: left;
+}
+
+#commission-intro-closing {
+    font-family: var(--secondary-font);
+    font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+    color: var(--dark-accent-color);
+}
+
+#commission-dots {
+    color: var(--accent-color);
+    font-family: var(--secondary-font);
+    font-size: clamp(1.75rem, 3vw, 2rem);
+    line-height: 1;
+    letter-spacing: 0.10em;
+}
+
+
+/* --------------------------------------------------- Decorative divider */
+
+#commission-divider {
+    width: 100%;
+}
+
+#commission-divider-line {
+    width: 100%;
+    border-top: 3px solid var(--dark-accent-color);
+}
+
+
+/* --------------------------------------------- Creative form */
+
+#commission-preferences {
+    background-color: var(--background-color);
+}
+
+#commission-preferences-title {
+    font-family: var(--primary-font);
+    color: var(--dark-accent-color);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+}
+
+#commission-preferences-title+p {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    line-height: 1.6;
+}
+
+#commission-form {
+    max-width: 960px;
+    margin-inline: auto;
+}
+
+#commission-form fieldset {
+    border-bottom: 1px solid rgba(38, 62, 96, 0.2);
+    padding-bottom: 2rem;
+}
+
+#commission-form legend {
+    font-family: var(--secondary-font);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+#commission-form legend:not(.visually-hidden) {
+    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    color: var(--dark-accent-color);
+}
+
+#commission-form p {
+    line-height: 1.6;
+}
+
+/* --------------------------------------------- Selectable cards */
+
+.commission-option {
+    position: relative;
+    border: 1px solid rgba(38, 62, 96, 0.3);
+    border-radius: 5px;
+    background-color: var(--off-white-color);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.commission-option:hover {
+    border-color: var(--dark-accent-color);
+}
+
+.commission-card>input {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--dark-accent-color);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.commission-option-label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 2.5rem 1rem 1.25rem;
+    cursor: pointer;
+    font-family: var(--body-font);
+}
+
+.commission-option-label small {
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+/* Selected card */
+.commission-card>input:checked+.commission-option-label {
+    background-color: var(--off-white-color);
+    box-shadow: inset 0 0 0 2px var(--dark-accent-color);
+}
+
+/* Keyboard focus */
+.commission-card>input:focus-visible+.commission-option-label {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: -4px;
+}
+
+/* --------------------------------------------- Compact mood cards */
+
+.commission-card-compact>input {
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.commission-card-compact .commission-option-label {
+    padding: 1.5rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------- Colour selections */
+
+.commission-colour-option {
+    position: relative;
+}
+
+.commission-colour-option>input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.commission-colour-label {
+    display: block;
+    height: 100%;
+    padding: 0.75rem 0.25rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: var(--body-font);
+}
+
+.commission-colour-swatch {
+    display: block;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 2px solid var(--off-white-color);
+    box-shadow: 0 0 0 1px rgba(38, 62, 96, 0.15);
+}
+
+/* Colour palette previews */
+
+[data-colour="pink"] {
+    background-color: #deb0c0;
+}
+
+[data-colour="red"] {
+    background-color: #a82f47;
+}
+
+[data-colour="purple"] {
+    background-color: #b49ad7;
+}
+
+[data-colour="blue"] {
+    background-color: #2e5089;
+}
+
+[data-colour="blue_grey"] {
+    background-color: #c8d4dc;
+}
+
+[data-colour="sage_green"] {
+    background-color: #a6b29b;
+}
+
+[data-colour="olive_green"] {
+    background-color: #707e45;
+}
+
+[data-colour="yellow"] {
+    background-color: #f0df8b;
+}
+
+[data-colour="terracotta"] {
+    background-color: #c87955;
+}
+
+[data-colour="off_white"] {
+    background-color: #f2eee5;
+}
+
+[data-colour="beige"] {
+    background-color: #d4b697;
+}
+
+[data-colour="black_white"] {
+    background: linear-gradient(135deg,
+            #171717 50%,
+            #ffffff 50%);
+}
+
+/* Selected colour */
+.commission-colour-option>input:checked+.commission-colour-label {
+    border-color: var(--dark-accent-color);
+}
+
+.commission-colour-option>input:checked+.commission-colour-label .commission-colour-swatch {
+    box-shadow: 0 0 0 3px var(--accent-color);
+}
+
+/* Keyboard focus */
+.commission-colour-option>input:focus-visible+.commission-colour-label {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------- Imagery cards */
+
+.commission-imagery-title::before {
+    content: "•";
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    line-height: 0;
+    margin-right: 0.5rem;
+}
+
+/* --------------------------------------------- Format cards */
+
+.commission-format-card .commission-option-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1.5rem;
+}
+
+.commission-format-icon {
+    display: block;
+    align-self: center;
+    font-size: 1.4rem;
+    color: var(--dark-accent-color);
+    margin-bottom: 2rem;
+}
+
+.commission-format-price {
+    margin-top: auto !important;
+    padding-top: 1rem;
+    color: var(--text-color);
+    font-family: var(--secondary-font);
+}
+
+/* --------------------------------------------- Artwork size */
+
+.commission-size-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.commission-size-option input {
+    accent-color: var(--dark-accent-color);
+    width: 1rem;
+    height: 1rem;
+}
+
+.commission-size-option label {
+    cursor: pointer;
+}
+
+/* --------------------------------------------- Form actions */
+
+#commission-continue {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--accent-color);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+#commission-continue:focus-visible {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+#commission-form-actions p {
+    font-size: 0.85rem;
+}
+
+/* -------------------------------------------------------- Media Queries */
+
+@media screen and (min-width: 768px) {
+    .commission-card-compact .commission-option-label {
+        padding: 1.75rem 0.75rem;
+    }
+
+    .commission-format-card .commission-option-label {
+        min-height: 210px;
+    }
+}
+
+/* Desktop: strong overlay on left, fading towards right */
+@media screen and (min-width: 992px) {
+    #commission-intro {
+        background-image:
+            linear-gradient(to right,
+                rgba(253, 252, 250, 0.98) 0%,
+                rgba(253, 252, 250, 0.92) 35%,
+                rgba(253, 252, 250, 0.45) 60%,
+                rgba(253, 252, 250, 0) 85%),
+            url("../images/featured/commissions-bg.png");
+    }
+
+    #commission-intro-description p {
+        line-height: 1.8;
+    }
+}

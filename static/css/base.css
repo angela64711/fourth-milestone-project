@@ -2,7 +2,7 @@
 
 :root {
     /* ------------------------------------------- Typography */
-    --primary-font: "Bodoni Moda", serif;
+    --primary-font: "Prata", serif;
     --secondary-font: "IBM Plex Mono", monospace;
     --body-font: "IBM Plex Sans", sans-serif;
 
@@ -91,10 +91,10 @@ input:focus-visible {
 
 .navbar-brand {
     font-family: var(--primary-font);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 600;
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 400;
     color: var(--text-color);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     margin-right: 0;
     transition: color 0.2s ease, transform 0.2s ease;
 }
