@@ -77,14 +77,31 @@ class CommissionCreativeForm(forms.Form):
 
     def clean(self):
         """
-        Validate the story based on the selected creative direction.
+        Validate conditional requirements for creative direction
+        and artwork format.
         """
         cleaned_data = super().clean()
 
+        # Require a story when the customer has a specific idea.
         creative_direction = cleaned_data.get("creative_direction")
         story = cleaned_data.get("story", "")
 
         if creative_direction == "idea" and not story.strip():
             self.add_error("story", "Please describe your idea for the artwork.")
+
+        # Physical artwork requires size and delivery region.
+        artwork_format = cleaned_data.get("artwork_format")
+
+        if artwork_format in ["print", "framed"]:
+            if not cleaned_data.get("artwork_size"):
+                self.add_error("artwork_size", "Please select an artwork size.")
+
+            if not cleaned_data.get("delivery_region"):
+                self.add_error("delivery_region", "Please select a delivery region.")
+
+        elif artwork_format == "digital":
+            # Ignore physical delivery choices for digital artwork.
+            cleaned_data["artwork_size"] = ""
+            cleaned_data["delivery_region"] = ""
 
         return cleaned_data
