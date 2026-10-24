@@ -84,7 +84,7 @@ class CommissionOrder(models.Model):
     # Optional for "Be surprised"; required for "Give form to a thought".
     # Conditional validation will be handled by the commission form.
     story = models.TextField(
-        max_length=750,
+        max_length=1000,
         blank=True,
     )
 
