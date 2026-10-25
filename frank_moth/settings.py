@@ -128,7 +128,12 @@ ACCOUNT_SIGNUP_FIELDS = [
 ]
 
 # Require users to verify ownership of their email address.
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+# Replace the existing account email after a new one is verified.
+ACCOUNT_CHANGE_EMAIL = True
+
+ACCOUNT_ADAPTER = "commissions.adapters.CommissionAccountAdapter"
 
 # Redirect customers to the homepage after login or logout.
 LOGIN_REDIRECT_URL = "/"
