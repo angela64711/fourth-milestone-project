@@ -50,13 +50,6 @@ class CommissionCreativeForm(forms.Form):
         widget=forms.RadioSelect,
     )
 
-    # Required conditionally based on artwork_format selection
-    delivery_region = forms.ChoiceField(
-        choices=CommissionOrder.DELIVERY_REGION_CHOICES,
-        required=False,
-        widget=forms.RadioSelect,
-    )
-
     def clean_moods(self):
         """Require between one and two mood selections."""
         moods = self.cleaned_data["moods"]
@@ -89,19 +82,15 @@ class CommissionCreativeForm(forms.Form):
         if creative_direction == "idea" and not story.strip():
             self.add_error("story", "Please describe your idea for the artwork.")
 
-        # Physical artwork requires size and delivery region.
+        # Physical artwork requires a size.
         artwork_format = cleaned_data.get("artwork_format")
 
         if artwork_format in ["print", "framed"]:
             if not cleaned_data.get("artwork_size"):
                 self.add_error("artwork_size", "Please select an artwork size.")
 
-            if not cleaned_data.get("delivery_region"):
-                self.add_error("delivery_region", "Please select a delivery region.")
-
         elif artwork_format == "digital":
-            # Ignore physical delivery choices for digital artwork.
+            # Digital artwork does not require physical dimensions.
             cleaned_data["artwork_size"] = ""
-            cleaned_data["delivery_region"] = ""
 
         return cleaned_data

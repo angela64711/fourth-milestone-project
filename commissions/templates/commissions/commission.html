@@ -452,4 +452,50 @@
     </form>
 </section>
 
+<!-- Authentication modal -->
+{% if not user.is_authenticated %}
+<div class="modal fade" id="commissionAuthModal" tabindex="-1"
+    aria-labelledby="commissionAuthModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="commissionAuthModalLabel">
+                    Make something personal
+                </h2>
+
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p class="mb-0">
+                    Log in or create an account to begin your
+                    personal commission.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{% url 'account_login' %}?next={% url 'commissions:creative' %}"
+                    class="btn btn-primary">
+                    Log In
+                </a>
+
+                <a href="{% url 'account_signup' %}?next={% url 'commissions:creative' %}"
+                    class="btn btn-outline-secondary">
+                    Register
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/commissions.js' %}"></script>
 {% endblock %}
