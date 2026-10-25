@@ -1,5 +1,6 @@
 
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <section id="customer-details" class="py-4 py-lg-5">
@@ -160,36 +161,75 @@
             <!-- Commission summary -->
             <div class="col-12 col-lg-5">
                 <aside id="commission-summary"
-                    aria-labelledby="commission-summary-title">
+                    aria-labelledby="commission-summary-title"
+                    data-artwork-price="{{ artwork_price }}"
+                    {% if requires_shipping %}
+                    data-shipping-europe="{{ europe_shipping }}"
+                    data-shipping-international="{{ international_shipping }}"
+                    {% endif %}>
 
                     <h2 id="commission-summary-title" class="h4 mb-4">
                         Your commission
                     </h2>
 
-                    <p>
-                        <strong>Format:</strong>
-                        {% if artwork_format == "digital" %}
-                        Digital Collage
-                        {% elif artwork_format == "print" %}
-                        Fine Art Print
-                        {% elif artwork_format == "framed" %}
-                        Framed Artwork
-                        {% endif %}
-                    </p>
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Creative approach</span>
+                        <strong class="text-end">{{ creative_approach }}</strong>
+                    </div>
 
-                    {% if artwork_size %}
-                    <p>
-                        <strong>Size:</strong>
-                        {{ artwork_size }} cm
-                    </p>
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Format</span>
+                        <strong class="text-end">{{ artwork_format_label }}</strong>
+                    </div>
+
+                    {% if artwork_size_label %}
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Size</span>
+                        <strong class="text-end">{{ artwork_size_label }}</strong>
+                    </div>
                     {% endif %}
 
                     <hr>
 
-                    <p class="small">
-                        Your order total will appear here once
-                        the pricing calculation is connected.
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Artwork price</span>
+                        <strong>€{{ artwork_price|floatformat:2 }}</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span id="shipping-label">Shipping</span>
+                        <span id="shipping-amount" aria-live="polite">
+                            {% if shipping_cost is not None %}
+                            €{{ shipping_cost|floatformat:2 }}
+                            {% else %}
+                            Select delivery region
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between align-items-center gap-3 mb-3">
+                        <strong>Total</strong>
+                        <strong id="commission-total" aria-live="polite">
+                            {% if total_price is not None %}
+                            €{{ total_price|floatformat:2 }}
+                            {% else %}
+                            Pending shipping
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    {% if requires_shipping %}
+                    <p id="shipping-hint" class="small text-muted">
+                        Shipping is calculated based on your delivery region.
                     </p>
+                    {% else %}
+                    <p class="small text-muted">
+                        Your digital artwork will be delivered electronically.
+                        No shipping charges apply.
+                    </p>
+                    {% endif %}
 
                 </aside>
             </div>
@@ -197,4 +237,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/commission_pricing.js' %}"></script>
 {% endblock %}
