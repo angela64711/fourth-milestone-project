@@ -116,8 +116,8 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-# Customers log in using email, while usernames are
-# retained for compatibility with Django's default User model.
+# Customers log in using a username. Email is collected
+# at signup and can be used for commission contact details.
 ACCOUNT_LOGIN_METHODS = {"username"}
 
 ACCOUNT_SIGNUP_FIELDS = [
@@ -127,13 +127,9 @@ ACCOUNT_SIGNUP_FIELDS = [
     "password2*",
 ]
 
-# Require users to verify ownership of their email address.
+# Verification is optional for account management.
+# It is not required before placing a commission order.
 ACCOUNT_EMAIL_VERIFICATION = "optional"
-
-# Replace the existing account email after a new one is verified.
-ACCOUNT_CHANGE_EMAIL = True
-
-ACCOUNT_ADAPTER = "commissions.adapters.CommissionAccountAdapter"
 
 # Redirect customers to the homepage after login or logout.
 LOGIN_REDIRECT_URL = "/"
@@ -159,7 +155,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -175,6 +170,4 @@ STORAGES = {
 }
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

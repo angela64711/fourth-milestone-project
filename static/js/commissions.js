@@ -6,16 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    
-    // Open email confirmation after successful form validation.
-    const emailModalElement = document.querySelector("#commissionEmailModal");
-
-    if (emailModalElement) {
-        const emailModal = new bootstrap.Modal(emailModalElement);
-        emailModal.show();
-    }
-
-
     const authModalElement = document.querySelector("#commissionAuthModal");
 
     // Authentication modal for visitors who are not logged in.
@@ -147,4 +137,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateArtworkSize();
+});
+
+// -------------------------------------------------
+// Refresh pages restored from the browser cache.
+// -------------------------------------------------
+
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
 });

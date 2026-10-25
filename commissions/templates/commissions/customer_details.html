@@ -6,11 +6,20 @@
     <h1>Commission order details</h1>
 
     <p>
-        Verified email: {{ email_address.email }}
+        Your account email: {{ account_email }}
     </p>
 
     <p>
-        Customer details form coming next.
+        You'll be able to review and correct your contact email
+        before making a payment.
     </p>
+
+    <p>
+        Customer details form and pricing summary coming next.
+    </p>
+
+    <a href="{% url 'commissions:creative' %}">
+        Back to creative preferences
+    </a>
 </section>
 {% endblock %}

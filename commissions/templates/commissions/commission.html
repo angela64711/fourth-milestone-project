@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -478,97 +479,6 @@
                 </a>
             </div>
 
-        </div>
-    </div>
-</div>
-{% endif %}
-
-
-<!-- Commission email confirmation modal -->
-{% if user.is_authenticated and show_email_modal %}
-<div class="modal fade" id="commissionEmailModal" tabindex="-1" aria-labelledby="commissionEmailModalLabel"
-    aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h2 class="modal-title fs-5" id="commissionEmailModalLabel">
-                    Confirm your email address
-                </h2>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <p>
-                    We'll use your verified email address to contact
-                    you about your commission and arrange delivery
-                    when your artwork is ready.
-                </p>
-
-                {% if email_address %}
-                <div class="p-3 bg-light mb-3">
-                    <p class="mb-2 fw-semibold">
-                        {{ email_address.email }}
-                    </p>
-
-                    {% if email_address.verified %}
-                    <p class="small mb-0">
-                        <i class="fa-solid fa-circle-check me-1" aria-hidden="true"></i>
-                        Email verified
-                    </p>
-                    {% else %}
-                    <p class="small mb-0">
-                        <i class="fa-solid fa-circle-info me-1" aria-hidden="true"></i>
-                        Email not yet verified
-                    </p>
-                    {% endif %}
-                </div>
-
-                {% else %}
-                <p class="text-danger">
-                    We couldn't find an email address associated
-                    with your account.
-                </p>
-                {% endif %}
-
-                <p class="small mb-0">
-                    You can also use a different email address
-                    for your commission.
-                </p>
-            </div>
-
-            <div class="modal-footer flex-column gap-2">
-
-                {% if email_address %}
-                {% if email_address.verified %}
-
-                <a href="{% url 'commissions:customer_details' %}" class="btn btn-primary w-100">
-                    Continue with this email
-                </a>
-
-                {% else %}
-
-                <form method="post" action="{% url 'commissions:send_verification' %}" class="w-100">
-                    {% csrf_token %}
-
-                    <button type="submit" class="btn btn-primary w-100">
-                        Send verification email
-                    </button>
-                </form>
-
-                {% endif %}
-                {% endif %}
-
-
-                <a href="{% url 'account_email' %}" class="btn btn-outline-secondary w-100">
-                    Use a different email address
-                </a>
-
-
-            </div>
         </div>
     </div>
 </div>

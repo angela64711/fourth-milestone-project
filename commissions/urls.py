@@ -7,11 +7,6 @@ app_name = "commissions"
 urlpatterns = [
     path("", views.commission_creative, name="creative"),
     path(
-        "send-verification/",
-        views.commission_send_verification,
-        name="send_verification",
-    ),
-    path(
         "customer-details/",
         views.commission_customer_details,
         name="customer_details",
