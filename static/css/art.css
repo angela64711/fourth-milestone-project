@@ -84,7 +84,6 @@
     font-size: clamp(2rem, 5.75vw, 3rem);
     margin-top: 1rem;
     margin-bottom: 0.5rem;
-    color: var(--dark-accent-color);
 }
 
 #artworks-intro p {
@@ -143,8 +142,11 @@
 }
 
 
-
 /* -------------------------------------------------------- Artwork Detail */
+
+#artwork-detail h1 {
+    font-family: var(--secondary-font);
+}
 
 #artwork-detail-decoration span {
     display: block;
@@ -157,10 +159,6 @@
 
 #artwork-detail-decoration .border-top {
     border-color: var(--dark-accent-color) !important;
-}
-
-#artwork-detail h1 {
-    color: var(--dark-accent-color);
 }
 
 #artwork-detail-meta {

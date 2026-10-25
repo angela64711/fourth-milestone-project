@@ -5,7 +5,7 @@
 }
 
 #homepage-intro {
-    font-family: var(--primary-font);
+    color: var(--text-color);
     line-height: 1.4;
     font-weight: 400;
     font-size: clamp(1.7rem, 2.5vw, 3rem);

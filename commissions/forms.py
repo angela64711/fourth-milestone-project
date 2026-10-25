@@ -115,3 +115,79 @@ class CommissionCreativeForm(forms.Form):
             cleaned_data["artwork_size"] = ""
 
         return cleaned_data
+
+
+class CommissionCustomerForm(forms.Form):
+    """
+    Collect customer contact and delivery details.
+
+    Shipping fields are required only for physical artwork.
+    The artwork format comes from validated session preferences.
+    """
+
+    first_name = forms.CharField(max_length=70)
+    last_name = forms.CharField(max_length=70)
+    email = forms.EmailField()
+
+    delivery_region = forms.ChoiceField(
+        choices=CommissionOrder.DELIVERY_REGION_CHOICES,
+        required=False,
+    )
+
+    shipping_address = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 3}),
+    )
+
+    city = forms.CharField(
+        max_length=100,
+        required=False,
+    )
+
+    postal_code = forms.CharField(
+        max_length=20,
+        required=False,
+    )
+
+    country = forms.CharField(
+        max_length=100,
+        required=False,
+    )
+
+    def __init__(self, *args, artwork_format=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.artwork_format = artwork_format
+
+    def clean(self):
+        """
+        Require delivery details for prints and framed artwork.
+        Ignore shipping information for digital commissions.
+        """
+        cleaned_data = super().clean()
+
+        if self.artwork_format in ["print", "framed"]:
+            required_shipping_fields = [
+                "delivery_region",
+                "shipping_address",
+                "city",
+                "postal_code",
+                "country",
+            ]
+
+            for field_name in required_shipping_fields:
+                if not cleaned_data.get(field_name):
+                    if field_name not in self.errors:
+                        self.add_error(
+                            field_name,
+                            "This field is required for physical artwork.",
+                        )
+
+        elif self.artwork_format == "digital":
+            # Digital commissions do not require delivery.
+            cleaned_data["delivery_region"] = ""
+            cleaned_data["shipping_address"] = ""
+            cleaned_data["city"] = ""
+            cleaned_data["postal_code"] = ""
+            cleaned_data["country"] = ""
+
+        return cleaned_data

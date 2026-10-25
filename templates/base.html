@@ -136,10 +136,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.app_name == 'commissions' %}active{% endif %}"
+                            <a class="nav-link {% if request.resolver_match.url_name == 'creative' %}active{% endif %}"
                                 href="{% url 'commissions:creative' %}"
-                                {% if request.resolver_match.app_name == 'commissions' %}aria-current="page"
-                                {% endif %}>
+                                {% if request.resolver_match.url_name == 'creative' %}aria-current="page" {% endif %}>
                                 Commissions
                             </a>
                         </li>
@@ -204,27 +203,25 @@
             </div>
         </nav>
     </header>
-    
-<!-- Main page content -->
-<main id="main-content" class="flex-grow-1">
 
-    {% if messages %}
-    <div class="messages container">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3"
-            role="alert">
-            {{ message }}
-            <button type="button" class="btn-close"
-                data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- Main page content -->
+    <main id="main-content" class="flex-grow-1">
+
+        {% if messages %}
+        <div class="messages container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+        {% endif %}
 
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
 
-</main>
+    </main>
 
     <!-- Footer -->
     <footer class="site-footer">
