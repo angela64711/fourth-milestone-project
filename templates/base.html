@@ -51,16 +51,48 @@
                 <!-- Mobile account control and menu toggle -->
                 <div class="d-flex align-items-center gap-3 d-xl-none">
 
-                    <a href="#" class="account-link d-inline-flex align-items-center gap-2" aria-label="My Account">
+                    <!-- Account dropdown -->
+                    <div class="dropdown">
+                        <button class="account-link account-icon dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account options">
 
-                        {% if user.is_authenticated %}
-                        <i class="fa-solid fa-user" aria-hidden="true"></i>
-                        <span>My Account</span>
-                        {% else %}
-                        <i class="fa-regular fa-user" aria-hidden="true"></i>
-                        {% endif %}
-                    </a>
+                            {% if user.is_authenticated %}
+                            <i class="fa-solid fa-user" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="fa-regular fa-user" aria-hidden="true"></i>
+                            {% endif %}
+                        </button>
 
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                    <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
+                                    Log Out
+                                </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'account_login' %}">
+                                    <i class="fa-solid fa-right-to-bracket me-2" aria-hidden="true"></i>
+                                    Log In
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                    <i class="fa-solid fa-user-plus me-2" aria-hidden="true"></i>
+                                    Register
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <span class="account-link">My Account</span>
+                    {% endif %}
+
+                    <!-- Mobile navigation toggle -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
                         aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -120,18 +152,51 @@
                             </a>
                         </li>
 
-                        <!-- Desktop account control -->
-                        <li class="nav-item d-none d-xl-block">
-                            <a href="#" class="nav-link account-link d-inline-flex align-items-center gap-2"
-                                aria-label="My Account">
 
-                                {% if user.is_authenticated %}
-                                <i class="fa-solid fa-user" aria-hidden="true"></i>
-                                <span>My Account</span>
-                                {% else %}
-                                <i class="fa-regular fa-user" aria-hidden="true"></i>
-                                {% endif %}
-                            </a>
+                        <!-- Desktop account control -->
+                        <li class="nav-item d-none d-xl-flex align-items-center gap-2">
+
+                            <!-- Account dropdown -->
+                            <div class="dropdown">
+                                <button class="account-link account-icon dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account options">
+
+                                    {% if user.is_authenticated %}
+                                    <i class="fa-solid fa-user" aria-hidden="true"></i>
+                                    {% else %}
+                                    <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                    {% endif %}
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    {% if user.is_authenticated %}
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                            <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
+                                            Log Out
+                                        </a>
+                                    </li>
+                                    {% else %}
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'account_login' %}">
+                                            <i class="fa-solid fa-right-to-bracket me-2" aria-hidden="true"></i>
+                                            Log In
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                            <i class="fa-solid fa-user-plus me-2" aria-hidden="true"></i>
+                                            Register
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                            {% if user.is_authenticated %}
+                            <span class="account-link">My Account</span>
+                            {% endif %}
+
                         </li>
 
                     </ul>
@@ -140,25 +205,29 @@
         </nav>
     </header>
 
+    
+<!-- Main page content -->
+<main id="main-content" class="flex-grow-1">
 
-    <!-- Django messages -->
     {% if messages %}
-    <div class="container mt-3" aria-live="polite">
+    <div class="messages container">
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags|default:'info' }}" role="status">
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3"
+            role="alert">
             {{ message }}
+            <button type="button" class="btn-close"
+                data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 
-    <!-- Main page content -->
-    <main id="main-content" class="flex-grow-1">
-        {% block content %}
-        {% endblock %}
-    </main>
+    {% block content %}
+    {% endblock %}
 
-    
+</main>
+
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container-fluid">

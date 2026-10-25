@@ -102,14 +102,10 @@
     margin: 0;
 }
 
-#preferences-form legend {
-    font-family: var(--secondary-font);
-    font-size: 1.3rem;
-    font-weight: 500;
-}
-
 #preferences-form legend:not(.visually-hidden) {
-    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    font-family: var(--primary-font);
+    font-size: clamp(1.75rem, 3.5vw, 2.1rem);
+    font-weight: 500;
     color: var(--dark-accent-color);
 }
 

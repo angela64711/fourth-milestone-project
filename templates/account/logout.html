@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+
+{% block title %}Log Out | FRANK MOTH ART{% endblock %}
+
+{% block content %}
+<section class="auth-page py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+                <h1 class="mb-4">Log out</h1>
+
+                <p class="mb-4">
+                    Are you sure you want to log out of your
+                    Frank Moth account?
+                </p>
+
+                <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+
+                    {% if redirect_field_value %}
+                    <input type="hidden"
+                        name="{{ redirect_field_name }}"
+                        value="{{ redirect_field_value }}">
+                    {% endif %}
+
+                    <div class="d-flex flex-wrap gap-3">
+                        <button type="submit" class="btn btn-primary">
+                            Log Out
+                        </button>
+
+                        <a href="{% url 'home' %}"
+                            class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
