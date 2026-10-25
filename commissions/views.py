@@ -81,9 +81,24 @@ def commission_customer_details(request):
         if form.is_valid():
             customer_details = form.cleaned_data
 
+            # Combine first and last name for the existing model.
             customer_details["full_name"] = (
                 f"{customer_details['first_name']} " f"{customer_details['last_name']}"
             )
+
+            # Combine address components for the existing model.
+            if requires_shipping:
+                address = (
+                    f"{customer_details['street']} "
+                    f"{customer_details['house_number']}"
+                )
+
+                if customer_details["address_line_2"]:
+                    address += f"\n{customer_details['address_line_2']}"
+
+                customer_details["shipping_address"] = address
+            else:
+                customer_details["shipping_address"] = ""
 
             request.session["commission_customer"] = customer_details
 
@@ -111,7 +126,9 @@ def commission_customer_details(request):
                 request.user.email,
             ),
             "delivery_region": saved_details.get("delivery_region", ""),
-            "shipping_address": saved_details.get("shipping_address", ""),
+            "street": saved_details.get("street", ""),
+            "house_number": saved_details.get("house_number", ""),
+            "address_line_2": saved_details.get("address_line_2", ""),
             "city": saved_details.get("city", ""),
             "postal_code": saved_details.get("postal_code", ""),
             "country": saved_details.get("country", ""),

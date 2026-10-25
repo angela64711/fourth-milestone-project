@@ -121,8 +121,8 @@ class CommissionCustomerForm(forms.Form):
     """
     Collect customer contact and delivery details.
 
-    Shipping fields are required only for physical artwork.
-    The artwork format comes from validated session preferences.
+    Shipping fields are required for physical artwork.
+    The artwork format comes from validated session data.
     """
 
     first_name = forms.CharField(max_length=70)
@@ -132,26 +132,68 @@ class CommissionCustomerForm(forms.Form):
     delivery_region = forms.ChoiceField(
         choices=CommissionOrder.DELIVERY_REGION_CHOICES,
         required=False,
+        widget=forms.Select(attrs={"class": "form-select"}),
     )
 
-    shipping_address = forms.CharField(
+    street = forms.CharField(
+        max_length=150,
         required=False,
-        widget=forms.Textarea(attrs={"rows": 3}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "address-line1",
+            }
+        ),
+    )
+
+    house_number = forms.CharField(
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+    address_line_2 = forms.CharField(
+        max_length=150,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "address-line2",
+            }
+        ),
     )
 
     city = forms.CharField(
         max_length=100,
         required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "address-level2",
+            }
+        ),
     )
 
     postal_code = forms.CharField(
         max_length=20,
         required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "postal-code",
+            }
+        ),
     )
 
     country = forms.CharField(
         max_length=100,
         required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "country-name",
+            }
+        ),
     )
 
     def __init__(self, *args, artwork_format=None, **kwargs):
@@ -159,22 +201,20 @@ class CommissionCustomerForm(forms.Form):
         self.artwork_format = artwork_format
 
     def clean(self):
-        """
-        Require delivery details for prints and framed artwork.
-        Ignore shipping information for digital commissions.
-        """
+        """Validate delivery details for physical commissions."""
         cleaned_data = super().clean()
 
-        if self.artwork_format in ["print", "framed"]:
-            required_shipping_fields = [
-                "delivery_region",
-                "shipping_address",
-                "city",
-                "postal_code",
-                "country",
-            ]
+        shipping_fields = [
+            "delivery_region",
+            "street",
+            "house_number",
+            "city",
+            "postal_code",
+            "country",
+        ]
 
-            for field_name in required_shipping_fields:
+        if self.artwork_format in ["print", "framed"]:
+            for field_name in shipping_fields:
                 if not cleaned_data.get(field_name):
                     if field_name not in self.errors:
                         self.add_error(
@@ -183,11 +223,7 @@ class CommissionCustomerForm(forms.Form):
                         )
 
         elif self.artwork_format == "digital":
-            # Digital commissions do not require delivery.
-            cleaned_data["delivery_region"] = ""
-            cleaned_data["shipping_address"] = ""
-            cleaned_data["city"] = ""
-            cleaned_data["postal_code"] = ""
-            cleaned_data["country"] = ""
+            for field_name in shipping_fields + ["address_line_2"]:
+                cleaned_data[field_name] = ""
 
         return cleaned_data

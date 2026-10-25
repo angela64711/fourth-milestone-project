@@ -479,6 +479,29 @@ fieldset:disabled .colour-option:has(> input:disabled) {
     font-size: 0.85rem;
 }
 
+
+/* ----------------------------------------------------- Customer Details */
+
+#customer-details-divider {
+    width: 100%;
+    height: 2px;
+    background-color: var(--dark-accent-color);
+}
+
+.form-select {
+    border-radius: 0;
+    border-color: var(--dark-accent-color);
+    background-color: var(--off-white-color);
+    color: var(--text-color);
+    font-family: var(--secondary-font);
+}
+
+.form-select:focus {
+    border-color: var(--dark-accent-color);
+    box-shadow: 0 0 0 0.15rem rgba(38, 62, 96, 0.15);
+}
+
+
 /* -------------------------------------------------------- Media Queries */
 
 @media screen and (min-width: 576px) {

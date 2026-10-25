@@ -39,170 +39,179 @@
 
     <!-- Navbar -->
 
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl site-navbar" aria-label="Main navigation">
-            <div class="container-fluid px-xxl-5">
+    
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-xl site-navbar" aria-label="Main navigation">
+        <div class="container-fluid px-xxl-5">
 
-                <!-- Brand / Homepage -->
-                <a class="navbar-brand" href="{% url 'home' %}">
-                    FRANK MOTH
-                </a>
+            <!-- Brand / Homepage -->
+            <a class="navbar-brand" href="{% url 'home' %}">
+                FRANK MOTH
+            </a>
 
-                <!-- Mobile account control and menu toggle -->
-                <div class="d-flex align-items-center gap-3 d-xl-none">
+            <!-- Mobile account control and menu toggle -->
+            <div class="d-flex align-items-center gap-3 d-xl-none">
 
-                    <!-- Account dropdown -->
-                    <div class="dropdown">
-                        <button class="account-link account-icon dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account options">
+                <!-- Mobile account dropdown -->
+                <div class="dropdown">
+                    <button class="account-link account-icon dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account options">
 
-                            {% if user.is_authenticated %}
-                            <i class="fa-solid fa-user" aria-hidden="true"></i>
-                            {% else %}
-                            <i class="fa-regular fa-user" aria-hidden="true"></i>
-                            {% endif %}
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            {% if user.is_authenticated %}
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_logout' %}">
-                                    <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
-                                    Log Out
-                                </a>
-                            </li>
-                            {% else %}
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_login' %}">
-                                    <i class="fa-solid fa-right-to-bracket me-2" aria-hidden="true"></i>
-                                    Log In
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'account_signup' %}">
-                                    <i class="fa-solid fa-user-plus me-2" aria-hidden="true"></i>
-                                    Register
-                                </a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-
-                    {% if user.is_authenticated %}
-                    <span class="account-link">My Account</span>
-                    {% endif %}
-
-                    <!-- Mobile navigation toggle -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        {% if user.is_authenticated %}
+                        <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        {% else %}
+                        <i class="fa-regular fa-user" aria-hidden="true"></i>
+                        {% endif %}
                     </button>
-                </div>
 
-                <!-- Main navigation -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav ms-auto align-items-xl-center">
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'art' %}active{% endif %}"
-                                href="{% url 'art' %}"
-                                {% if request.resolver_match.url_name == 'art' %}aria-current="page" {% endif %}>
-                                Art
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
+                                Log Out
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
-                                href="{% url 'about' %}"
-                                {% if request.resolver_match.url_name == 'about' %}aria-current="page" {% endif %}>
-                                About
+                        {% else %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'account_login' %}">
+                                <i class="fa-solid fa-right-to-bracket me-2" aria-hidden="true"></i>
+                                Log In
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'in_situ' %}active{% endif %}"
-                                href="#" {% if request.resolver_match.url_name == 'in_situ' %}aria-current="page"
-                                {% endif %}>
-                                In Situ
+                        <li>
+                            <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                <i class="fa-solid fa-user-plus me-2" aria-hidden="true"></i>
+                                Register
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'collaborations' %}active{% endif %}"
-                                href="#" {% if request.resolver_match.url_name == 'collaborations' %}aria-current="page"
-                                {% endif %}>
-                                Collaborations
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'creative' %}active{% endif %}"
-                                href="{% url 'commissions:creative' %}"
-                                {% if request.resolver_match.url_name == 'creative' %}aria-current="page" {% endif %}>
-                                Commissions
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'where_to_buy' %}active{% endif %}"
-                                href="#" {% if request.resolver_match.url_name == 'where_to_buy' %}aria-current="page"
-                                {% endif %}>
-                                Where to Buy
-                            </a>
-                        </li>
-
-
-                        <!-- Desktop account control -->
-                        <li class="nav-item d-none d-xl-flex align-items-center gap-2">
-
-                            <!-- Account dropdown -->
-                            <div class="dropdown">
-                                <button class="account-link account-icon dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account options">
-
-                                    {% if user.is_authenticated %}
-                                    <i class="fa-solid fa-user" aria-hidden="true"></i>
-                                    {% else %}
-                                    <i class="fa-regular fa-user" aria-hidden="true"></i>
-                                    {% endif %}
-                                </button>
-
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    {% if user.is_authenticated %}
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'account_logout' %}">
-                                            <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
-                                            Log Out
-                                        </a>
-                                    </li>
-                                    {% else %}
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'account_login' %}">
-                                            <i class="fa-solid fa-right-to-bracket me-2" aria-hidden="true"></i>
-                                            Log In
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'account_signup' %}">
-                                            <i class="fa-solid fa-user-plus me-2" aria-hidden="true"></i>
-                                            Register
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-
-                            {% if user.is_authenticated %}
-                            <span class="account-link">My Account</span>
-                            {% endif %}
-
-                        </li>
-
+                        {% endif %}
                     </ul>
                 </div>
+
+                <!-- Mobile navigation toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-        </nav>
-    </header>
+
+            <!-- Main navigation -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto align-items-xl-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'art' %}active{% endif %}"
+                            href="{% url 'art' %}"
+                            {% if request.resolver_match.url_name == 'art' %}aria-current="page"{% endif %}>
+                            Art
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                            href="{% url 'about' %}"
+                            {% if request.resolver_match.url_name == 'about' %}aria-current="page"{% endif %}>
+                            About
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'in_situ' %}active{% endif %}"
+                            href="#"
+                            {% if request.resolver_match.url_name == 'in_situ' %}aria-current="page"{% endif %}>
+                            In Situ
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'collaborations' %}active{% endif %}"
+                            href="#"
+                            {% if request.resolver_match.url_name == 'collaborations' %}aria-current="page"{% endif %}>
+                            Collaborations
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'creative' %}active{% endif %}"
+                            href="{% url 'commissions:creative' %}"
+                            {% if request.resolver_match.url_name == 'creative' %}aria-current="page"{% endif %}>
+                            Commissions
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'where_to_buy' %}active{% endif %}"
+                            href="#"
+                            {% if request.resolver_match.url_name == 'where_to_buy' %}aria-current="page"{% endif %}>
+                            Where to Buy
+                        </a>
+                    </li>
+
+                    <!-- My Account inside collapsed navigation -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item d-xl-none">
+                        <span class="nav-link">My Account</span>
+                    </li>
+                    {% endif %}
+
+                    <!-- Desktop account control -->
+                    <li class="nav-item d-none d-xl-flex align-items-center gap-2">
+
+                        <!-- Desktop account dropdown -->
+                        <div class="dropdown">
+                            <button class="account-link account-icon dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                aria-label="Account options">
+
+                                {% if user.is_authenticated %}
+                                <i class="fa-solid fa-user" aria-hidden="true"></i>
+                                {% else %}
+                                <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                {% endif %}
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% if user.is_authenticated %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">
+                                        <i class="fa-solid fa-right-from-bracket me-2"
+                                            aria-hidden="true"></i>
+                                        Log Out
+                                    </a>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'account_login' %}">
+                                        <i class="fa-solid fa-right-to-bracket me-2"
+                                            aria-hidden="true"></i>
+                                        Log In
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'account_signup' %}">
+                                        <i class="fa-solid fa-user-plus me-2"
+                                            aria-hidden="true"></i>
+                                        Register
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        {% if user.is_authenticated %}
+                        <span class="account-link">My Account</span>
+                        {% endif %}
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
 
     <!-- Main page content -->
     <main id="main-content" class="flex-grow-1">
