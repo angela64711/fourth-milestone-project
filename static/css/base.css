@@ -284,6 +284,33 @@ input:focus-visible {
     color: var(--off-white-color);
 }
 
+/* -------------------------------------------- Back to Top Button */
+
+#back-to-top {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--off-white-color);
+    color: var(--dark-accent-color);
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.30);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#back-to-top:hover {
+    color: var(--dark-accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.40);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
 
 /*----------------------------------------------------------- Forms */
 

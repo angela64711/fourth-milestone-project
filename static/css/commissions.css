@@ -1,3 +1,4 @@
+
 /* ------------------------------------------------- Commission introduction */
 
 #commission-intro {
@@ -113,6 +114,15 @@
     line-height: 1.6;
 }
 
+/* Visually mute entire disabled sections. */
+#preferences-form fieldset:disabled {
+    opacity: 0.5;
+}
+
+#preferences-form fieldset:disabled label {
+    cursor: not-allowed;
+}
+
 #story .form-control {
     border: 1px solid var(--dark-accent-color);
     border-radius: 0;
@@ -156,21 +166,37 @@
     line-height: 1.5;
 }
 
-/* Hover only when the card is not already selected. */
-.choice-card:not(:has(> input:checked)):hover {
+/* Hover only when the card is available and not selected. */
+.choice-card:not(:has(> input:checked, > input:disabled)):hover {
     box-shadow: 0 0 0 1px var(--accent-color),
         0 5px 14px rgba(0, 0, 0, 0.16);
     transform: translateY(-3px);
 }
 
+/* Selected card */
 .choice-card:has(> input:checked) {
     box-shadow: 0 0 0 1px var(--dark-accent-color),
         0 4px 12px rgba(0, 0, 0, 0.16);
 }
 
+/* Keyboard focus */
 .choice-card:has(> input:focus-visible) {
     outline: 2px solid var(--dark-accent-color);
     outline-offset: 3px;
+}
+
+/* Disable hover and fade unavailable cards. */
+.choice-card:has(> input:disabled) {
+    opacity: 0.5;
+}
+
+.choice-card:has(> input:disabled) .choice-label {
+    cursor: not-allowed;
+}
+
+/* Avoid fading cards twice inside disabled fieldsets. */
+fieldset:disabled .choice-card:has(> input:disabled) {
+    opacity: 1;
 }
 
 /* ---------------Creative direction and imagery: independent spacing, matching typography. */
@@ -183,7 +209,7 @@
     padding: 0.75rem 1.25rem 1.25rem;
 }
 
-#creative-direction .choice-label>span{
+#creative-direction .choice-label>span {
     display: block;
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
@@ -203,6 +229,7 @@
     line-height: 1.35;
 }
 
+/* Descriptions below choice titles */
 #creative-direction .choice-label small,
 #imagery .choice-label small {
     margin-top: 0.9rem;
@@ -214,7 +241,6 @@
     content: "•";
     color: var(--accent-color);
     font-size: 1.5rem;
-   
 }
 
 /* Mood-only spacing, not a shared card override. */
@@ -229,7 +255,7 @@
         transition: none;
     }
 
-    .choice-card:not(:has(> input:checked)):hover {
+    .choice-card:not(:has(> input:checked, > input:disabled)):hover {
         transform: none;
     }
 }
@@ -319,22 +345,37 @@
             #ffffff 50%);
 }
 
-/* Hover effect on unselected colours */
-.colour-option:not(:has(> input:checked)) .colour-label:hover .colour-swatch {
+/* Hover effect on available, unselected colours */
+.colour-option:not(:has(> input:checked, > input:disabled))
+    .colour-label:hover .colour-swatch {
     box-shadow: 0 0 0 2px var(--accent-color),
-    0 4px 10px rgba(0, 0, 0, 0.18);
+        0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 /* Selected colour */
 .colour-option>input:checked+.colour-label .colour-swatch {
     box-shadow: 0 0 0 2px var(--dark-accent-color),
-    0 4px 10px rgba(0, 0, 0, 0.18);
+        0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 /* Keyboard focus */
 .colour-option>input:focus-visible+.colour-label .colour-swatch {
     outline: 2px solid var(--dark-accent-color);
     outline-offset: 6px;
+}
+
+/* Fade unavailable colours and remove pointer cursor. */
+.colour-option:has(> input:disabled) {
+    opacity: 0.5;
+}
+
+.colour-option:has(> input:disabled) .colour-label {
+    cursor: not-allowed;
+}
+
+/* Avoid double fading when the entire fieldset is disabled. */
+fieldset:disabled .colour-option:has(> input:disabled) {
+    opacity: 1;
 }
 
 /* ----------------------------------------------------------- Artwork format */
@@ -397,6 +438,11 @@
     cursor: pointer;
 }
 
+/* Disabled artwork size labels */
+#artwork-size:disabled .artwork-size-option label {
+    cursor: not-allowed;
+}
+
 /* ------------------------------------------------------ Form actions */
 
 #continue-button {
@@ -449,7 +495,6 @@
     }
 }
 
-
 @media screen and (min-width: 992px) {
 
     .preferences-band {
@@ -483,4 +528,3 @@
         padding: 0.85rem 1.25rem;
     }
 }
-

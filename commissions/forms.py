@@ -25,16 +25,19 @@ class CommissionCreativeForm(forms.Form):
 
     moods = forms.MultipleChoiceField(
         choices=CommissionOrder.MOOD_CHOICES,
+        required=False,
         widget=forms.CheckboxSelectMultiple,
     )
 
     colours = forms.MultipleChoiceField(
         choices=CommissionOrder.COLOUR_CHOICES,
+        required=False,
         widget=forms.CheckboxSelectMultiple,
     )
 
     imagery = forms.ChoiceField(
         choices=CommissionOrder.IMAGERY_CHOICES,
+        required=False,
         widget=forms.RadioSelect,
     )
 
@@ -51,7 +54,7 @@ class CommissionCreativeForm(forms.Form):
     )
 
     def clean_moods(self):
-        """Require between one and two mood selections."""
+        """Allow a maximum of two mood selections."""
         moods = self.cleaned_data["moods"]
 
         if len(moods) > 2:
@@ -60,7 +63,7 @@ class CommissionCreativeForm(forms.Form):
         return moods
 
     def clean_colours(self):
-        """Require between one and two colour selections."""
+        """Allow a maximum of two colour selections."""
         colours = self.cleaned_data["colours"]
 
         if len(colours) > 2:
@@ -75,12 +78,30 @@ class CommissionCreativeForm(forms.Form):
         """
         cleaned_data = super().clean()
 
-        # Require a story when the customer has a specific idea.
         creative_direction = cleaned_data.get("creative_direction")
-        story = cleaned_data.get("story", "")
 
-        if creative_direction == "idea" and not story.strip():
-            self.add_error("story", "Please describe your idea for the artwork.")
+        if creative_direction == "idea":
+            # Creative preferences are required for a specific idea.
+            story = cleaned_data.get("story", "")
+
+            if not story.strip():
+                self.add_error("story", "Please describe your idea for the artwork.")
+
+            if not cleaned_data.get("moods") and "moods" not in self.errors:
+                self.add_error("moods", "Please select at least one mood.")
+
+            if not cleaned_data.get("colours") and "colours" not in self.errors:
+                self.add_error("colours", "Please select at least one colour.")
+
+            if not cleaned_data.get("imagery") and "imagery" not in self.errors:
+                self.add_error("imagery", "Please select an imagery direction.")
+
+        elif creative_direction == "surprise":
+            # Ignore creative preferences for surprise commissions.
+            cleaned_data["story"] = ""
+            cleaned_data["moods"] = []
+            cleaned_data["colours"] = []
+            cleaned_data["imagery"] = ""
 
         # Physical artwork requires a size.
         artwork_format = cleaned_data.get("artwork_format")
