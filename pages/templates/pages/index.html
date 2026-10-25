@@ -2,19 +2,34 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <!-- Hero Section with video -->
 
-<section class="homepage-hero pt-5 pb-3 pb-sm-5">
+<section id="page-top" class="homepage-hero pt-5 pb-3 pb-sm-5">
     <div class="container">
-        <h1 id="homepage-intro" class="mb-5">
-            Frank Moth is an Artist duo<br>
-            based in Veria, Greece.
-        </h1>
+        <div class="row align-items-center mb-4 mb-lg-5">
+
+            <!-- Artist introduction -->
+            <div class="col-12 col-lg-7 col-xxl-8">
+                <h1 id="homepage-intro" class="mb-4 mb-lg-0 pe-3">
+                    Frank Moth is an artist duo based in Veria, Greece.
+                </h1>
+            </div>
+
+            <!-- Selected clients -->
+            <div class="col-12 col-lg-5 col-xxl-4 ps-3 ps-xl-4">
+                <p id="homepage-clients" class="mb-0">
+                    Selected clients include The New York Times, Adobe, Mr.Porter, Estrella world street food, Lucas
+                    Film ltd. Featured in many art & design publications worldwide like Buzzfeed, Colossal, Huffington
+                    Post and Contemporary art Curator.
+                </p>
+            </div>
+
+        </div>
 
         <figure class="m-0">
             <video id="blois-video" class="w-100" autoplay muted loop playsinline preload="metadata" tabindex="0"
@@ -30,7 +45,7 @@
                 <span class="d-block">2023</span>
             </figcaption>
         </figure>
-        <p id="homepage-artist-statement" class="my-5">
+        <p id="homepage-artist-statement" class="my-3 my-lg-5">
             The artists explore universal concepts of love, humility, truth,
             nostalgia and forgiveness in colorful, surreal floral
             portraits and futuristic retro compositions.
@@ -51,17 +66,13 @@
         <div class="d-none d-sm-flex align-items-center gap-3">
 
             <!-- Previous button -->
-            <button class="featured-prev" type="button"
-                data-bs-target="#featured-artworks"
-                data-bs-slide="prev"
+            <button class="featured-prev" type="button" data-bs-target="#featured-artworks" data-bs-slide="prev"
                 aria-label="Previous artworks">
                 <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
             </button>
 
             <!-- Bootstrap carousel -->
-            <div id="featured-artworks"
-                class="carousel slide flex-grow-1"
-                data-bs-interval="false">
+            <div id="featured-artworks" class="carousel slide flex-grow-1" data-bs-interval="false">
 
                 <div class="carousel-inner">
 
@@ -70,27 +81,23 @@
                         <div class="row g-3">
 
                             <div class="col-6 col-lg-3">
-                                <img src="{% static 'images/featured/LDN.webp' %}"
-                                    class="d-block w-100 img-fluid"
+                                <img src="{% static 'images/featured/LDN.webp' %}" class="d-block w-100 img-fluid"
                                     alt="Artwork one">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Peach-Blossoms-of-Veria.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork two">
+                                    class="d-block w-100 img-fluid" alt="Artwork two">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Dying-in-your-arms.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork three">
+                                    class="d-block w-100 img-fluid" alt="Artwork three">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Beautiful-Way.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork four">
+                                    class="d-block w-100 img-fluid" alt="Artwork four">
                             </div>
 
                         </div>
@@ -102,26 +109,22 @@
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/All-the-Springs-She-Remembered.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork five">
+                                    class="d-block w-100 img-fluid" alt="Artwork five">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Just-when-You-Thought-You-were-Alone.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork six">
+                                    class="d-block w-100 img-fluid" alt="Artwork six">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/As-a-Child-I-was-a-Misfit.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork seven">
+                                    class="d-block w-100 img-fluid" alt="Artwork seven">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Angel-Came.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork eight">
+                                    class="d-block w-100 img-fluid" alt="Artwork eight">
                             </div>
 
                         </div>
@@ -133,26 +136,22 @@
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/The-Pursuit-of-Recovery.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork nine">
+                                    class="d-block w-100 img-fluid" alt="Artwork nine">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/You-Loved-me-a-Thousand-Summers-ago.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork ten">
+                                    class="d-block w-100 img-fluid" alt="Artwork ten">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Patience-II.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork eleven">
+                                    class="d-block w-100 img-fluid" alt="Artwork eleven">
                             </div>
 
                             <div class="col-6 col-lg-3">
                                 <img src="{% static 'images/featured/Beirut-Sky.webp' %}"
-                                    class="d-block w-100 img-fluid"
-                                    alt="Artwork twelve">
+                                    class="d-block w-100 img-fluid" alt="Artwork twelve">
                             </div>
 
                         </div>
@@ -162,9 +161,7 @@
             </div>
 
             <!-- Next button -->
-            <button class="featured-next" type="button"
-                data-bs-target="#featured-artworks"
-                data-bs-slide="next"
+            <button class="featured-next" type="button" data-bs-target="#featured-artworks" data-bs-slide="next"
                 aria-label="Next artworks">
                 <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
             </button>
@@ -175,102 +172,86 @@
         <div class="d-flex d-sm-none align-items-center gap-1">
 
             <!-- Previous button -->
-            <button class="featured-prev" type="button"
-                data-bs-target="#featured-artworks-mobile"
-                data-bs-slide="prev"
+            <button class="featured-prev" type="button" data-bs-target="#featured-artworks-mobile" data-bs-slide="prev"
                 aria-label="Previous artwork">
                 <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
             </button>
 
             <!-- Bootstrap mobile carousel -->
-             
-            <div id="featured-artworks-mobile"
-                class="carousel slide flex-grow-1"
-                data-bs-interval="false">
+
+            <div id="featured-artworks-mobile" class="carousel slide flex-grow-1" data-bs-interval="false">
 
                 <div class="carousel-inner">
 
                     <!-- Slide 1: LDN -->
                     <div class="carousel-item active">
-                        <img src="{% static 'images/featured/LDN.webp' %}"
-                            class="d-block w-100 img-fluid"
+                        <img src="{% static 'images/featured/LDN.webp' %}" class="d-block w-100 img-fluid"
                             alt="Artwork one">
                     </div>
 
                     <!-- Slide 2: Peach Blossoms of Veria -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/Peach-Blossoms-of-Veria.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork two">
+                            class="d-block w-100 img-fluid" alt="Artwork two">
                     </div>
 
                     <!-- Slide 3: Dying in your arms -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/Dying-in-your-arms.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork three">
+                            class="d-block w-100 img-fluid" alt="Artwork three">
                     </div>
 
                     <!-- Slide 4: Beautiful Way -->
                     <div class="carousel-item">
-                        <img src="{% static 'images/featured/Beautiful-Way.webp' %}"
-                            class="d-block w-100 img-fluid"
+                        <img src="{% static 'images/featured/Beautiful-Way.webp' %}" class="d-block w-100 img-fluid"
                             alt="Artwork four">
                     </div>
 
                     <!-- Slide 5: All the Springs She Remembered -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/All-the-Springs-She-Remembered.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork five">
+                            class="d-block w-100 img-fluid" alt="Artwork five">
                     </div>
 
                     <!-- Slide 6: Just when You Thought You were Alone -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/Just-when-You-Thought-You-were-Alone.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork six">
+                            class="d-block w-100 img-fluid" alt="Artwork six">
                     </div>
 
                     <!-- Slide 7: As a Child I was a Misfit -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/As-a-Child-I-was-a-Misfit.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork seven">
+                            class="d-block w-100 img-fluid" alt="Artwork seven">
                     </div>
 
                     <!-- Slide 8: Angel Came -->
                     <div class="carousel-item">
-                        <img src="{% static 'images/featured/Angel-Came.webp' %}"
-                            class="d-block w-100 img-fluid"
+                        <img src="{% static 'images/featured/Angel-Came.webp' %}" class="d-block w-100 img-fluid"
                             alt="Artwork eight">
                     </div>
 
                     <!-- Slide 9: The Pursuit of Recovery -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/The-Pursuit-of-Recovery.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork nine">
+                            class="d-block w-100 img-fluid" alt="Artwork nine">
                     </div>
 
                     <!-- Slide 10: You Loved me a Thousand Summers ago -->
                     <div class="carousel-item">
                         <img src="{% static 'images/featured/You-Loved-me-a-Thousand-Summers-ago.webp' %}"
-                            class="d-block w-100 img-fluid"
-                            alt="Artwork ten">
+                            class="d-block w-100 img-fluid" alt="Artwork ten">
                     </div>
 
                     <!-- Slide 11: Patience II -->
                     <div class="carousel-item">
-                        <img src="{% static 'images/featured/Patience-II.webp' %}"
-                            class="d-block w-100 img-fluid"
+                        <img src="{% static 'images/featured/Patience-II.webp' %}" class="d-block w-100 img-fluid"
                             alt="Artwork eleven">
                     </div>
 
                     <!-- Slide 12: Beirut Sky -->
                     <div class="carousel-item">
-                        <img src="{% static 'images/featured/Beirut-Sky.webp' %}"
-                            class="d-block w-100 img-fluid"
+                        <img src="{% static 'images/featured/Beirut-Sky.webp' %}" class="d-block w-100 img-fluid"
                             alt="Artwork twelve">
                     </div>
 
@@ -278,9 +259,7 @@
             </div>
 
             <!-- Next button -->
-            <button class="featured-next" type="button"
-                data-bs-target="#featured-artworks-mobile"
-                data-bs-slide="next"
+            <button class="featured-next" type="button" data-bs-target="#featured-artworks-mobile" data-bs-slide="next"
                 aria-label="Next artwork">
                 <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
             </button>
@@ -289,10 +268,9 @@
 
         <!-- Gallery link -->
         <div class="text-center mt-5">
-            <a href="#" class="underline-link">
+            <a href="{% url 'art' %}" class="underline-link">
                 Experience the Art
-                <i class="fa-solid fa-arrow-right  diagonal-arrow"
-                    aria-hidden="true"></i>
+                <i class="fa-solid fa-arrow-right  diagonal-arrow" aria-hidden="true"></i>
             </a>
         </div>
 
@@ -303,19 +281,18 @@
 
 
 <!-- Artist introduction -->
-<section class="homepage-about py-5" aria-label="About Frank Moth">
+<section class="homepage-about pt-3 pb-4 py-md-5" aria-label="About Frank Moth">
     <div class="container">
-        <p class="about-intro mb-5">
+        <p class="about-intro mb-3 mb-md-5">
             Frank Moth creates nostalgic postcards from the future,
             using mostly digital collage techniques in a struggle
             for eternity through pixels.
         </p>
 
         <div class="text-end">
-            <a href="#" class="about-link">
+            <a href="{% url 'about' %}" class="about-link">
                 Meet Frank Moth
-                <i class="fa-solid fa-arrow-right diagonal-arrow ms-2"
-                    aria-hidden="true"></i>
+                <i class="fa-solid fa-arrow-right diagonal-arrow ms-2" aria-hidden="true"></i>
             </a>
         </div>
     </div>
@@ -323,11 +300,11 @@
 
 <!-- In Situ and Collaborations Preview -->
 
-<section class="homepage-beyond py-5" aria-labelledby="beyond-heading">
+<section class="homepage-beyond pt-5 pb-3 pb-md-5" aria-labelledby="beyond-heading">
     <div class="container">
         <h2 id="beyond-heading" class="mb-3">
             Art Beyond the Frame
-        <span class="beyond-dots" aria-hidden="true">● ●</span>
+            <span class="beyond-dots" aria-hidden="true">● ●</span>
         </h2>
 
         <p class="mb-4">
@@ -342,14 +319,12 @@
                 <div class="row g-2">
                     <div class="col-12">
                         <img src="{% static 'images/temp/Frank-Moth-Mr-Porter-Oct22-2.jpg' %}"
-                            class="img-fluid w-100 beyond-landscape"
-                            alt="Frank Moth artwork displayed in an interior">
+                            class="img-fluid w-100 beyond-landscape" alt="Frank Moth artwork displayed in an interior">
                     </div>
 
                     <div class="col-6">
                         <img src="{% static 'images/temp/Coulter-Lee-Brown-EP-2-front.jpg' %}"
-                            class="img-fluid w-100 beyond-portrait"
-                            alt="Frank Moth artwork in a real-world setting">
+                            class="img-fluid w-100 beyond-portrait" alt="Frank Moth artwork in a real-world setting">
                     </div>
 
                     <div class="col-6">
@@ -365,8 +340,7 @@
 
                 <a href="#" class="underline-link mt-auto">
                     Explore In Situ
-                    <i class="fa-solid fa-arrow-right diagonal-arrow"
-                        aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                 </a>
             </div>
 
@@ -381,13 +355,11 @@
 
                     <div class="col-6">
                         <img src="{% static 'images/temp/frankmothyellfirecoverart.jpg' %}"
-                            class="img-fluid w-100 beyond-portrait"
-                            alt="Book or album artwork by Frank Moth">
+                            class="img-fluid w-100 beyond-portrait" alt="Book or album artwork by Frank Moth">
                     </div>
 
                     <div class="col-6">
-                        <img src="{% static 'images/temp/veriafrankmoth.jpg' %}"
-                            class="img-fluid w-100 beyond-portrait"
+                        <img src="{% static 'images/temp/veriafrankmoth.jpg' %}" class="img-fluid w-100 beyond-portrait"
                             alt="Another creative project by Frank Moth">
                     </div>
                 </div>
@@ -398,8 +370,7 @@
 
                 <a href="#" class="underline-link mt-auto">
                     Explore Collaborations
-                    <i class="fa-solid fa-arrow-right diagonal-arrow"
-                        aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                 </a>
             </div>
 
@@ -409,8 +380,8 @@
 
 
 <!-- Something Personal. Something to Keep. -->
- 
-<section class="homepage-personal py-5" aria-labelledby="personal-heading">
+
+<section class="homepage-personal pt-3 pt-lg-5 pb-5" aria-labelledby="personal-heading">
     <div class="container px-md-5">
         <hr class="personal-divider">
 
@@ -427,23 +398,20 @@
             <!-- Commission -->
             <div class="col-12 col-md-6">
                 <div class="personal-card h-100">
-                    <img
-                        src="{% static 'images/temp/veriafrankmoth.jpg' %}"
-                        class="personal-card-image"
+                    <img src="{% static 'images/temp/veriafrankmoth.jpg' %}" class="personal-card-image"
                         alt="Example of a commissioned artwork by Frank Moth">
 
                     <div class="personal-card-content">
-                        <h3>Request a Commission</h3>
+                        <h3>Personal Commissions</h3>
 
                         <p>
                             A memory, a feeling, a story, or simply an idea.
                             Make it the starting point for something unique.
                         </p>
 
-                        <a href="#" class="personal-card-link">
-                            Explore Commissions
-                            <i class="fa-solid fa-arrow-right diagonal-arrow"
-                                aria-hidden="true"></i>
+                        <a href="{% url 'commissions:creative' %}" class="personal-card-link">
+                            Just for You
+                            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -452,9 +420,7 @@
             <!-- Where to Buy -->
             <div class="col-12 col-md-6">
                 <div class="personal-card h-100">
-                    <img
-                        src="{% static 'images/temp/frankmothyellfirecoverart.jpg' %}"
-                        class="personal-card-image"
+                    <img src="{% static 'images/temp/frankmothyellfirecoverart.jpg' %}" class="personal-card-image"
                         alt="Frank Moth artwork presented as a framed print">
 
                     <div class="personal-card-content">
@@ -467,8 +433,7 @@
 
                         <a href="#" class="personal-card-link">
                             Find Artwork
-                            <i class="fa-solid fa-arrow-right diagonal-arrow"
-                                aria-hidden="true"></i>
+                            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -480,7 +445,7 @@
 
 
 <!-- Stay Connected -->
-<section class="homepage-connect py-5" aria-labelledby="connect-heading">
+<section class="homepage-connect pt-3 pt-md-5 pb-3 pb-xl-4" aria-labelledby="connect-heading">
     <div class="container text-center">
         <h2 id="connect-heading" class="mb-3">
             Stay Connected
@@ -492,19 +457,24 @@
         </p>
 
         <div class="connect-links d-flex flex-column flex-sm-row
-                    justify-content-center align-items-center gap-5">
+                    justify-content-center align-items-center gap-3 gap-sm-5">
             <a href="#" class="underline-link">
                 Newsletter
-                <i class="fa-solid fa-arrow-right diagonal-arrow"
-                    aria-hidden="true"></i>
+                <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
             </a>
 
             <a href="#" class="underline-link">
                 Get in Touch
-                <i class="fa-solid fa-arrow-right diagonal-arrow"
-                    aria-hidden="true"></i>
+                <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
             </a>
         </div>
+    </div>
+
+    <!-- Back to Top -->
+    <div class="text-end mt-2 mt-xl-3 pe-3 pe-lg-5">
+        <a href="#page-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+            <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+        </a>
     </div>
 </section>
 
