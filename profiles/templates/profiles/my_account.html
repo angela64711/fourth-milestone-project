@@ -1,0 +1,187 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="my-account" class="py-4 py-lg-5">
+    <div class="container">
+
+        <h1 class="mb-3">My Account</h1>
+        <p class="mb-5">
+            View your commissions and their details below.
+        </p>
+
+        <h2 class="h4 mb-4">My Commissions</h2>
+
+        {% if orders %}
+        <div class="accordion" id="commission-history">
+
+            {% for order in orders %}
+            <div class="accordion-item mb-3">
+
+                <h3 class="accordion-header" id="order-heading-{{ order.pk }}">
+                    <button class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#order-details-{{ order.pk }}"
+                        aria-expanded="false"
+                        aria-controls="order-details-{{ order.pk }}">
+
+                        <span class="d-flex flex-column flex-md-row
+                                     align-items-start align-items-md-center
+                                     justify-content-between gap-2 w-100 me-3">
+
+                            <span>
+                                <strong>{{ order.get_artwork_format_display }}</strong>
+                                <small class="d-block text-muted">
+                                    {{ order.order_number|truncatechars:13 }}
+                                    &middot;
+                                    {{ order.created_on|date:"d M Y" }}
+                                </small>
+                            </span>
+
+                            <span class="d-flex flex-column align-items-start
+                                         align-items-md-end">
+                                <strong>€{{ order.total_price|floatformat:2 }}</strong>
+                                <small>{{ order.get_payment_status_display }}</small>
+                            </span>
+
+                        </span>
+                    </button>
+                </h3>
+
+                <div id="order-details-{{ order.pk }}"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="order-heading-{{ order.pk }}"
+                    data-bs-parent="#commission-history">
+
+                    <div class="accordion-body">
+
+                        <h4 class="h5 mb-3">Commission details</h4>
+
+                        <dl class="row gy-2">
+                            <dt class="col-sm-4">Order reference</dt>
+                            <dd class="col-sm-8 text-break">
+                                {{ order.order_number }}
+                            </dd>
+
+                            <dt class="col-sm-4">Creative approach</dt>
+                            <dd class="col-sm-8">
+                                {{ order.get_creative_direction_display }}
+                            </dd>
+
+                            <dt class="col-sm-4">Artwork format</dt>
+                            <dd class="col-sm-8">
+                                {{ order.get_artwork_format_display }}
+                            </dd>
+
+                            {% if order.artwork_size %}
+                            <dt class="col-sm-4">Artwork size</dt>
+                            <dd class="col-sm-8">
+                                {{ order.get_artwork_size_display }}
+                            </dd>
+                            {% endif %}
+
+                            {% if order.creative_direction == "idea" %}
+                                {% if order.mood_labels %}
+                                <dt class="col-sm-4">Moods</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.mood_labels|join:", " }}
+                                </dd>
+                                {% endif %}
+
+                                {% if order.colour_labels %}
+                                <dt class="col-sm-4">Colours</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.colour_labels|join:", " }}
+                                </dd>
+                                {% endif %}
+
+                                {% if order.imagery %}
+                                <dt class="col-sm-4">Imagery</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.get_imagery_display }}
+                                </dd>
+                                {% endif %}
+
+                                {% if order.story %}
+                                <dt class="col-sm-4">Your story</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.story|linebreaksbr }}
+                                </dd>
+                                {% endif %}
+                            {% endif %}
+                        </dl>
+
+                        <hr class="my-4">
+
+                        <h4 class="h5 mb-3">Customer details</h4>
+
+                        <dl class="row gy-2">
+                            <dt class="col-sm-4">Name</dt>
+                            <dd class="col-sm-8">{{ order.full_name }}</dd>
+
+                            <dt class="col-sm-4">Email</dt>
+                            <dd class="col-sm-8 text-break">{{ order.email }}</dd>
+
+                            {% if order.shipping_address %}
+                            <dt class="col-sm-4">Delivery address</dt>
+                            <dd class="col-sm-8">
+                                {{ order.shipping_address|linebreaksbr }}<br>
+                                {{ order.postal_code }} {{ order.city }}<br>
+                                {{ order.country }}
+                            </dd>
+                            {% endif %}
+                        </dl>
+
+                        <hr class="my-4">
+
+                        <h4 class="h5 mb-3">Payment summary</h4>
+
+                        <dl class="row gy-2">
+                            <dt class="col-sm-4">Artwork price</dt>
+                            <dd class="col-sm-8">
+                                €{{ order.artwork_price|floatformat:2 }}
+                            </dd>
+
+                            <dt class="col-sm-4">Shipping</dt>
+                            <dd class="col-sm-8">
+                                €{{ order.shipping_cost|floatformat:2 }}
+                            </dd>
+
+                            <dt class="col-sm-4">Total paid</dt>
+                            <dd class="col-sm-8">
+                                <strong>€{{ order.total_price|floatformat:2 }}</strong>
+                            </dd>
+                        </dl>
+
+                        {% if order.payment_status == "paid" %}
+                        <p class="mt-4 mb-0">
+                            Your payment is confirmed. The artists will
+                            contact you regarding your commission and delivery.
+                        </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+        <p>You haven't placed any commissions yet.</p>
+        <a href="{% url 'commissions:creative' %}"
+            class="btn btn-primary mt-3">
+            Explore Commissions
+        </a>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

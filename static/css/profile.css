@@ -1,0 +1,25 @@
+
+/* My Account - Commission accordion */
+
+#my-account .accordion-button {
+    background-color: var(--off-white-color);
+    color: var(--dark-accent-color);
+}
+
+#my-account .accordion-button:not(.collapsed) {
+    background-color: var(--background-color);
+    color: var(--dark-accent-color);
+    box-shadow: none;
+}
+
+/* Replace Bootstrap's blue focus shadow */
+#my-account .accordion-button:focus-visible {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: -2px;
+    box-shadow: none;
+}
+
+/* Remove mouse-click focus shadow */
+#my-account .accordion-button:focus:not(:focus-visible) {
+    box-shadow: none;
+}

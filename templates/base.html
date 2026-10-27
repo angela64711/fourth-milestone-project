@@ -67,6 +67,12 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         {% if user.is_authenticated %}
                         <li>
+                            <a class="dropdown-item" href="{% url 'profiles:my_account' %}">
+                                <i class="fa-solid fa-user me-2" aria-hidden="true"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="{% url 'account_logout' %}">
                                 <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>
                                 Log Out
@@ -152,7 +158,11 @@
                     <!-- My Account inside collapsed navigation -->
                     {% if user.is_authenticated %}
                     <li class="nav-item d-xl-none">
-                        <span class="nav-link">My Account</span>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'my_account' %}active{% endif %}"
+                            href="{% url 'profiles:my_account' %}"
+                            {% if request.resolver_match.url_name == 'my_account' %}aria-current="page"{% endif %}>
+                            My Account
+                        </a>
                     </li>
                     {% endif %}
 
@@ -174,6 +184,12 @@
 
                             <ul class="dropdown-menu dropdown-menu-end">
                                 {% if user.is_authenticated %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'profiles:my_account' %}">
+                                        <i class="fa-solid fa-user me-2" aria-hidden="true"></i>
+                                        My Account
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item" href="{% url 'account_logout' %}">
                                         <i class="fa-solid fa-right-from-bracket me-2"
@@ -201,7 +217,10 @@
                         </div>
 
                         {% if user.is_authenticated %}
-                        <span class="account-link">My Account</span>
+                        <a class="account-link" href="{% url 'profiles:my_account' %}"
+                            {% if request.resolver_match.url_name == 'my_account' %}aria-current="page"{% endif %}>
+                            My Account
+                        </a>
                         {% endif %}
 
                     </li>
@@ -211,6 +230,7 @@
         </div>
     </nav>
 </header>
+
 
 
     <!-- Main page content -->
