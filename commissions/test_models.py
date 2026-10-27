@@ -123,3 +123,25 @@ class CommissionOrderModelTest(TestCase):
         expected = f"Commission {order.order_number} - Test Customer"
 
         self.assertEqual(str(order), expected)
+
+    def test_surprise_commission_allows_blank_creative_preferences(self):
+        """
+        Test that surprise commissions pass model validation
+        without moods, colours, imagery or a story.
+        Regression test for Bug #5.
+        """
+        order = self.create_commission(
+            creative_direction="surprise",
+            story="",
+            moods=[],
+            colours=[],
+            imagery="",
+        )
+
+        # Django model validation must accept empty preferences.
+        order.full_clean()
+
+        self.assertEqual(order.moods, [])
+        self.assertEqual(order.colours, [])
+        self.assertEqual(order.imagery, "")
+        self.assertEqual(order.story, "")
