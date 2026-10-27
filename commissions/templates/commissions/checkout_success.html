@@ -1,0 +1,191 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/commissions.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="commission-success" class="py-4 py-lg-5">
+    <div class="container">
+
+        <!-- Confirmation heading -->
+        <div class="text-center mb-5">
+
+            <i class="fa-regular fa-circle-check fa-3x mb-4"
+                style="color: var(--dark-accent-color);"
+                aria-hidden="true"></i>
+
+            <h1 class="mb-3">Thank you for your commission!</h1>
+
+            <p class="lead mb-3">
+                Your payment was successful and your commission
+                request has been received.
+            </p>
+
+            <p class="mb-0">
+                Your order reference:
+                <strong>{{ order.order_number }}</strong>
+            </p>
+
+        </div>
+
+        <div id="customer-details-divider"
+            class="mb-4 mb-lg-5"
+            aria-hidden="true"></div>
+
+        <div class="row g-5">
+
+            <!-- Commission details -->
+            <div class="col-12 col-lg-7">
+
+                <h2 class="h3 mb-4">Your commission details</h2>
+
+                <div class="d-flex justify-content-between gap-3 mb-3">
+                    <span>Creative approach</span>
+                    <strong class="text-end">
+                        {{ order.get_creative_direction_display }}
+                    </strong>
+                </div>
+
+                {% if order.story %}
+                <div class="mb-4">
+                    <h3 class="h5 mb-2">Your idea</h3>
+                    <p>{{ order.story|linebreaksbr }}</p>
+                </div>
+                {% endif %}
+
+                {% if order.moods %}
+                <div class="mb-3">
+                    <span class="fw-semibold">Selected moods:</span>
+                    {{ order.moods|join:", " }}
+                </div>
+                {% endif %}
+
+                {% if order.colours %}
+                <div class="mb-3">
+                    <span class="fw-semibold">Selected colours:</span>
+                    {{ order.colours|join:", " }}
+                </div>
+                {% endif %}
+
+                {% if order.imagery %}
+                <div class="mb-4">
+                    <span class="fw-semibold">Imagery direction:</span>
+                    {{ order.get_imagery_display }}
+                </div>
+                {% endif %}
+
+                <div class="d-flex justify-content-between gap-3 mb-3">
+                    <span>Artwork format</span>
+                    <strong class="text-end">
+                        {{ order.get_artwork_format_display }}
+                    </strong>
+                </div>
+
+                {% if order.artwork_size %}
+                <div class="d-flex justify-content-between gap-3 mb-3">
+                    <span>Artwork size</span>
+                    <strong>
+                        {{ order.get_artwork_size_display }}
+                    </strong>
+                </div>
+                {% endif %}
+
+                <hr class="my-4">
+
+                <h2 class="h3 mb-4">What happens next?</h2>
+
+                <p>
+                    Your commission request has been recorded.
+                    The artist will review your creative preferences
+                    and begin preparing your personalised artwork.
+                </p>
+
+                <p>
+                    Please keep your order reference for future enquiries.
+                </p>
+
+            </div>
+
+            <!-- Order summary -->
+            <div class="col-12 col-lg-5">
+
+                <aside id="commission-summary"
+                    aria-labelledby="commission-summary-title">
+
+                    <h2 id="commission-summary-title" class="h3 mb-4">
+                        Order confirmation
+                    </h2>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Payment status</span>
+                        <strong>Paid</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Artwork price</span>
+                        <strong>
+                            €{{ order.artwork_price|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Shipping</span>
+                        <strong>
+                            €{{ order.shipping_cost|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between gap-3 mb-4">
+                        <strong>Total paid</strong>
+                        <strong>
+                            €{{ order.total_price|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <h3 class="h5 mb-3">Customer details</h3>
+
+                    <p class="mb-1">{{ order.full_name }}</p>
+                    <p class="mb-4">{{ order.email }}</p>
+
+                    {% if order.shipping_address %}
+                    <h3 class="h5 mb-3">Delivery address</h3>
+
+                    <address>
+                        {{ order.shipping_address|linebreaksbr }}
+                        <br>
+                        {{ order.postal_code }} {{ order.city }}
+                        <br>
+                        {{ order.country }}
+                    </address>
+                    {% else %}
+                    <p class="small text-muted">
+                        Digital artwork — no physical shipping required.
+                    </p>
+                    {% endif %}
+
+                    <p class="small text-muted mt-4">
+                        Order placed:
+                        {{ order.created_on|date:"d F Y" }}
+                    </p>
+
+                </aside>
+            </div>
+
+        </div>
+
+        <!-- Return navigation -->
+        <div class="text-center mt-5">
+            <a href="{% url 'art' %}"
+                class="btn btn-primary">
+                Explore the artwork
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

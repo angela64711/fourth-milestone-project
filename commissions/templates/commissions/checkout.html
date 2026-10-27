@@ -1,0 +1,192 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/commissions.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="commission-checkout" class="py-4 py-lg-5">
+    <div class="container">
+
+        <h1 class="mb-3">Complete your commission</h1>
+
+        <p class="mb-4">
+            Review your commission details and complete your
+            secure payment.
+        </p>
+
+        <div id="customer-details-divider"
+            class="mb-4 mb-lg-5"
+            aria-hidden="true"></div>
+
+        <div class="row g-5">
+
+            <!-- Payment details -->
+            <div class="col-12 col-lg-7 order-2 order-lg-1">
+
+                <h2 class="h3 mb-4">Payment details</h2>
+
+                <p class="mb-4">
+                    Your payment is processed securely by Stripe.
+                    Card details are not stored on this website.
+                </p>
+
+                <form id="payment-form"
+                    method="post"
+                    data-verify-url="{% url 'commissions:verify_payment' order.order_number %}">
+
+                    {% csrf_token %}
+
+                    <label for="card-element" class="form-label">
+                        Credit or debit card *
+                    </label>
+
+                    <!-- Secure card input rendered by Stripe Elements -->
+                    <div id="card-element"
+                        class="form-control p-3"
+                        aria-describedby="card-errors"></div>
+
+                    <!-- Payment validation and processing errors -->
+                    <div id="card-errors"
+                        class="text-danger small mt-2"
+                        role="alert"
+                        aria-live="assertive"></div>
+
+                    <div class="mt-4">
+                        <button id="submit-button"
+                            type="submit"
+                            class="btn btn-primary w-100">
+                            Pay €{{ order.total_price|floatformat:2 }}
+                        </button>
+                    </div>
+
+                </form>
+
+                <!-- Processing feedback -->
+                <div id="loading-overlay"
+                    class="mt-4 text-center"
+                    role="status"
+                    aria-live="polite"
+                    hidden>
+
+                    <div class="spinner-border text-primary mb-3"
+                        aria-hidden="true"></div>
+
+                    <p class="mb-0">
+                        Processing your payment.
+                        Please do not close this page.
+                    </p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="{% url 'commissions:customer_details' %}"
+                        class="underline-link">
+                        Back to your details
+                        <i class="fa-solid fa-arrow-right diagonal-arrow ms-2"
+                            aria-hidden="true"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Commission summary -->
+            <div class="col-12 col-lg-5 order-1 order-lg-2">
+
+                <aside id="commission-summary"
+                    aria-labelledby="commission-summary-title">
+
+                    <h2 id="commission-summary-title" class="h3 mb-4">
+                        Your commission
+                    </h2>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Creative approach</span>
+                        <strong class="text-end">
+                            {{ order.get_creative_direction_display }}
+                        </strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Format</span>
+                        <strong class="text-end">
+                            {{ order.get_artwork_format_display }}
+                        </strong>
+                    </div>
+
+                    {% if order.artwork_size %}
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Size</span>
+                        <strong class="text-end">
+                            {{ order.get_artwork_size_display }}
+                        </strong>
+                    </div>
+                    {% endif %}
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Artwork price</span>
+                        <strong>
+                            €{{ order.artwork_price|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 mb-3">
+                        <span>Shipping</span>
+                        <strong>
+                            €{{ order.shipping_cost|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between gap-3 mb-4">
+                        <strong>Total</strong>
+                        <strong>
+                            €{{ order.total_price|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    <h3 class="h5 mb-3">Customer details</h3>
+
+                    <p class="mb-1">{{ order.full_name }}</p>
+                    <p class="mb-4">{{ order.email }}</p>
+
+                    {% if order.shipping_address %}
+                    <h3 class="h5 mb-3">Delivery address</h3>
+
+                    <address>
+                        {{ order.shipping_address|linebreaksbr }}
+                        <br>
+                        {{ order.postal_code }} {{ order.city }}
+                        <br>
+                        {{ order.country }}
+                    </address>
+                    {% else %}
+                    <p class="small text-muted">
+                        Digital delivery — no shipping required.
+                    </p>
+                    {% endif %}
+
+                    <p class="small text-muted mt-4">
+                        Order reference: {{ order.order_number }}
+                    </p>
+
+                </aside>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Stripe configuration -->
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'js/commission_payment.js' %}"></script>
+{% endblock %}
