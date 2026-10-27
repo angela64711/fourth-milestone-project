@@ -421,7 +421,7 @@ def commission_verify_payment(request, order_number):
         intent.id == order.stripe_payment_intent
         and intent.amount == expected_amount
         and intent.currency.lower() == settings.STRIPE_CURRENCY.lower()
-        and intent.metadata.get("order_number") == str(order.order_number)
+        and intent.metadata.to_dict().get("order_number") == str(order.order_number)
     )
 
     if not payment_matches:

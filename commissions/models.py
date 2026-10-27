@@ -90,12 +90,13 @@ class CommissionOrder(models.Model):
 
     # JSONField stores multiple selections as Python lists.
     # The form will validate allowed values and require 1–2 selections.
-    moods = models.JSONField(default=list)
-    colours = models.JSONField(default=list)
+    moods = models.JSONField(default=list, blank=True)
+    colours = models.JSONField(default=list, blank=True)
 
     imagery = models.CharField(
         max_length=20,
         choices=IMAGERY_CHOICES,
+        blank=True,
     )
 
     # Artwork format and delivery
