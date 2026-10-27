@@ -2,6 +2,13 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from decimal import Decimal
+from unittest.mock import patch
+
+import stripe
+
+from .models import CommissionOrder
+
 
 @override_settings(
     STORAGES={
@@ -251,7 +258,11 @@ class CommissionCustomerViewTest(TestCase):
             self.valid_customer_data(),
         )
 
-        self.assertRedirects(response, self.url)
+        self.assertRedirects(
+            response,
+            reverse("commissions:checkout"),
+            fetch_redirect_response=False,
+        )
 
         saved = self.client.session["commission_customer"]
 
@@ -275,7 +286,11 @@ class CommissionCustomerViewTest(TestCase):
             ),
         )
 
-        self.assertRedirects(response, self.url)
+        self.assertRedirects(
+            response,
+            reverse("commissions:checkout"),
+            fetch_redirect_response=False,
+        )
 
         saved = self.client.session["commission_customer"]
 
@@ -305,3 +320,208 @@ class CommissionCustomerViewTest(TestCase):
             "commission_customer",
             self.client.session,
         )
+
+
+@override_settings(STRIPE_CURRENCY="eur")
+class CommissionPaymentVerificationTest(TestCase):
+    """Tests server-side verification of Stripe commission payments."""
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            username="paymentcustomer",
+            email="payment@example.com",
+            password="testpass123",
+        )
+
+    def setUp(self):
+        self.client.force_login(self.user)
+
+        self.order = CommissionOrder.objects.create(
+            user=self.user,
+            creative_direction="surprise",
+            artwork_format="digital",
+            artwork_price=Decimal("180.00"),
+            shipping_cost=Decimal("0.00"),
+            total_price=Decimal("180.00"),
+            full_name="Payment Customer",
+            email="payment@example.com",
+            stripe_payment_intent="pi_test_success",
+        )
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    def test_successful_payment_marks_order_paid(self, mock_retrieve):
+        """A verified successful Stripe payment marks the order as paid."""
+        mock_retrieve.return_value = stripe.StripeObject.construct_from(
+            {
+                "id": "pi_test_success",
+                "amount": 18000,
+                "currency": "eur",
+                "status": "succeeded",
+                "metadata": {
+                    "order_number": str(self.order.order_number),
+                },
+            },
+            "sk_test_mock",
+        )
+
+        response = self.client.post(
+            reverse(
+                "commissions:verify_payment",
+                args=[self.order.order_number],
+            )
+        )
+
+        self.order.refresh_from_db()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        self.assertEqual(self.order.payment_status, "paid")
+        self.assertEqual(
+            response.json()["redirect_url"],
+            reverse(
+                "commissions:success",
+                args=[self.order.order_number],
+            ),
+        )
+        mock_retrieve.assert_called_once_with("pi_test_success")
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    def test_incomplete_payment_remains_pending(self, mock_retrieve):
+        """An incomplete Stripe payment must not mark an order as paid."""
+        mock_retrieve.return_value = stripe.StripeObject.construct_from(
+            {
+                "id": "pi_test_success",
+                "amount": 18000,
+                "currency": "eur",
+                "status": "requires_payment_method",
+                "metadata": {
+                    "order_number": str(self.order.order_number),
+                },
+            },
+            "sk_test_mock",
+        )
+
+        response = self.client.post(
+            reverse(
+                "commissions:verify_payment",
+                args=[self.order.order_number],
+            )
+        )
+
+        self.order.refresh_from_db()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(response.json()["success"])
+        self.assertEqual(self.order.payment_status, "pending")
+        mock_retrieve.assert_called_once_with("pi_test_success")
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    def test_mismatched_payment_details_rejected(self, mock_retrieve):
+        """Reject successful Stripe payments with mismatched order details."""
+        invalid_cases = [
+            ("order_number", "incorrect-order-number"),
+            ("amount", 10000),
+            ("currency", "usd"),
+        ]
+
+        for field, invalid_value in invalid_cases:
+            with self.subTest(field=field):
+                payment_data = {
+                    "id": "pi_test_success",
+                    "amount": 18000,
+                    "currency": "eur",
+                    "status": "succeeded",
+                    "metadata": {
+                        "order_number": str(self.order.order_number),
+                    },
+                }
+
+                if field == "order_number":
+                    payment_data["metadata"]["order_number"] = invalid_value
+                else:
+                    payment_data[field] = invalid_value
+
+                mock_retrieve.return_value = stripe.StripeObject.construct_from(
+                    payment_data,
+                    "sk_test_mock",
+                )
+
+                response = self.client.post(
+                    reverse(
+                        "commissions:verify_payment",
+                        args=[self.order.order_number],
+                    )
+                )
+
+                self.order.refresh_from_db()
+
+                self.assertEqual(response.status_code, 400)
+                self.assertFalse(response.json()["success"])
+                self.assertEqual(self.order.payment_status, "pending")
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    @patch("commissions.views.stripe.PaymentIntent.create")
+    def test_checkout_recovers_completed_payment(self, mock_create, mock_retrieve):
+        """Checkout recognises an existing successful payment."""
+        session = self.client.session
+
+        session["commission_creative"] = {
+            "creative_direction": "surprise",
+            "story": "",
+            "moods": [],
+            "colours": [],
+            "imagery": "",
+            "artwork_format": "digital",
+            "artwork_size": "",
+        }
+
+        session["commission_customer"] = {
+            "first_name": "Payment",
+            "last_name": "Customer",
+            "email": "payment@example.com",
+            "delivery_region": "",
+            "street": "",
+            "house_number": "",
+            "address_line_2": "",
+            "city": "",
+            "postal_code": "",
+            "country": "",
+        }
+
+        session["commission_order_id"] = self.order.pk
+        session.save()
+
+        mock_retrieve.return_value = stripe.StripeObject.construct_from(
+            {
+                "id": "pi_test_success",
+                "amount": 18000,
+                "currency": "eur",
+                "status": "succeeded",
+                "metadata": {
+                    "order_number": str(self.order.order_number),
+                },
+            },
+            "sk_test_mock",
+        )
+
+        response = self.client.get(reverse("commissions:checkout"))
+
+        self.order.refresh_from_db()
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "commissions:success",
+                args=[self.order.order_number],
+            ),
+            fetch_redirect_response=False,
+        )
+        self.assertEqual(self.order.payment_status, "paid")
+
+        mock_retrieve.assert_called_once_with("pi_test_success")
+        mock_create.assert_not_called()
+
+        self.assertNotIn("commission_order_id", self.client.session)
+        self.assertNotIn("commission_creative", self.client.session)
+        self.assertNotIn("commission_customer", self.client.session)
