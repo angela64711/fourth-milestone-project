@@ -1,4 +1,4 @@
-/* ------------------------------------------ About page */
+/* ----------------------------------------------------- About page */
 
 #about-intro {
     background-color: var(--off-white-color);
@@ -119,6 +119,87 @@
 .recognition-link:focus-visible {
     color: var(--primary-color);
 }
+
+/*-------------------------------------------------------Where to Buy*/
+
+
+#retail-page h1 {
+    font-family: var(--primary-font);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--accent-color);
+}
+
+
+/* Official Etsy Shop */
+
+#etsy-link {
+    display: inline-block;
+    font-family: var(--secondary-font);
+    color: var(--dark-accent-color);
+    text-decoration: none;
+}
+
+#shop-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+#shop-name {
+    font-family: var(--primary-font);
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+#shop-underline {
+    display: block;
+    width: 60%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transition: width 0.2s ease;
+}
+
+#etsy-link:hover #shop-underline,
+#etsy-link:focus-visible #shop-underline {
+    width: 100%;
+}
+
+
+/* Retailer entries */
+
+.retailer-card {
+    border: 1px solid #dedede;
+    background-color: var(--off-white-color);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+#retail-page section[aria-label="Retailers"] h2 {
+    background-color: var(--background-color);
+    font-family: var(--primary-font);
+    font-weight: 400;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0;
+}
+
+#retail-page section[aria-label="Retailers"] h2 a:hover {
+    color: var(--text-color);
+    text-decoration-color: var(--accent-color);
+}
+
+#retail-page section[aria-label="Retailers"] h2 a {
+    color: var(--dark-accent-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+#retail-page section[aria-label="Retailers"] p {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: var(--text-color);
+}
+
 
 /*--------------------------------------------------Media Queries */
 

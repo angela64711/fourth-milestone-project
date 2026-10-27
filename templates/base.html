@@ -146,11 +146,11 @@
                             Commissions
                         </a>
                     </li>
-
+                    
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'where_to_buy' %}active{% endif %}"
-                            href="#"
-                            {% if request.resolver_match.url_name == 'where_to_buy' %}aria-current="page"{% endif %}>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'retail' %}active{% endif %}"
+                            href="{% url 'retail' %}"
+                            {% if request.resolver_match.url_name == 'retail' %}aria-current="page"{% endif %}>
                             Where to Buy
                         </a>
                     </li>

@@ -7,3 +7,7 @@ def index(request):
 
 def about(request):
     return render(request, "pages/about.html")
+
+
+def retail(request):
+    return render(request, "pages/retail.html")
