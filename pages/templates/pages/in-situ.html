@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section id="in-situ-page" class="py-4 py-md-5">
+    <div class="container-fluid px-3 px-md-4 px-xxl-5">
+
+        <!-- Page introduction -->
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-12">
+                <p id="in-situ-intro" class="mb-4">Our art.</p>
+                <h1>In the wild. in situ.</h1>
+            </div>
+        </div>
+
+        <!-- Decorative line -->
+        <div class="in-situ-decoration text-center mb-3 mb-lg-4" aria-hidden="true">
+            <div class="border-top border-3"></div>
+            <span>••</span>
+        </div>
+
+        <!-- In Situ gallery -->
+        <div id="in-situ-gallery">
+
+            <figure>
+                <img src="{% static 'images/insitu/blois-staircase.webp' %}"
+                    alt="Frank Moth artwork displayed along an outdoor staircase in Blois" class="img-fluid"
+                    loading="eager">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/bullitt-hotel.webp' %}"
+                    alt="Frank Moth artwork displayed in a Bullitt Hotel bedroom" class="img-fluid" loading="eager">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/billitt-hotel-2.webp' %}"
+                    alt="Framed artwork above a bed in a hotel room" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/hethuismetduizendramen-netherlands.webp' %}"
+                    alt="Frank Moth artwork displayed in a bright interior in the Netherlands" class="img-fluid"
+                    loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/kathryn-bree-interiors.webp' %}"
+                    alt="Framed Frank Moth artwork displayed in a contemporary interior" class="img-fluid"
+                    loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/lamarmallen-nashville.webp' %}"
+                    alt="Large-scale Frank Moth artwork displayed on a wall in Nashville" class="img-fluid"
+                    loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/me-wellness.webp' %}"
+                    alt="Framed artworks displayed in a wellness interior" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/midmodcass-canada.webp' %}"
+                    alt="Frank Moth artwork in a colourful living room" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/misslionhunter-canada.webp' %}"
+                    alt="Frank Moth artwork displayed behind a seated person" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/nexus-restaurant.webp' %}"
+                    alt="Framed artwork in the Nexus restaurant interior" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/nexus-restaurant-2.webp' %}"
+                    alt="Additional view of the Nexus restaurant artwork installation" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/raconteur-bar.webp' %}"
+                    alt="Frank Moth artwork displayed in the Raconteur bar" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/st-laurent-social-club.webp' %}"
+                    alt="Artwork displayed in the St Laurent Social Club" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/zoetry-salon.webp' %}"
+                    alt="Framed artworks displayed in a bright salon interior" class="img-fluid" loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/moen-inc-faucets-1.webp' %}"
+                    alt="Frank Moth artwork displayed in a yellow Moen faucet installation" class="img-fluid"
+                    loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{% static 'images/insitu/moen-inc-faucets-2.webp' %}"
+                    alt="Frank Moth artwork displayed in a second Moen faucet installation" class="img-fluid"
+                    loading="lazy">
+                <figcaption>Astralon Agency — Website artwork</figcaption>
+            </figure>
+
+        </div>
+
+        <!-- Decorative line -->
+        <div class="in-situ-decoration text-center pt-3 mb-3 mb-lg-4" aria-hidden="true">
+            <div class="border-top border-3"></div>
+            <span>••</span>
+        </div>
+        
+        <!-- Contact invitation and Back to Top -->
+        <div id="in-situ-contact" class="row align-items-end mt-3 mt-lg-4">
+            <div class="col-10 text-start">
+                <h2 class="mb-3">Have you bought any of our designs?</h2>
+                <p class="mb-1">We would be more than happy to hear from you.</p>
+                <p class="mb-3">You can also tag us #frankmoth on social media.</p>
+                <p class="mb-3">Thank you for all the support.</p>
+                <a href="#" class="underline-link">
+                    Contact us
+                    <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="col-2 text-end">
+                <a href="#in-situ-page" id="back-to-top" aria-label="Back to top" title="Back to top">
+                    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

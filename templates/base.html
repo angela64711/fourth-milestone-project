@@ -129,7 +129,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link {% if request.resolver_match.url_name == 'in_situ' %}active{% endif %}"
-                                href="#" {% if request.resolver_match.url_name == 'in_situ' %}aria-current="page"
+                                href="{% url 'in_situ' %}" {% if request.resolver_match.url_name == 'in_situ' %}aria-current="page"
                                 {% endif %}>
                                 In Situ
                             </a>

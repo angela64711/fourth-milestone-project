@@ -15,3 +15,7 @@ def retail(request):
 
 def collaborations(request):
     return render(request, "pages/collaborations.html")
+
+
+def in_situ(request):
+    return render(request, "pages/in-situ.html")
