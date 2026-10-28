@@ -47,6 +47,8 @@
     margin-bottom: 0.25rem;
 }
 
+/*---------------------------------------------------- Artwork preview*/
+
 .homepage-explore {
     background-color: var(--background-color);
 }
@@ -171,8 +173,9 @@
     font-weight: 400;
 }
 
-.homepage-beyond h2 {
-    font-size: 1.75rem;
+#beyond-heading {
+    font-family: var(--primary-font);
+    font-size: clamp(1.7rem, 5.3vw, 3.5rem);
 }
 
 .beyond-heading {
@@ -220,7 +223,7 @@
 
 /* ---------------------------------------------------- Something Personal */
 
-.homepage-personal {
+#homepage-personal {
     background-color: var(--background-color);
 }
 
@@ -228,7 +231,7 @@
     border: 0;
     border-top: 1px solid var(--text-color);
     opacity: 0.15;
-    margin: 0 0 2rem;
+    margin: 0 0 1rem;
 }
 
 #personal-heading::before {
@@ -240,9 +243,10 @@
     margin-bottom: 0.5rem;
 }
 
-.homepage-personal h2 {
+#personal-heading {
     color: var(--dark-accent-color);
-    font-size: 1.75rem;
+    font-family: var(--primary-font);
+    font-size: clamp(1.7rem, 5vw, 3rem);
     font-weight: 400;
 }
 
