@@ -1,0 +1,333 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section id="collaborations-page" class="py-4 py-md-5">
+    <div class="container-fluid px-3 px-md-4 px-xxl-5">
+
+        <!-- Page introduction -->
+        <div class="row mb-4 mb-lg-5">
+            <div class="col-12">
+                <p id="collaborations-intro" class="mb-4">Our art.</p>
+                <h1>In dialogue. in motu.</h1>
+            </div>
+        </div>
+
+        <div class="row gx-lg-5">
+
+            <!-- Clients sidebar -->
+            <aside class="col-12 col-lg-3 mb-5 mb-lg-0"
+                aria-labelledby="collaborations-clients-title">
+
+                <div id="collaborations-sidebar" class="text-end">
+
+                    <div class="about-column-line mb-3"></div>
+
+                    <h2 id="collaborations-clients-title"
+                        class="about-column-title mb-2">
+                        Clients
+                    </h2>
+
+                    <!-- Replace # with verified client URLs -->
+                    <ul class="list-unstyled about-recognition-list">
+
+                        <li>Adobe</li>
+                        <li><a class="recognition-link" href="#">State Library of Victoria</a></li>
+                        <li><a class="recognition-link" href="#">Bullitt Hotel</a></li>
+                        <li><a class="recognition-link" href="#">New York Times</a></li>
+                        <li>Lucasfilm Ltd – Star Wars</li>
+                        <li>Design Museum</li>
+                        <li>Stanford University</li>
+                        <li><a class="recognition-link" href="#">NASA-DesignByHumans</a></li>
+                        <li><a class="recognition-link" href="#">Mr Porter</a></li>
+                        <li><a class="recognition-link" href="#">Artful Living Magazine</a></li>
+                        <li>Demy – Panik Records</li>
+                        <li>Estrella World Street Food</li>
+                        <li><a class="recognition-link" href="#">Parthenón Film Festival 2016</a></li>
+                        <li><a class="recognition-link" href="#">Patakis Publishers</a></li>
+                        <li>papercut &amp; nikos moraitis – <a class="recognition-link" href="#">Panik Records</a></li>
+                        <li><a class="recognition-link" href="#">Harvard Business Review</a></li>
+                        <li>Monitor Festival</li>
+                        <li>Poplie Web Radio</li>
+                        <li>Society6</li>
+                        <li><a class="recognition-link" href="#">Ezekiel USA</a></li>
+                        <li><a class="recognition-link" href="#">Astralon Agency</a></li>
+                        <li><a class="recognition-link" href="#">Electric Litany</a></li>
+                        <li>The Blue Square – Melting Records</li>
+                        <li>Sleepless Movie Marathon Thessaloniki</li>
+                        <li><a class="recognition-link" href="#">Uppsala University</a></li>
+
+                    </ul>
+
+                    <div id="collaborations-contact" class="mt-3">
+                        <p class="mb-2">Have a project in mind?</p>
+                        <!-- Replace # when the Contact page is ready -->
+                        <a href="#" class="underline-link">
+                            Collaborate
+                            <i class="fa-solid fa-arrow-right diagonal-arrow"
+                                aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </aside>
+
+            <!-- Masonry gallery -->
+            <div class="col-12 col-lg-9">
+                <div id="collaborations-gallery">
+
+                    <!-- 01 Adobe -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/adobe-art.webp' %}"
+                            alt="Colourful illustrated artwork for Adobe"
+                            loading="eager" class="img-fluid">
+                        <figcaption>Adobe — Art collaboration</figcaption>
+                    </figure>
+
+                    <!-- 02 Astralon -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/Astralon-Website-Front-Cover.webp' %}"
+                            alt="Frank Moth artwork for the Astralon website"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Astralon Agency — Website artwork</figcaption>
+                    </figure>
+
+                    <!-- 03 New York Times -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/new-york-times-book-review.webp' %}"
+                            alt="Dark editorial illustration for the New York Times"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>New York Times — Book review illustration</figcaption>
+                    </figure>
+
+                    <!-- 04 Mr Porter -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/mr-porter-april22.webp' %}"
+                            alt="Editorial collage for Mr Porter"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Mr Porter — April editorial artwork</figcaption>
+                    </figure>
+
+                    <!-- 05 Electric Litany -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/electric-litany-album-cover.webp' %}"
+                            alt="Electric Litany album artwork and vinyl packaging"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Electric Litany — Album artwork</figcaption>
+                    </figure>
+
+                    <!-- 06 NASA -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/reaching-my-loneliness.webp' %}"
+                            alt="Space-themed artwork titled Reaching My Loneliness"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>NASA / Design By Humans — Reaching My Loneliness</figcaption>
+                    </figure>
+
+                    <!-- 07 Estrella -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/estrella-anniversary-place-mat.webp' %}"
+                            alt="Colourful anniversary illustration for Estrella"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Estrella — Anniversary placemat artwork</figcaption>
+                    </figure>
+
+                    <!-- 08 Lucasfilm -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/a-clan-of-two-wanderers.webp' %}"
+                            alt="A Clan of Two Wanderers Star Wars-inspired artwork"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Lucasfilm / Star Wars — A Clan of Two Wanderers</figcaption>
+                    </figure>
+
+                    <!-- 09 Mr Porter -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/mr-porter-oct22.webp' %}"
+                            alt="Frank Moth editorial artwork for Mr Porter"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Mr Porter — October editorial artwork</figcaption>
+                    </figure>
+
+                    <!-- 10 Demy -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/demy-album-cover.webp' %}"
+                            alt="Colourful album cover artwork for Demy"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Demy — Album cover, Panik Records</figcaption>
+                    </figure>
+
+                    <!-- 11 Papercut -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/papercut-album-cover.webp' %}"
+                            alt="Dreamlike album cover with architectural scenery"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Papercut — Album cover artwork</figcaption>
+                    </figure>
+
+                    <!-- 12 Bullitt Hotel -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/bullitt-hotel-logo.webp' %}"
+                            alt="Bullitt Hotel promotional artwork"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Bullitt Hotel — Promotional artwork</figcaption>
+                    </figure>
+
+                    <!-- 13 LIFO -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/lifo-magazine-cover.webp' %}"
+                            alt="Illustrated magazine cover for LiFO"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>LiFO — Magazine cover</figcaption>
+                    </figure>
+
+                    <!-- 14 Zena -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/zena-cover.webp' %}"
+                            alt="Zena cover featuring flowers and a surreal landscape"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Zena — Cover artwork</figcaption>
+                    </figure>
+
+                    <!-- 15 Mr Porter -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/mr-porter-dec22.webp' %}"
+                            alt="Dark interior illustration for Mr Porter"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Mr Porter — December editorial artwork</figcaption>
+                    </figure>
+
+                    <!-- 16 Uppsala University -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/uppsala-string-theory.webp' %}"
+                            alt="Cosmos and Mathematics poster"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Uppsala University — Cosmos and Mathematics</figcaption>
+                    </figure>
+
+                    <!-- 17 Poplie -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/poplie-radio.webp' %}"
+                            alt="Illustration featuring musicians for Poplie Radio"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Poplie Web Radio — Illustration</figcaption>
+                    </figure>
+
+                    <!-- 18 Peach Blossoms -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/peach-blossoms-of-veria-26.webp' %}"
+                            alt="Peach Blossoms of Veria event poster"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Peach Blossoms of Veria — Event artwork</figcaption>
+                    </figure>
+
+                    <!-- 19 Speak Slow -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/speak-slow-cover.webp' %}"
+                            alt="Minimalist orange and dark album cover"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Speak Slow — Cover artwork</figcaption>
+                    </figure>
+
+                    <!-- 20 Yellifire -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/yellifire-album-cover.webp' %}"
+                            alt="Yellifire album artwork and physical music packaging"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Yellifire — Album artwork and packaging</figcaption>
+                    </figure>
+
+                    <!-- 21 Patakis -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/papamarcos-book-cover.webp' %}"
+                            alt="Illustrated book cover for Patakis Publishers"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Patakis Publishers — Papamarcos book cover</figcaption>
+                    </figure>
+
+                    <!-- 22 Ghosted -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/jenn-ashworth-ghosted-book-cover.webp' %}"
+                            alt="Ghosted book cover by Jenn Ashworth"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Jenn Ashworth — Ghosted, book cover</figcaption>
+                    </figure>
+
+                    <!-- 23 Apostolou -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/apostolou-book-cover.webp' %}"
+                            alt="Illustrated book cover for Apostolou"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Apostolou — Book cover</figcaption>
+                    </figure>
+
+                    <!-- 24 Greece Imathia -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/greece-imathia.webp' %}"
+                            alt="Editorial illustration for Greece and Imathia"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Greece / Imathia — Editorial artwork</figcaption>
+                    </figure>
+
+                    <!-- 25 Veria Spring Festival -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/veria-spring-festival-24.webp' %}"
+                            alt="Poster for Veria Spring Festival"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Veria Spring Festival — 2024 poster</figcaption>
+                    </figure>
+
+                    <!-- 26 Personalities -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/personalities-nft.webp' %}"
+                            alt="Surreal portrait from the Personalities NFT project"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Personalities — NFT artwork</figcaption>
+                    </figure>
+
+                    <!-- 27 Kexagias -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/kexagias-book-cover.webp' %}"
+                            alt="Dark illustrated book cover for Kexagias"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Kexagias — Book cover artwork</figcaption>
+                    </figure>
+
+                    <!-- 28 Eksimerwsi -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/eksimerwsi-cover.webp' %}"
+                            alt="Eksimerwsi illustrated cover"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Eksimerwsi — Cover artwork</figcaption>
+                    </figure>
+
+                    <!-- 29 Mr Porter -->
+                    <figure>
+                        <img src="{% static 'images/collaborations/mr-porter-uncertainty.webp' %}"
+                            alt="Atmospheric landscape illustration for Mr Porter"
+                            loading="lazy" class="img-fluid">
+                        <figcaption>Mr Porter — Uncertainty</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Back to Top -->
+        <div class="text-start mt-4">
+            <a href="#collaborations-page" id="back-to-top"
+            aria-label="Back to top" title="Back to top">
+                <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

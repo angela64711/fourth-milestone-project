@@ -120,6 +120,91 @@
     color: var(--primary-color);
 }
 
+
+/* ----------------------------------------------------- Collaborations */
+
+#collaborations-intro {
+    font-family: var(--secondary-font);
+    font-size: clamp(1.125rem, 2vw, 2rem);
+    color: var(--text-color);
+}
+
+#collaborations-page h1 {
+    font-family: var(--primary-font);
+    font-size: clamp(2.75rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--dark-accent-color);
+}
+
+/* Clients sidebar */
+
+#collaborations-clients-title {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+#collaborations-contact p {
+    font-family: var(--primary-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    line-height: 1.4;
+    color: var(--dark-accent-color);
+}
+
+#collaborations-contact p::before {
+    content: "••";
+    display: block;
+    font-family: var(--secondary-font);
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Masonry gallery */
+
+#collaborations-gallery {
+    column-count: 1;
+    column-gap: 1.5rem;
+}
+
+#collaborations-gallery figure {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+}
+
+#collaborations-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#collaborations-gallery figcaption {
+    font-family: var(--secondary-font);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 0.5rem;
+}
+
+/* Medium screens */
+
+@media screen and (min-width: 768px) {
+    #collaborations-gallery {
+        column-count: 2;
+    }
+}
+
+/* Extra-large screens */
+
+@media screen and (min-width: 1200px) {
+    #collaborations-gallery {
+        column-count: 3;
+    }
+}
+
+
 /*-------------------------------------------------------Where to Buy*/
 
 
@@ -210,5 +295,12 @@
 
     .about-column-title {
         min-height: 4.5rem;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    #collaborations-page {
+        padding-left: 6rem;
+        padding-right: 6rem;
     }
 }
