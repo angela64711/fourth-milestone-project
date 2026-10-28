@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}404 — Lost in Time | Frank Moth{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main id="error-page" class="container-fluid px-3 px-md-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-8 text-center">
+
+            <p id="error-number" class="mb-3">404</p>
+
+            <h1 class="mb-4">
+                Somewhere between the past and the future,
+                this page disappeared.
+            </h1>
+
+            <p id="error-subtitle" class="mb-5">
+                Perhaps it was never here at all.
+            </p>
+
+            <a id="error-home-link" href="{% url 'home' %}">
+                <span>Back to Home</span>
+                <span id="error-home-underline"></span>
+            </a>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}
