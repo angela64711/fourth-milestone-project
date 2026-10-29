@@ -6,6 +6,9 @@ from .models import Artwork, Collection
 
 @admin.register(Artwork)
 class ArtworkAdmin(admin.ModelAdmin):
+    list_display = ("title", "collection", "year")
+    list_filter = ("collection", "year")
+    search_fields = ("title",)
     readonly_fields = ("image_preview",)
 
     def image_preview(self, obj):
