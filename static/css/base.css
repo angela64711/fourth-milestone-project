@@ -329,33 +329,32 @@ input:focus-visible {
 }
 
 
-/*-------------------------------------------- Django Messages */
 
-.alert {
-    border-radius: 0;
-    font-family: var(--body-font);
+/* ---------------------------------------------------- Django Messages */
+
+.messages .alert {
+    width: fit-content;
+    max-width: 100%;
+    min-width: min(100%, 320px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.875rem 3rem 0.875rem 1.25rem;
+    border: none;
+    border-radius: 6px;
     background-color: var(--off-white-color);
-    color: var(--text-color);
-    border: 1px solid var(--dark-accent-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    color: var(--dark-accent-color);
+    font-family: var(--body-font);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.alert-success {
-    border-left: 4px solid var(--accent-color);
+.messages .alert-success,
+.messages .alert-danger,
+.messages .alert-error,
+.messages .alert-warning,
+.messages .alert-info {
+    border: none;
 }
 
-.alert-danger,
-.alert-error {
-    border-left: 4px solid #b44545;
-}
-
-.alert-warning {
-    border-left: 4px solid #c28b28;
-}
-
-.alert-info {
-    border-left: 4px solid var(--dark-accent-color);
-}
 
 
 /*------------------------------------------------------ Footer */
