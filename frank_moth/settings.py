@@ -138,9 +138,6 @@ LOGOUT_REDIRECT_URL = "/"
 # Redirect unauthenticated users to the allauth login page.
 LOGIN_URL = "/accounts/login/"
 
-# Show outgoing development emails in the terminal.
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -174,5 +171,20 @@ STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_CURRENCY = "eur"
 
-# Default primary key field type
+
+# Email Configuration
+
+if "DEVELOPMENT" in os.environ:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    DEFAULT_FROM_EMAIL = "frankmoth@example.com"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
+
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

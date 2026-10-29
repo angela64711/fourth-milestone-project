@@ -1,5 +1,8 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
+
+from django.conf import settings
+
 from django.shortcuts import redirect, render
 
 from .forms import ContactForm
@@ -38,7 +41,7 @@ def contact(request):
             email_message = EmailMessage(
                 subject=f"Portfolio contact: {subject}",
                 body=f"From: {name}\nEmail: {email}\n\n{message}",
-                to=["angela.kiratzidou@gmail.com"],
+                to=[settings.CONTACT_EMAIL],
                 reply_to=[email],
             )
 
