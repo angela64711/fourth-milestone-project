@@ -6,7 +6,7 @@
 
 #collections-intro {
     color: var(--dark-accent-color);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--secondary-font);
 }
 
 #collections-intro::before {

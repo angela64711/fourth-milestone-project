@@ -1,37 +1,32 @@
 /* -------------------------------------------------------- Home Page */
 
-.homepage-hero {
-    background-color: var(--off-white-color);
-}
-
 #homepage-intro {
     color: var(--text-color);
-    line-height: 1.4;
-    font-weight: 400;
-    font-size: clamp(1.7rem, 2.5vw, 3rem);
+    line-height: 1.5;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
 }
 
 #homepage-clients {
-    font-family: var(--secondary-font);
-    font-size: clamp(0.85rem, 1vw, 1rem);
+    font-family: var(--primary-font);
+    font-size: clamp(0.75rem, 1vw, 1rem);
     line-height: 1.6;
 }
 
 #blois-video {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    height: auto;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
 }
 
 .video-caption {
     font-family: var(--secondary-font);
     font-size: 0.8125rem;
-    font-weight: 400;
     line-height: 1.4;
 }
 
 #homepage-artist-statement {
     font-family: var(--secondary-font);
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
-    font-weight: 400;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     line-height: 1.5;
     max-width: 100%;
 }
@@ -47,14 +42,46 @@
     margin-bottom: 0.25rem;
 }
 
-/*---------------------------------------------------- Artwork preview*/
+#hero-composition {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-areas:
+        "heading"
+        "video"
+        "clients";
+}
 
-.homepage-explore {
+#hero-heading-area {
+    grid-area: heading;
+    background-color: var(--off-white-color);
+}
+
+#hero-video-area {
+    grid-area: video;
+    min-width: 0;
+}
+
+#hero-clients-area {
+    grid-area: clients;
+    background-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+
+/*--- Desktop composition in media queries at the bottom*/
+
+
+/*---------------------------------------------------------- Artwork preview*/
+
+#homepage-explore {
     background-color: var(--background-color);
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
 }
 
 #explore-heading {
-    font-size: 1.625rem;
+    font-size:  clamp(2rem, 4vw, 4rem);
     font-weight: 400;
     color: var(--dark-accent-color);
     text-align: right;
@@ -85,7 +112,7 @@
 
 #featured-artworks .carousel-item img,
 #featured-artworks-mobile .carousel-item img {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .featured-prev,
@@ -110,15 +137,17 @@
 
 /* ------------------------------------------------ Artist introduction */
 
-.homepage-about {
+#homepage-about {
     background-color: var(--off-white-color);
+    box-shadow:
+    inset 0 8px 14px -8px rgba(0, 0, 0, 0.2),
+    inset 0 -8px 14px -8px rgba(0, 0, 0, 0.2);
 }
 
 .about-intro {
     font-family: var(--secondary-font);
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
-    font-weight: 400;
-    line-height: 1.6;
+    font-size: clamp(1.125rem, 1.7vw, 1.375rem);
+    line-height: 1.5;
     max-width: 100%;
 }
 
@@ -131,30 +160,31 @@
     margin-bottom: 0.5rem;
 }
 
-.about-link {
+#about-link {
     display: inline-block;
+    border-radius: 4px;
     font-family: var(--secondary-font);
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--off-white-color);
     background-color: var(--dark-accent-color);
-    padding: 0.85rem 1.25rem;
+    padding: 0.8rem 1.2rem;
     text-decoration: none;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 
-.about-link .diagonal-arrow {
+#about-link .diagonal-arrow {
     color: var(--accent-color);
 }
 
 
-.about-link:hover {
+#about-link:hover {
     background-color: var(--text-color);
     color: var(--off-white-color);
     transform: translateY(-2px);
 }
 
-.about-link:focus-visible {
+#about-link:focus-visible {
     color: var(--off-white-color);
     outline: 2px solid var(--dark-accent-color);
     outline-offset: 3px;
@@ -163,24 +193,21 @@
 
 /* ------------------------------------------------ Art Beyond the Frame */
 
-.homepage-beyond {
+#homepage-beyond {
     background-color: var(--background-color);
 }
 
-.homepage-beyond h2,
 .beyond-subheading {
     color: var(--dark-accent-color);
+    font-size: clamp(1.4rem, 3vw, 2.75rem);
     font-weight: 400;
 }
 
 #beyond-heading {
     font-family: var(--primary-font);
     font-size: clamp(1.7rem, 5.3vw, 3.5rem);
-}
-
-.beyond-heading {
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
 }
@@ -193,11 +220,7 @@
     flex-shrink: 0;
 }
 
-.beyond-subheading {
-    font-size: 1.375rem;
-}
-
-.homepage-beyond .underline-link {
+#homepage-beyond .underline-link {
     font-size: 0.875rem;
     align-self: flex-start;
 }
@@ -227,6 +250,10 @@
     background-color: var(--background-color);
 }
 
+#homepage-personal h2 {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+}
+
 .personal-divider {
     border: 0;
     border-top: 1px solid var(--text-color);
@@ -247,7 +274,6 @@
     color: var(--dark-accent-color);
     font-family: var(--primary-font);
     font-size: clamp(1.7rem, 5vw, 3rem);
-    font-weight: 400;
 }
 
 .personal-card {
@@ -332,17 +358,19 @@
 
 /* ------------------------------------------------ Stay Connected */
 
-.homepage-connect {
+#homepage-connect {
     background-color: var(--off-white-color);
+    box-shadow:
+    inset 0 8px 14px -8px rgba(0, 0, 0, 0.2);
 }
 
-.homepage-connect h2 {
+#connect-heading {
     color: var(--dark-accent-color);
-    font-size: 1.75rem;
+    font-size: clamp(2rem, 3vw, 2.75rem);
     font-weight: 400;
 }
 
-.connect-intro {
+#connect-intro {
     max-width: 38rem;
     margin-left: auto;
     margin-right: auto;
@@ -355,23 +383,11 @@
 
 @media screen and (min-width: 576px) {
   
-    #homepage-intro {
-        font-size: clamp(2rem, 3vw, 3.2rem);
-    }
-
-    .video-caption {
-        font-size: 0.875rem;
-    }
-
     #homepage-artist-statement {
-        max-width: 75%;
+        max-width: 800px;
         line-height: 1.6;
     }
-
-    #explore-heading {
-        font-size: clamp(2rem, 4vw, 4rem);
-    }
-
+   
     #explore-heading::before {
         letter-spacing: 0.15rem;
         margin-bottom: 0.5rem;
@@ -380,44 +396,77 @@
     .about-intro {
         max-width: 85%;
     }
-
-    .about-link {
-        font-size: 1rem;
-    }
-
-    .homepage-beyond h2 {
-        font-size: clamp(2rem, 3vw, 2.75rem);
-    }
-
-    .beyond-subheading {
-        font-size: clamp(1.5rem, 2vw, 1.875rem);
-    }
-
-    .homepage-beyond .underline-link {
-        font-size: 1rem;
-    }
-
-    .homepage-personal h2 {
-        font-size: clamp(2rem, 3vw, 2.75rem);
-    }
-
-    .personal-card-content {
-        padding: 1.25rem;
-    }
-
-    .homepage-connect h2 {
-        font-size: clamp(2rem, 3vw, 2.75rem);
-    }
-
+ 
 }
 
-/* Medium devices: 768px and above */
 
-@media screen and (min-width: 768px) {
-  
-    .homepage-personal .row {
-        --bs-gutter-x: 2rem;
+@media screen and (min-width: 992px) {
+
+    #homepage-about > .container {
+        width: 60%;
     }
-    
+
+    #hero-composition {
+        position: relative;
+        isolation: isolate;
+        grid-template-columns: minmax(0, 38%) minmax(0, 62%);
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "heading video"
+            "clients video";
+        column-gap: 0;
+        row-gap: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    #hero-composition::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 30% 0 0;
+        background-color: var(--dark-accent-color);
+        clip-path: polygon(
+            0 30%,
+            25% 20%,
+            25% 0,
+            100% 0,
+            100% 100%,
+            0 90%
+        );
+        filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
+    }
+
+    #blois-frame {
+        padding: 32px;
+        border-radius: 4px;
+        border: 14px solid var(--dark-accent-color);
+        background-color: var(--off-white-color);
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.18),
+            inset 0 0 14px rgba(0, 0, 0, 0.22);
+    }
+
+    #hero-heading-area {
+        padding: 0 2rem 0 0;
+    }
+
+    #hero-video-area {
+        align-self: start;
+    }
+
+    #hero-clients-area {
+        align-self: end;
+        background: transparent;
+        padding: 2rem 2.5rem 1rem 1.5rem;
+    }
+
+    #homepage-clients {
+        max-width: 300px;
+    }
+
+    #hero-video-area .video-caption {
+        color: var(--off-white-color);
+    }
 }
+
 

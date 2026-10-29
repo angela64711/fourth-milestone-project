@@ -454,7 +454,7 @@ fieldset:disabled .colour-option:has(> input:disabled) {
     padding: 0.85rem 0.75rem;
     text-decoration: none;
     border: 0;
-    border-radius: 0;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
