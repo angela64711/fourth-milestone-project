@@ -1,14 +1,18 @@
 
 {% extends "base.html" %}
 
-{% block title %}Log Out | FRANK MOTH ART{% endblock %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
 
 {% block content %}
-<section class="auth-page py-5">
+<section id="logout-container" class="auth-page py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-
+                <div id="logout-panel" class="p-4">
                 <h1 class="mb-4">Log out</h1>
 
                 <p class="mb-4">
@@ -36,7 +40,7 @@
                         </a>
                     </div>
                 </form>
-
+                </div>
             </div>
         </div>
     </div>
