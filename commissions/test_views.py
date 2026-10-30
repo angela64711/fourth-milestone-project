@@ -1,9 +1,10 @@
-from django.contrib.auth import get_user_model
-from django.test import TestCase, override_settings
-from django.urls import reverse
-
 from decimal import Decimal
 from unittest.mock import patch
+
+from django.contrib.auth import get_user_model
+from django.core import mail
+from django.test import TestCase, override_settings
+from django.urls import reverse
 
 import stripe
 
@@ -105,7 +106,10 @@ class CommissionCreativeViewTest(TestCase):
             saved["moods"],
             ["dreamlike", "nostalgic"],
         )
-        self.assertEqual(saved["artwork_format"], "digital")
+        self.assertEqual(
+            saved["artwork_format"],
+            "digital",
+        )
 
     def test_saved_preferences_restored_on_get(self):
         """Returning to the form restores session preferences."""
@@ -322,9 +326,21 @@ class CommissionCustomerViewTest(TestCase):
         )
 
 
-@override_settings(STRIPE_CURRENCY="eur")
+@override_settings(
+    STRIPE_CURRENCY="eur",
+    EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+    DEFAULT_FROM_EMAIL="frankmoth@example.com",
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    },
+)
 class CommissionPaymentVerificationTest(TestCase):
-    """Tests server-side verification of Stripe commission payments."""
+    """Tests Stripe payment verification and confirmation emails."""
 
     @classmethod
     def setUpTestData(cls):
@@ -349,10 +365,9 @@ class CommissionPaymentVerificationTest(TestCase):
             stripe_payment_intent="pi_test_success",
         )
 
-    @patch("commissions.views.stripe.PaymentIntent.retrieve")
-    def test_successful_payment_marks_order_paid(self, mock_retrieve):
-        """A verified successful Stripe payment marks the order as paid."""
-        mock_retrieve.return_value = stripe.StripeObject.construct_from(
+    def successful_payment(self):
+        """Return a matching, successful Stripe test payment."""
+        return stripe.StripeObject.construct_from(
             {
                 "id": "pi_test_success",
                 "amount": 18000,
@@ -364,6 +379,11 @@ class CommissionPaymentVerificationTest(TestCase):
             },
             "sk_test_mock",
         )
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    def test_successful_payment_marks_order_paid(self, mock_retrieve):
+        """A verified payment marks the order paid and sends confirmation."""
+        mock_retrieve.return_value = self.successful_payment()
 
         response = self.client.post(
             reverse(
@@ -386,9 +406,21 @@ class CommissionPaymentVerificationTest(TestCase):
         )
         mock_retrieve.assert_called_once_with("pi_test_success")
 
+        # The payment view must trigger the confirmation email.
+        self.assertTrue(self.order.confirmation_email_sent)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            mail.outbox[0].to,
+            ["payment@example.com"],
+        )
+        self.assertIn(
+            str(self.order.order_number),
+            mail.outbox[0].subject,
+        )
+
     @patch("commissions.views.stripe.PaymentIntent.retrieve")
     def test_incomplete_payment_remains_pending(self, mock_retrieve):
-        """An incomplete Stripe payment must not mark an order as paid."""
+        """An incomplete payment must not send a confirmation email."""
         mock_retrieve.return_value = stripe.StripeObject.construct_from(
             {
                 "id": "pi_test_success",
@@ -416,9 +448,12 @@ class CommissionPaymentVerificationTest(TestCase):
         self.assertEqual(self.order.payment_status, "pending")
         mock_retrieve.assert_called_once_with("pi_test_success")
 
+        self.assertFalse(self.order.confirmation_email_sent)
+        self.assertEqual(len(mail.outbox), 0)
+
     @patch("commissions.views.stripe.PaymentIntent.retrieve")
     def test_mismatched_payment_details_rejected(self, mock_retrieve):
-        """Reject successful Stripe payments with mismatched order details."""
+        """Reject mismatched Stripe payments without sending emails."""
         invalid_cases = [
             ("order_number", "incorrect-order-number"),
             ("amount", 10000),
@@ -459,11 +494,34 @@ class CommissionPaymentVerificationTest(TestCase):
                 self.assertEqual(response.status_code, 400)
                 self.assertFalse(response.json()["success"])
                 self.assertEqual(self.order.payment_status, "pending")
+                self.assertFalse(self.order.confirmation_email_sent)
+                self.assertEqual(len(mail.outbox), 0)
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    def test_repeated_verification_does_not_resend_email(self, mock_retrieve):
+        """Verifying the same payment twice sends only one email."""
+        mock_retrieve.return_value = self.successful_payment()
+
+        url = reverse(
+            "commissions:verify_payment",
+            args=[self.order.order_number],
+        )
+
+        first_response = self.client.post(url)
+        second_response = self.client.post(url)
+
+        self.order.refresh_from_db()
+
+        self.assertEqual(first_response.status_code, 200)
+        self.assertEqual(second_response.status_code, 200)
+        self.assertEqual(self.order.payment_status, "paid")
+        self.assertTrue(self.order.confirmation_email_sent)
+        self.assertEqual(len(mail.outbox), 1)
 
     @patch("commissions.views.stripe.PaymentIntent.retrieve")
     @patch("commissions.views.stripe.PaymentIntent.create")
     def test_checkout_recovers_completed_payment(self, mock_create, mock_retrieve):
-        """Checkout recognises an existing successful payment."""
+        """Checkout recovers a successful payment and sends confirmation."""
         session = self.client.session
 
         session["commission_creative"] = {
@@ -492,18 +550,7 @@ class CommissionPaymentVerificationTest(TestCase):
         session["commission_order_id"] = self.order.pk
         session.save()
 
-        mock_retrieve.return_value = stripe.StripeObject.construct_from(
-            {
-                "id": "pi_test_success",
-                "amount": 18000,
-                "currency": "eur",
-                "status": "succeeded",
-                "metadata": {
-                    "order_number": str(self.order.order_number),
-                },
-            },
-            "sk_test_mock",
-        )
+        mock_retrieve.return_value = self.successful_payment()
 
         response = self.client.get(reverse("commissions:checkout"))
 
@@ -525,3 +572,79 @@ class CommissionPaymentVerificationTest(TestCase):
         self.assertNotIn("commission_order_id", self.client.session)
         self.assertNotIn("commission_creative", self.client.session)
         self.assertNotIn("commission_customer", self.client.session)
+
+        # Recovery must send the same confirmation as normal checkout.
+        self.assertTrue(self.order.confirmation_email_sent)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            mail.outbox[0].to,
+            ["payment@example.com"],
+        )
+
+    @patch("commissions.views.stripe.PaymentIntent.retrieve")
+    @patch("commissions.emails.send_mail")
+    def test_email_failure_does_not_invalidate_payment(self, mock_send, mock_retrieve):
+        """A failed email does not undo a successful Stripe payment."""
+        mock_retrieve.return_value = self.successful_payment()
+        mock_send.side_effect = ConnectionError("Email server unavailable")
+
+        response = self.client.post(
+            reverse(
+                "commissions:verify_payment",
+                args=[self.order.order_number],
+            )
+        )
+
+        self.order.refresh_from_db()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["success"])
+        self.assertEqual(self.order.payment_status, "paid")
+        self.assertFalse(self.order.confirmation_email_sent)
+        mock_send.assert_called_once()
+
+    def test_success_page_does_not_send_another_email(self):
+        """Refreshing the success page must not resend confirmation."""
+        self.order.payment_status = "paid"
+        self.order.confirmation_email_sent = True
+        self.order.save(
+            update_fields=[
+                "payment_status",
+                "confirmation_email_sent",
+            ]
+        )
+
+        url = reverse(
+            "commissions:success",
+            args=[self.order.order_number],
+        )
+
+        first_response = self.client.get(url)
+        second_response = self.client.get(url)
+
+        self.assertEqual(first_response.status_code, 200)
+        self.assertEqual(second_response.status_code, 200)
+        self.assertContains(
+            first_response,
+            "Confirmation email sent",
+        )
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_success_page_shows_message_when_email_not_sent(self):
+        """A paid order without an email shows the fallback message."""
+        self.order.payment_status = "paid"
+        self.order.save(update_fields=["payment_status"])
+
+        response = self.client.get(
+            reverse(
+                "commissions:success",
+                args=[self.order.order_number],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "We couldn't send your confirmation email",
+        )
+        self.assertEqual(len(mail.outbox), 0)
