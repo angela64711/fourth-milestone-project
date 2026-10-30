@@ -158,15 +158,21 @@
                                 Where to Buy
                             </a>
                         </li>
-
-                        <!-- My Account inside collapsed navigation -->
+                        
+                        <!-- Account or dashboard inside collapsed navigation -->
                         {% if user.is_authenticated %}
                         <li class="nav-item d-xl-none">
+                            {% if is_artist %}
+                            <a class="nav-link" href="{% url 'dashboard:home' %}">
+                                Dashboard
+                            </a>
+                            {% else %}
                             <a class="nav-link {% if request.resolver_match.url_name == 'my_account' %}active{% endif %}"
                                 href="{% url 'profiles:my_account' %}"
                                 {% if request.resolver_match.url_name == 'my_account' %}aria-current="page" {% endif %}>
                                 My Account
                             </a>
+                            {% endif %}
                         </li>
                         {% endif %}
 
@@ -217,10 +223,16 @@
                             </div>
 
                             {% if user.is_authenticated %}
-                            <a class="account-link" href="{% url 'profiles:my_account' %}"
-                                {% if request.resolver_match.url_name == 'my_account' %}aria-current="page" {% endif %}>
-                                My Account
-                            </a>
+                                {% if is_artist %}
+                                <a class="account-link" href="{% url 'dashboard:home' %}">
+                                    Dashboard
+                                </a>
+                                {% else %}
+                                <a class="account-link" href="{% url 'profiles:my_account' %}"
+                                    {% if request.resolver_match.url_name == 'my_account' %}aria-current="page" {% endif %}>
+                                    My Account
+                                </a>
+                                {% endif %}
                             {% endif %}
 
                         </li>
@@ -230,7 +242,6 @@
             </div>
         </nav>
     </header>
-
 
 
     <!-- Main page content -->
