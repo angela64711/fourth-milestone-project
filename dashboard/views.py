@@ -2,9 +2,11 @@ from functools import wraps
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render
 
-from artworks.models import Artwork
+from artworks.models import Artwork, Collection
 
 
 def artist_required(view_func):
@@ -28,12 +30,64 @@ def artist_required(view_func):
 @artist_required
 def artwork_list(request):
     """
-    Display all artworks for artist management.
+    Display artworks with search, filters and pagination.
     """
-    artworks = Artwork.objects.select_related("collection").order_by("title")
+    artworks = Artwork.objects.select_related("collection")
 
-    return render(
-        request,
-        "dashboard/artwork_list.html",
-        {"artworks": artworks},
-    )
+    # Read filter values from the URL
+    query = request.GET.get("q", "").strip()
+    collection = request.GET.get("collection", "")
+    year = request.GET.get("year", "")
+    etsy = request.GET.get("etsy", "")
+    description = request.GET.get("description", "")
+
+    # Search by artwork title
+    if query:
+        artworks = artworks.filter(title__icontains=query)
+
+    # Filter by collection
+    if collection.isdigit():
+        artworks = artworks.filter(collection_id=int(collection))
+
+    # Filter by year availability
+    if year == "present":
+        artworks = artworks.filter(year__isnull=False)
+    elif year == "missing":
+        artworks = artworks.filter(year__isnull=True)
+
+    # Filter by Etsy URL availability
+    if etsy == "present":
+        artworks = artworks.exclude(etsy_url="")
+    elif etsy == "missing":
+        artworks = artworks.filter(etsy_url="")
+
+    # Filter by description availability
+    if description == "present":
+        artworks = artworks.exclude(description="")
+    elif description == "missing":
+        artworks = artworks.filter(description="")
+
+    # Keep a consistent order for pagination
+    artworks = artworks.order_by("title", "pk")
+
+    # Paginate the filtered queryset
+    paginator = Paginator(artworks, 36)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    # Preserve filters when navigating between pages
+    query_params = request.GET.copy()
+    query_params.pop("page", None)
+
+    context = {
+        "artworks": page_obj,
+        "page_obj": page_obj,
+        "collections": Collection.objects.order_by("display_order", "name"),
+        "selected_collection": collection,
+        "selected_year": year,
+        "selected_etsy": etsy,
+        "selected_description": description,
+        "query_string": query_params.urlencode(),
+    }
+
+    return render(request, "dashboard/artwork_list.html", context)

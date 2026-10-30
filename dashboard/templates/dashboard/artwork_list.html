@@ -1,14 +1,19 @@
 
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
 <div id="dashboard-layout" class="container-fluid">
     <div class="row">
 
         <!-- Dashboard navigation -->
-        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xl-2 p-3 p-lg-4">
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xl-2 p-3 p-lg-4 p-xl-2">
 
-            <div class="mb-4">
+            <div class="mb-4 ms-3">
                 <h2 class="h5 mb-1">FRANK MOTH</h2>
                 <p class="small mb-0">Artist Dashboard</p>
             </div>
@@ -38,7 +43,7 @@
                         <span class="nav-link">
                             <i class="fa-solid fa-receipt me-2"
                                aria-hidden="true"></i>
-                            Commission Orders
+                            Commissions
                         </span>
                     </li>
 
@@ -46,7 +51,7 @@
                         <span class="nav-link">
                             <i class="fa-solid fa-envelope me-2"
                                aria-hidden="true"></i>
-                            Contact Inquiries
+                            Messages
                         </span>
                     </li>
 
@@ -82,95 +87,95 @@
                 </span>
             </div>
 
+            
             <!-- Search, filters and sorting -->
             <form method="get" class="mb-4" role="search">
-
                 <div class="row g-3">
 
-                    <div class="col-12 col-md-6 col-xl-4">
+                    <!-- Title search -->
+                    <div class="col-12 col-md-8 col-xl-6">
                         <label for="artwork-search" class="form-label">
                             Search by title
                         </label>
-                        <input type="search"
-                               class="form-control"
-                               id="artwork-search"
-                               name="q"
-                               value="{{ request.GET.q }}"
-                               placeholder="Artwork title">
+                        <input id="artwork-search" class="form-control"
+                            type="search" name="q"
+                            value="{{ request.GET.q }}"
+                            placeholder="Artwork title">
                     </div>
 
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <label for="collection-filter" class="form-label">
-                            Collection
-                        </label>
-                        <select class="form-select"
-                                id="collection-filter"
-                                name="collection">
-                            <option value="">All collections</option>
-                        </select>
+                    <!-- Dropdown filters -->
+                    <div class="col-12">
+                        <div class="row g-3">
+
+                            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+                                <label for="collection-filter" class="form-label">
+                                    Collection
+                                </label>
+                                <select id="collection-filter" class="form-select" name="collection">
+                                    <option value="">All collections</option>
+                                    {% for collection in collections %}
+                                    <option value="{{ collection.id }}"
+                                        {% if selected_collection == collection.id|stringformat:"s" %}selected{% endif %}>
+                                        {{ collection.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-6 col-sm-6 col-lg-4 col-xxl-2">
+                                <label for="year-filter" class="form-label">
+                                    Has year?
+                                </label>
+                                <select id="year-filter" class="form-select" name="year">
+                                    <option value="">All</option>
+                                    <option value="present" {% if selected_year == "present" %}selected{% endif %}>Yes</option>
+                                    <option value="missing" {% if selected_year == "missing" %}selected{% endif %}>No</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 col-sm-6 col-lg-4 col-xxl-2">
+                                <label for="etsy-filter" class="form-label">
+                                    Has Etsy URL?
+                                </label>
+                                <select id="etsy-filter" class="form-select" name="etsy">
+                                    <option value="">All</option>
+                                    <option value="present" {% if selected_etsy == "present" %}selected{% endif %}>Yes</option>
+                                    <option value="missing" {% if selected_etsy == "missing" %}selected{% endif %}>No</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 col-sm-6 col-lg-4 col-xxl-2">
+                                <label for="description-filter" class="form-label">
+                                    Has description?
+                                </label>
+                                <select id="description-filter" class="form-select" name="description">
+                                    <option value="">All</option>
+                                    <option value="present" {% if selected_description == "present" %}selected{% endif %}>Yes</option>
+                                    <option value="missing" {% if selected_description == "missing" %}selected{% endif %}>No</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+                                <label for="sort-filter" class="form-label">
+                                    Sort by
+                                </label>
+                                <select id="sort-filter" class="form-select" name="sort">
+                                    <option value="title">Title A–Z</option>
+                                    <option value="year">Artwork year</option>
+                                    <option value="recent">Recently added</option>
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
 
-                    <div class="col-6 col-md-3 col-xl-2">
-                        <label for="year-filter" class="form-label">
-                            Year
-                        </label>
-                        <select class="form-select"
-                                id="year-filter"
-                                name="year">
-                            <option value="">All</option>
-                            <option value="present">Has year</option>
-                            <option value="missing">Missing year</option>
-                        </select>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <label for="etsy-filter" class="form-label">
-                            Etsy URL
-                        </label>
-                        <select class="form-select"
-                                id="etsy-filter"
-                                name="etsy">
-                            <option value="">All</option>
-                            <option value="present">Has URL</option>
-                            <option value="missing">Missing URL</option>
-                        </select>
-                    </div>
-
-                    <div class="col-6 col-md-4 col-xl-2">
-                        <label for="description-filter"
-                               class="form-label">
-                            Description
-                        </label>
-                        <select class="form-select"
-                                id="description-filter"
-                                name="description">
-                            <option value="">All</option>
-                            <option value="present">Has description</option>
-                            <option value="missing">Missing description</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 col-md-4 col-xl-3">
-                        <label for="sort-filter" class="form-label">
-                            Sort by
-                        </label>
-                        <select class="form-select"
-                                id="sort-filter"
-                                name="sort">
-                            <option value="title">Title A–Z</option>
-                            <option value="year">Artwork year (newest first)</option>
-                            <option value="recent">Recently added</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 col-md-8 col-xl-9
-                                d-flex align-items-end gap-2">
+                    <!-- Filter actions -->
+                    <div class="col-12 d-flex align-items-center gap-2">
                         <button type="submit" class="btn btn-dark">
                             Apply Filters
                         </button>
 
-                        <a href="{% url 'dashboard:home' %}"
-                           class="btn btn-outline-secondary">
+                        <a href="{% url 'dashboard:home' %}" class="btn btn-outline-secondary">
                             Clear
                         </a>
                     </div>
@@ -178,10 +183,20 @@
                 </div>
             </form>
 
+
+            <!-- Artwork results count -->
+            <p id="artwork-results-count" class="text-body-secondary small mb-3">
+                {% if page_obj.paginator.count %}
+                    Showing {{ page_obj.start_index }}–{{ page_obj.end_index }}
+                    of {{ page_obj.paginator.count }} artworks
+                {% else %}
+                    Showing 0 artworks
+                {% endif %}
+            </p>
+
             <!-- Artwork grid -->
             {% if artworks %}
-            <div class="row row-cols-2 row-cols-md-3
-                        row-cols-xl-4 g-3 g-lg-4">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-6 g-3 g-lg-4 gx-xxl-3">
 
                 {% for artwork in artworks %}
                 <div class="col">
@@ -245,9 +260,50 @@
             {% endif %}
 
             <!-- Pagination: connect after view pagination is added -->
-            <nav class="mt-4"
-                 aria-label="Artwork pagination">
+            
+            {% if page_obj.has_other_pages %}
+            <nav class="mt-4" aria-label="Artwork pagination">
+                <ul class="pagination justify-content-center flex-wrap">
+
+                    <!-- Previous page -->
+                    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                        {% if page_obj.has_previous %}
+                        <a class="page-link"
+                        href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">
+                            Previous
+                        </a>
+                        {% else %}
+                        <span class="page-link">Previous</span>
+                        {% endif %}
+                    </li>
+
+                    <!-- Page numbers -->
+                    {% for number in page_obj.paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == number %}active{% endif %}">
+                        <a class="page-link"
+                        href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ number }}"
+                        {% if page_obj.number == number %}aria-current="page"{% endif %}>
+                            {{ number }}
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                    <!-- Next page -->
+                    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                        {% if page_obj.has_next %}
+                        <a class="page-link"
+                        href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ page_obj.next_page_number }}">
+                            Next
+                        </a>
+                        {% else %}
+                        <span class="page-link">Next</span>
+                        {% endif %}
+                    </li>
+
+                </ul>
             </nav>
+            {% endif %}
+
 
         </section>
     </div>

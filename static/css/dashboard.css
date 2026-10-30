@@ -1,0 +1,12 @@
+
+@media (min-width: 1400px) {
+    /* Compact dashboard sidebar links */
+    #dashboard-sidebar .nav-link {
+        padding: 0.5rem;
+    }
+
+    /* Give artwork titles more horizontal space */
+    #dashboard-layout .card-body {
+        padding: 0.75rem;
+    }
+}
