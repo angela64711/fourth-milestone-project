@@ -4,13 +4,12 @@ import stripe
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
-from django.shortcuts import redirect, render
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseForbidden, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 
+from .emails import send_confirmation_email
 from .forms import CommissionCreativeForm, CommissionCustomerForm
 from .models import CommissionOrder
 from .pricing import (
@@ -341,8 +340,7 @@ def commission_checkout(request):
         )
         return redirect("commissions:customer_details")
 
-    # Do not offer another payment for a completed PaymentIntent.
-    # The confirmation view will verify and reconcile this status.
+    # Recover an already successful Stripe payment.
     if intent.status == "succeeded":
         expected_amount = int(order.total_price * Decimal("100"))
 
@@ -362,6 +360,9 @@ def commission_checkout(request):
 
         order.payment_status = "paid"
         order.save(update_fields=["payment_status", "updated_on"])
+
+        # Send confirmation independently of success-page rendering.
+        send_confirmation_email(order)
 
         request.session.pop("commission_order_id", None)
         request.session.pop("commission_creative", None)
@@ -446,6 +447,9 @@ def commission_verify_payment(request, order_number):
     if order.payment_status != "paid":
         order.payment_status = "paid"
         order.save(update_fields=["payment_status", "updated_on"])
+
+    # Send confirmation independently of success-page rendering.
+    send_confirmation_email(order)
 
     # Clear completed checkout information.
     request.session.pop("commission_order_id", None)

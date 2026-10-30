@@ -183,6 +183,9 @@ class CommissionOrder(models.Model):
         blank=True,
     )
 
+    # Track whether the customer confirmation email was sent.
+    confirmation_email_sent = models.BooleanField(default=False)
+
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

@@ -99,8 +99,7 @@
 
                 <p>
                     Your commission request has been recorded.
-                    The artist will review your creative preferences
-                    and begin preparing your personalised artwork.
+                    The artist will contact you when your artwork is ready.
                 </p>
 
                 <p>
@@ -145,6 +144,43 @@
                         <strong>
                             €{{ order.total_price|floatformat:2 }}
                         </strong>
+                    </div>
+
+                    <!-- Confirmation email status -->
+                    <div class="mb-4">
+                        {% if order.confirmation_email_sent %}
+                        <h3 class="h5 mb-2">
+                            <i class="fa-regular fa-envelope me-2"
+                                aria-hidden="true"></i>
+                            Confirmation email sent
+                        </h3>
+
+                        <p class="mb-2">
+                            We've sent a confirmation email with your
+                            order details to:
+                        </p>
+
+                        <p class="fw-semibold mb-2">
+                            {{ order.email }}
+                        </p>
+
+                        <p class="small text-muted mb-0">
+                            Please keep this email for your records.
+                        </p>
+                        {% else %}
+                        <h3 class="h5 mb-2">Your payment was successful</h3>
+
+                        <p class="mb-2">
+                            We couldn't send your confirmation email
+                            at this time. Your order has been recorded
+                            successfully.
+                        </p>
+
+                        <p class="small text-muted mb-0">
+                            Please keep your order reference for
+                            future enquiries.
+                        </p>
+                        {% endif %}
                     </div>
 
                     <h3 class="h5 mb-3">Customer details</h3>
