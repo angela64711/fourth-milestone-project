@@ -42,7 +42,11 @@ class DescriptionFilter(admin.SimpleListFilter):
 
 @admin.register(Artwork)
 class ArtworkAdmin(admin.ModelAdmin):
-    list_display = ("title", "collection", "year")
+    list_display = (
+        "title",
+        "collection",
+        "year",
+    )
     list_filter = (
         "collection",
         "year",

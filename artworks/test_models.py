@@ -94,6 +94,61 @@ class ArtworkModelTest(TestCase):
         self.assertTrue(Collection.objects.filter(pk=self.collection.pk).exists())
         self.assertTrue(Artwork.objects.filter(slug="protected-artwork").exists())
 
+    def test_etsy_urls_must_be_unique(self):
+        Artwork.objects.create(
+            title="First Artwork",
+            slug="first-artwork",
+            collection=self.collection,
+            image="artworks/first.jpg",
+            etsy_url="https://www.etsy.com/listing/123456789",
+        )
+
+        duplicate = Artwork(
+            title="Second Artwork",
+            slug="second-artwork",
+            collection=self.collection,
+            image="artworks/second.jpg",
+            etsy_url="https://www.etsy.com/listing/123456789",
+        )
+
+        with self.assertRaises(ValidationError):
+            duplicate.full_clean()
+
+    def test_multiple_artworks_can_have_empty_etsy_urls(self):
+        for number in (1, 2):
+            artwork = Artwork(
+                title=f"Artwork {number}",
+                slug=f"artwork-{number}",
+                collection=self.collection,
+                image=f"artworks/image-{number}.jpg",
+                etsy_url="",
+            )
+            artwork.full_clean()
+            artwork.save()
+
+        self.assertEqual(Artwork.objects.filter(etsy_url="").count(), 2)
+
+    def test_etsy_url_maximum_length(self):
+        base_url = "https://www.etsy.com/listing/123456789?"
+        long_url = base_url + "a" * (207 - len(base_url))
+
+        artwork = Artwork(
+            title="Long URL Artwork",
+            slug="long-url-artwork",
+            collection=self.collection,
+            image="artworks/long-url.jpg",
+            etsy_url=long_url,
+        )
+
+        # A URL of 207 characters should now be accepted.
+        artwork.full_clean()
+
+        # A URL exceeding the 300-character limit should be rejected.
+        artwork.etsy_url = base_url + "a" * (301 - len(base_url))
+
+        with self.assertRaises(ValidationError):
+            artwork.full_clean()
+
 
 class CollectionModelTest(TestCase):
     """

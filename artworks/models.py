@@ -61,8 +61,17 @@ class Artwork(models.Model):
     )
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to="artworks/")
-    etsy_url = models.URLField(blank=True)
+    etsy_url = models.URLField(max_length=300, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["etsy_url"],
+                condition=~models.Q(etsy_url=""),
+                name="unique_non_empty_etsy_url",
+            ),
+        ]
 
     def __str__(self):
         return self.title
