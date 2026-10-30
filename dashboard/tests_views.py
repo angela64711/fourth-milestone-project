@@ -66,7 +66,7 @@ class DashboardPermissionTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "dashboard/dashboard.html")
+        self.assertTemplateUsed(response, "dashboard/artwork_list.html")
 
     def test_superuser_can_access_dashboard(self):
         self.client.force_login(self.superuser)
@@ -74,4 +74,4 @@ class DashboardPermissionTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "dashboard/dashboard.html")
+        self.assertTemplateUsed(response, "dashboard/artwork_list.html")

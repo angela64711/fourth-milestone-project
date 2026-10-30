@@ -1,0 +1,269 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div id="dashboard-layout" class="container-fluid">
+    <div class="row">
+
+        <!-- Dashboard navigation -->
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xl-2 p-3 p-lg-4">
+
+            <div class="mb-4">
+                <h2 class="h5 mb-1">FRANK MOTH</h2>
+                <p class="small mb-0">Artist Dashboard</p>
+            </div>
+
+            <nav aria-label="Artist dashboard navigation">
+                <ul class="nav flex-column gap-2">
+
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           href="{% url 'dashboard:home' %}"
+                           aria-current="page">
+                            <i class="fa-solid fa-images me-2"
+                               aria-hidden="true"></i>
+                            Artworks
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-layer-group me-2"
+                               aria-hidden="true"></i>
+                            Collections
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-receipt me-2"
+                               aria-hidden="true"></i>
+                            Commission Orders
+                        </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-envelope me-2"
+                               aria-hidden="true"></i>
+                            Contact Inquiries
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <hr>
+
+            <a class="nav-link" href="{% url 'home' %}">
+                <i class="fa-solid fa-arrow-up-right-from-square me-2"
+                   aria-hidden="true"></i>
+                View Website
+            </a>
+
+            <a class="nav-link" href="{% url 'account_logout' %}">
+                <i class="fa-solid fa-right-from-bracket me-2"
+                   aria-hidden="true"></i>
+                Log Out
+            </a>
+
+        </aside>
+
+        <!-- Artwork management -->
+        <section class="col-12 col-lg-9 col-xl-10 p-3 p-lg-4"
+                 aria-labelledby="artwork-management-heading">
+
+            <!-- Heading and add action -->
+            <div class="d-flex flex-column flex-sm-row
+                        justify-content-between align-items-sm-center
+                        gap-3 mb-4">
+
+                <div>
+                    <h1 id="artwork-management-heading"
+                        class="h2 mb-1">
+                        Artworks
+                    </h1>
+                    <p class="text-body-secondary mb-0">
+                        Manage your artwork collection.
+                    </p>
+                </div>
+
+                <!-- Link will be added with the create view -->
+                <span class="btn btn-dark align-self-start">
+                    <i class="fa-solid fa-plus me-2"
+                       aria-hidden="true"></i>
+                    Add Artwork
+                </span>
+            </div>
+
+            <!-- Search, filters and sorting -->
+            <form method="get" class="mb-4" role="search">
+
+                <div class="row g-3">
+
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <label for="artwork-search" class="form-label">
+                            Search by title
+                        </label>
+                        <input type="search"
+                               class="form-control"
+                               id="artwork-search"
+                               name="q"
+                               value="{{ request.GET.q }}"
+                               placeholder="Artwork title">
+                    </div>
+
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <label for="collection-filter" class="form-label">
+                            Collection
+                        </label>
+                        <select class="form-select"
+                                id="collection-filter"
+                                name="collection">
+                            <option value="">All collections</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-3 col-xl-2">
+                        <label for="year-filter" class="form-label">
+                            Year
+                        </label>
+                        <select class="form-select"
+                                id="year-filter"
+                                name="year">
+                            <option value="">All</option>
+                            <option value="present">Has year</option>
+                            <option value="missing">Missing year</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label for="etsy-filter" class="form-label">
+                            Etsy URL
+                        </label>
+                        <select class="form-select"
+                                id="etsy-filter"
+                                name="etsy">
+                            <option value="">All</option>
+                            <option value="present">Has URL</option>
+                            <option value="missing">Missing URL</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <label for="description-filter"
+                               class="form-label">
+                            Description
+                        </label>
+                        <select class="form-select"
+                                id="description-filter"
+                                name="description">
+                            <option value="">All</option>
+                            <option value="present">Has description</option>
+                            <option value="missing">Missing description</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-xl-3">
+                        <label for="sort-filter" class="form-label">
+                            Sort by
+                        </label>
+                        <select class="form-select"
+                                id="sort-filter"
+                                name="sort">
+                            <option value="title">Title A–Z</option>
+                            <option value="year">Artwork year (newest first)</option>
+                            <option value="recent">Recently added</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-8 col-xl-9
+                                d-flex align-items-end gap-2">
+                        <button type="submit" class="btn btn-dark">
+                            Apply Filters
+                        </button>
+
+                        <a href="{% url 'dashboard:home' %}"
+                           class="btn btn-outline-secondary">
+                            Clear
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Artwork grid -->
+            {% if artworks %}
+            <div class="row row-cols-2 row-cols-md-3
+                        row-cols-xl-4 g-3 g-lg-4">
+
+                {% for artwork in artworks %}
+                <div class="col">
+
+                    <article class="card h-100">
+
+                        <img src="{{ artwork.image.url }}"
+                             class="card-img-top"
+                             alt="{{ artwork.title }}"
+                             loading="lazy">
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h2 class="h6 card-title mb-1">
+                                {{ artwork.title }}
+                            </h2>
+
+                            <p class="card-text small
+                                      text-body-secondary mb-3">
+                                {{ artwork.collection.name }}
+                            </p>
+
+                            <div class="d-flex justify-content-end
+                                        gap-2 mt-auto">
+
+                                <!-- Connect when edit view exists -->
+                                <span class="btn btn-sm btn-outline-secondary"
+                                      title="Edit {{ artwork.title }}">
+                                    <i class="fa-solid fa-pen"
+                                       aria-hidden="true"></i>
+                                    <span class="visually-hidden">
+                                        Edit {{ artwork.title }}
+                                    </span>
+                                </span>
+
+                                <!-- Connect when delete view exists -->
+                                <span class="btn btn-sm btn-outline-danger"
+                                      title="Delete {{ artwork.title }}">
+                                    <i class="fa-solid fa-trash"
+                                       aria-hidden="true"></i>
+                                    <span class="visually-hidden">
+                                        Delete {{ artwork.title }}
+                                    </span>
+                                </span>
+
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                {% endfor %}
+
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <h2 class="h5">No artworks found</h2>
+                <p class="text-body-secondary">
+                    There are currently no artworks to display.
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Pagination: connect after view pagination is added -->
+            <nav class="mt-4"
+                 aria-label="Artwork pagination">
+            </nav>
+
+        </section>
+    </div>
+</div>
+{% endblock %}
