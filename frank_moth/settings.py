@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "commissions",
     "pages",
     "profiles",
+    "dashboard",
 ]
 
 MIDDLEWARE = [
