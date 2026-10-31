@@ -111,11 +111,6 @@
 
 /*------------------------------------------------------In Situ */
 
-#in-situ-gallery {
-    column-count: 1;
-    column-gap: 1.5rem;
-}
-
 #in-situ-intro {
     font-family: var(--secondary-font);
     font-size: clamp(1.125rem, 2vw, 2rem);
@@ -157,7 +152,8 @@
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #in-situ-gallery figcaption {
@@ -254,7 +250,8 @@
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #collaborations-gallery figcaption {

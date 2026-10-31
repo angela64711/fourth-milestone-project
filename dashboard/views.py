@@ -3,7 +3,7 @@ from functools import wraps
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import F
 from django.shortcuts import render
 
 from artworks.models import Artwork, Collection
@@ -40,6 +40,7 @@ def artwork_list(request):
     year = request.GET.get("year", "")
     etsy = request.GET.get("etsy", "")
     description = request.GET.get("description", "")
+    sort = request.GET.get("sort", "title")
 
     # Search by artwork title
     if query:
@@ -67,8 +68,13 @@ def artwork_list(request):
     elif description == "missing":
         artworks = artworks.filter(description="")
 
-    # Keep a consistent order for pagination
-    artworks = artworks.order_by("title", "pk")
+    # Sort artworks
+    if sort == "year":
+        artworks = artworks.order_by(F("year").desc(nulls_last=True), "title", "pk")
+    elif sort == "recent":
+        artworks = artworks.order_by("-created_on", "pk")
+    else:
+        artworks = artworks.order_by("title", "pk")
 
     # Paginate the filtered queryset
     paginator = Paginator(artworks, 36)

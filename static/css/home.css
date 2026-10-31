@@ -206,6 +206,7 @@
 #beyond-heading {
     font-family: var(--primary-font);
     font-size: clamp(1.7rem, 5.3vw, 3.5rem);
+    color: var(--dark-accent-color);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -215,7 +216,7 @@
 .beyond-dots {
     color: var(--accent-color);
     font-family: var(--secondary-font);
-    font-size: 1.125rem;
+    font-size: 1.75rem;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -265,7 +266,7 @@
     content: "••";
     display: block;
     color: var(--accent-color);
-    font-size: 2.5rem;
+    font-size: 3rem;
     line-height: 1;
     margin-bottom: 0.5rem;
 }
@@ -396,7 +397,6 @@
     .about-intro {
         max-width: 85%;
     }
- 
 }
 
 
