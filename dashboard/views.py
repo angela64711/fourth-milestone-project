@@ -1,12 +1,14 @@
 from functools import wraps
 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from artworks.models import Artwork, Collection
+from .forms import ArtworkForm
 
 
 def artist_required(view_func):
@@ -111,3 +113,27 @@ def artwork_overview(request, slug):
     }
 
     return render(request, "dashboard/artwork_overview.html", context)
+
+
+@artist_required
+def artwork_add(request):
+    """
+    Allow authorized artists to add a new artwork.
+    """
+    if request.method == "POST":
+        form = ArtworkForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            artwork = form.save()
+
+            messages.success(request, f'"{artwork.title}" was added successfully.')
+
+            return redirect("dashboard:artwork_overview", slug=artwork.slug)
+    else:
+        form = ArtworkForm()
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "dashboard/artwork_form.html", context)
