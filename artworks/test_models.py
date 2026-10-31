@@ -149,6 +149,99 @@ class ArtworkModelTest(TestCase):
         with self.assertRaises(ValidationError):
             artwork.full_clean()
 
+    def test_artwork_titles_must_be_unique_case_insensitively(self):
+        Artwork.objects.create(
+            title="Example Artwork",
+            collection=self.collection,
+            image="artworks/first.jpg",
+        )
+
+        duplicate = Artwork(
+            title="example artwork",
+            collection=self.collection,
+            image="artworks/second.jpg",
+        )
+
+        with self.assertRaises(ValidationError):
+            duplicate.full_clean()
+
+    def test_slug_is_generated_automatically(self):
+        artwork = Artwork.objects.create(
+            title="A Beautiful Dream",
+            collection=self.collection,
+            image="artworks/dream.jpg",
+        )
+
+        self.assertEqual(artwork.slug, "a-beautiful-dream")
+
+    def test_duplicate_generated_slug_receives_numeric_suffix(self):
+        Artwork.objects.create(
+            title="Dream & Reality",
+            collection=self.collection,
+            image="artworks/first.jpg",
+        )
+
+        artwork = Artwork.objects.create(
+            title="Dream Reality",
+            collection=self.collection,
+            image="artworks/second.jpg",
+        )
+
+        self.assertEqual(artwork.slug, "dream-reality-2")
+
+    def test_multiple_slug_collisions_increment_suffix(self):
+        titles = [
+            "Dream & Reality",
+            "Dream Reality",
+            "Dream - Reality",
+        ]
+
+        artworks = [
+            Artwork.objects.create(
+                title=title,
+                collection=self.collection,
+                image=f"artworks/image-{number}.jpg",
+            )
+            for number, title in enumerate(titles, start=1)
+        ]
+
+        self.assertEqual(
+            [artwork.slug for artwork in artworks],
+            ["dream-reality", "dream-reality-2", "dream-reality-3"],
+        )
+
+    def test_slug_is_preserved_when_title_changes(self):
+        artwork = Artwork.objects.create(
+            title="Original Title",
+            collection=self.collection,
+            image="artworks/example.jpg",
+        )
+
+        artwork.title = "Updated Title"
+        artwork.save()
+        artwork.refresh_from_db()
+
+        self.assertEqual(artwork.title, "Updated Title")
+        self.assertEqual(artwork.slug, "original-title")
+
+    def test_title_edit_cannot_duplicate_another_title(self):
+        Artwork.objects.create(
+            title="Existing Artwork",
+            collection=self.collection,
+            image="artworks/first.jpg",
+        )
+
+        artwork = Artwork.objects.create(
+            title="Different Artwork",
+            collection=self.collection,
+            image="artworks/second.jpg",
+        )
+
+        artwork.title = "EXISTING ARTWORK"
+
+        with self.assertRaises(ValidationError):
+            artwork.full_clean()
+
 
 class CollectionModelTest(TestCase):
     """
