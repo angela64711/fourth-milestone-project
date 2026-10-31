@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Max
 from django.db.models.deletion import PROTECT
+from django.db.models.functions import Lower
+from django.utils.text import slugify
 
 
 class Collection(models.Model):
@@ -71,7 +73,31 @@ class Artwork(models.Model):
                 condition=~models.Q(etsy_url=""),
                 name="unique_non_empty_etsy_url",
             ),
+            models.UniqueConstraint(
+                Lower("title"),
+                name="unique_artwork_title_case_insensitive",
+            ),
         ]
+
+    def save(self, *args, **kwargs):
+        """
+        Generate a unique slug for new artworks.
+        Preserve existing slugs when editing.
+        """
+        if not self.slug:
+            base_slug = slugify(self.title) or "artwork"
+            base_slug = base_slug[:220].rstrip("-")
+            slug = base_slug
+            counter = 2
+
+            while Artwork.objects.filter(slug=slug).exists():
+                suffix = f"-{counter}"
+                slug = f"{base_slug[:220 - len(suffix)].rstrip('-')}{suffix}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
