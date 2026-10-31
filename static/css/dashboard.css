@@ -1,6 +1,6 @@
 
 
-/* Dashboard filters */
+/* ------------------------------------------------------Dashboard filters */
 #dashboard-layout .form-label {
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
@@ -12,7 +12,8 @@
     background-color: var(--background-color);
     color: var(--text-color);
     border: 1px solid transparent;
-    border-radius: 6px;
+    border-radius: 6px;   
+    box-shadow: 0 1px 5px rgba(38, 62, 96, 0.12);
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -45,11 +46,12 @@
 /* Dashboard buttons */
 #dashboard-layout .btn {
     border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(38, 62, 96, 0.15);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 #dashboard-layout .btn:hover {
-    box-shadow: 0 3px 10px rgba(38, 62, 96, 0.2);
+    box-shadow: 0 3px 10px rgba(38, 62, 96, 0.25);
     transform: translateY(-1px);
 }
 
@@ -84,11 +86,22 @@
 }
 
 
-
 /*---------------------------------------------------------- Dashboard sidebar navigation */
+
+#dashboard-sidebar {
+    background-color: var(--background-color);
+    box-shadow: 3px 0 10px rgba(38, 62, 96, 0.10);
+}
+
+#dashboard-layout h2 {
+    color: var(--dark-accent-color);
+    font-family: var(--primary-font);
+}
 
 #dashboard-sidebar .nav-link {
     color: var(--dark-accent-color);
+    padding-left: 0;
+    padding-right: 0;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-decoration-thickness: 2px;
@@ -102,6 +115,14 @@
     text-decoration-color: var(--accent-color);
     transform: translateX(4px);
 }
+
+
+#dashboard-sidebar .nav-link.active {
+    color: var(--dark-accent-color);
+    text-decoration-color: var(--accent-color);
+    font-weight: 600;
+}
+
 
 
 /* -----------------------------------------------Dashboard pagination */

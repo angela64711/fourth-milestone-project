@@ -10,40 +10,40 @@
     <div class="row">
 
         <!-- Dashboard navigation -->
-        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xl-2 p-3 p-lg-4 p-xl-2">
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xxl-2 p-3 p-lg-4">
 
             <div class="mb-4 ms-3">
-                <h2 class="h5 mb-1">FRANK MOTH</h2>
-                <p class="small mb-0">Artist Dashboard</p>
+                <h2 class="mb-1">Artist Dashboard</h2>
             </div>
 
             <nav aria-label="Artist dashboard navigation">
-                <ul class="nav flex-column gap-2">
+                
+                <ul class="nav row row-cols-2 row-cols-sm-4 row-cols-lg-1 g-2">
 
-                    <li class="nav-item">
+                    <li class="nav-item col ms-xl-3">
                         <a class="nav-link active" href="{% url 'dashboard:home' %}" aria-current="page">
-                            <i class="fa-solid fa-images me-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-images me-md-2" aria-hidden="true"></i>
                             Artworks
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item col ms-xl-3">
                         <span class="nav-link">
-                            <i class="fa-solid fa-layer-group me-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-layer-group me-md-2" aria-hidden="true"></i>
                             Collections
                         </span>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item col ms-xl-3">
                         <span class="nav-link">
-                            <i class="fa-solid fa-receipt me-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
                             Commissions
                         </span>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item col ms-xl-3">
                         <span class="nav-link">
-                            <i class="fa-solid fa-envelope me-2" aria-hidden="true"></i>
+                            <i class="fa-solid fa-envelope me-md-2" aria-hidden="true"></i>
                             Messages
                         </span>
                     </li>
@@ -54,7 +54,7 @@
         </aside>
 
         <!-- Artwork management -->
-        <section class="col-12 col-lg-9 col-xl-10 p-3 p-lg-4" aria-labelledby="artwork-management-heading">
+        <section class="col-12 col-lg-9 col-xxl-10 p-3 p-lg-4" aria-labelledby="artwork-management-heading">
 
             <!-- Heading and add action -->
             <div class="d-flex flex-column flex-sm-row
