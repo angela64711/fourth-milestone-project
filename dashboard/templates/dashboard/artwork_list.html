@@ -10,10 +10,10 @@
     <div class="row">
 
         <!-- Dashboard navigation -->
-        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xxl-2 p-3 p-lg-4">
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 col-xxl-2 p-3 p-lg-4 p-xxl-2">
 
-            <div class="mb-4 ms-3">
-                <h2 class="mb-1">Artist Dashboard</h2>
+            <div class="mb-4 ms-3 ms-xxl-1">
+                <h2 id="dashboard-title" class="mb-1">Artist Dashboard</h2>
             </div>
 
             <nav aria-label="Artist dashboard navigation">
@@ -136,7 +136,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-6 col-sm-6 col-lg-4 col-xxl-2">
+                            <div class="col-6 col-sm-6 col-lg-4 col-xxl-3">
                                 <label for="description-filter" class="form-label">
                                     Has description?
                                 </label>
@@ -149,7 +149,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3">
+                            <div class="col-12 col-sm-6 col-lg-4 col-xxl-2">
                                 <label for="sort-filter" class="form-label">
                                     Sort by
                                 </label>
@@ -219,9 +219,18 @@
                                 {{ artwork.collection.name }}
                             </p>
 
-                            <div class="d-flex justify-content-end
+                            <div class="d-flex justify-content-center
                                         gap-2 mt-auto">
 
+                                <a href="{% url 'dashboard:artwork_overview' artwork.slug %}"
+                                    class="btn btn-sm btn-outline-secondary"
+                                    title="View {{ artwork.title }}">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    <span class="visually-hidden">
+                                        View {{ artwork.title }}
+                                    </span>
+                                </a>
+                                      
                                 <!-- Connect when edit view exists -->
                                 <span class="btn btn-sm btn-outline-secondary" title="Edit {{ artwork.title }}">
                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>

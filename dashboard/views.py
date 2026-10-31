@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from artworks.models import Artwork, Collection
 
@@ -97,3 +97,17 @@ def artwork_list(request):
     }
 
     return render(request, "dashboard/artwork_list.html", context)
+
+
+@artist_required
+def artwork_overview(request, slug):
+    """
+    Display an individual artwork and its details in the artist dashboard.
+    """
+    artwork = get_object_or_404(Artwork, slug=slug)
+
+    context = {
+        "artwork": artwork,
+    }
+
+    return render(request, "dashboard/artwork_overview.html", context)

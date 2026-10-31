@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="dashboard-layout" class="container-fluid">
+    <div class="row">
+
+        <!-- Dashboard navigation -->
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 p-3 p-lg-4">
+
+            <div class="mb-4 ms-3">
+                <h2 id="dashboard-title" class="mb-1">Artist Dashboard</h2>
+            </div>
+
+            <nav aria-label="Artist dashboard navigation">
+                <ul class="nav row row-cols-2 row-cols-sm-4 row-cols-lg-1 g-2">
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link active" href="{% url 'dashboard:home' %}" aria-current="page">
+                            <i class="fa-solid fa-images me-md-2" aria-hidden="true"></i>
+                            Artworks
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-layer-group me-md-2" aria-hidden="true"></i>
+                            Collections
+                        </span>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
+                            Commissions
+                        </span>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-envelope me-md-2" aria-hidden="true"></i>
+                            Messages
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Artwork overview -->
+        <main class="col-12 col-lg-9 p-3 p-lg-4">
+
+            <!-- Page heading -->
+            <div class="mb-4">
+                <h1 class="mb-1">Artwork Overview</h1>
+                <p class="text-body-secondary mb-0">
+                    View artwork information and manage its details.
+                </p>
+            </div>
+
+            <!-- Back to artwork listing -->
+            <div class="mb-4">
+                <a href="{% url 'dashboard:home' %}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
+                    Back to Artworks
+                </a>
+            </div>
+
+            <!-- Artwork image and information -->
+            <div class="row g-4">
+
+                <!-- Artwork image -->
+                <div class="col-12 col-lg-6 col-xl-5">
+                    <img id="artwork-preview" src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
+                        class="img-fluid rounded">
+                </div>
+
+                <!-- Artwork metadata -->
+                <div class="col-12 col-lg-6 col-xl-7">
+
+                    <h2 class="mb-4">{{ artwork.title }}</h2>
+
+                    <dl class="row g-2">
+
+                        <dt class="col-sm-4">Collection</dt>
+                        <dd class="col-sm-8">
+                            {{ artwork.collection.name }}
+                        </dd>
+
+                        <dt class="col-sm-4">Year</dt>
+                        <dd class="col-sm-8">
+                            {% if artwork.year %}
+                            {{ artwork.year }}
+                            {% else %}
+                            <span class="text-body-secondary">Not provided</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-12 mt-3">Description</dt>
+                        <dd class="col-12">
+                            {% if artwork.description %}
+                            {{ artwork.description|linebreaks }}
+                            {% else %}
+                            <span class="text-body-secondary">Not provided</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-12 mt-3">Etsy URL</dt>
+                        <dd class="col-12">
+                            {% if artwork.etsy_url %}
+                                <a href="{{ artwork.etsy_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    View on Etsy
+                                    <i class="fa-solid fa-arrow-up-right-from-square ms-1"
+                                        aria-hidden="true"></i>
+                                </a>
+                            {% else %}
+                                <span class="text-body-secondary">Not provided</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-sm-4 mt-3">Date added</dt>
+                        <dd class="col-sm-8 mt-sm-3">
+                            {{ artwork.created_on|date:"d M Y" }}
+                        </dd>
+
+                    </dl>
+
+                    <!-- Management actions -->
+                    <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
+
+                        <!-- Connect when edit view exists -->
+                        <span class="btn btn-dark">
+                            <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
+                            Edit Artwork
+                        </span>
+
+                        <!-- Connect when delete view exists -->
+                        <span class="btn btn-outline-danger">
+                            <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
+                            Delete Artwork
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+{% endblock %}

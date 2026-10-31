@@ -93,7 +93,7 @@
     box-shadow: 3px 0 10px rgba(38, 62, 96, 0.10);
 }
 
-#dashboard-layout h2 {
+#dashboard-title {
     color: var(--dark-accent-color);
     font-family: var(--primary-font);
 }
@@ -159,9 +159,15 @@
     text-decoration: none;
 }
 
+/*--------------------------------------------------------- Artwork Overview page */
 
+#artwork-preview {
+    max-height: 550px;
+    width: auto;
+    object-fit: contain;
+}
 
-
+/*----------------------------------------------------------- Media Queries */
 
 @media (min-width: 1400px) {
     /* Compact dashboard sidebar links */
