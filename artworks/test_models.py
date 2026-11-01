@@ -281,3 +281,37 @@ class CollectionModelTest(TestCase):
         )
 
         self.assertEqual(str(collection), "Dreamscapes")
+
+    def test_collection_slug_is_generated_automatically(self):
+        collection = Collection.objects.create(
+            name="Digital Dreams",
+            description="A collection of digital artworks.",
+        )
+
+        self.assertEqual(collection.slug, "digital-dreams")
+
+    def test_duplicate_collection_slug_receives_numeric_suffix(self):
+        Collection.objects.create(
+            name="Dream & Reality",
+            description="First collection.",
+        )
+
+        collection = Collection.objects.create(
+            name="Dream Reality",
+            description="Second collection.",
+        )
+
+        self.assertEqual(collection.slug, "dream-reality-2")
+
+    def test_collection_slug_is_preserved_when_name_changes(self):
+        collection = Collection.objects.create(
+            name="Original Collection",
+            description="A collection for testing.",
+        )
+
+        collection.name = "Renamed Collection"
+        collection.save()
+        collection.refresh_from_db()
+
+        self.assertEqual(collection.name, "Renamed Collection")
+        self.assertEqual(collection.slug, "original-collection")

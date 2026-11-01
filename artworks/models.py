@@ -24,8 +24,23 @@ class Collection(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Assigns the next display position to new collections.
+        Generate a unique slug for new collections.
+        Preserve existing slugs when editing.
+        Assign the next display position to new collections.
         """
+        if not self.slug:
+            base_slug = slugify(self.name) or "collection"
+            base_slug = base_slug[:120].rstrip("-")
+            slug = base_slug
+            counter = 2
+
+            while Collection.objects.filter(slug=slug).exists():
+                suffix = f"-{counter}"
+                slug = f"{base_slug[:120 - len(suffix)].rstrip('-')}" f"{suffix}"
+                counter += 1
+
+            self.slug = slug
+
         if self.pk is None and self.display_order is None:
             max_order = Collection.objects.aggregate(Max("display_order"))[
                 "display_order__max"
