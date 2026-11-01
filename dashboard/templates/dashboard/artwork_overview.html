@@ -139,12 +139,12 @@
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Artwork
                         </a>
-
-                        <!-- Connect when delete view exists -->
-                        <span class="btn btn-outline-danger">
+          
+                        <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}"
+                            class="btn btn-outline-danger">
                             <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
                             Delete Artwork
-                        </span>
+                        </a>
 
                     </div>
 

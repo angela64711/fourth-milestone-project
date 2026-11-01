@@ -239,14 +239,15 @@
                                         Edit {{ artwork.title }}
                                     </span>
                                 </a>
-
-                                <!-- Connect when delete view exists -->
-                                <span class="btn btn-sm btn-outline-danger" title="Delete {{ artwork.title }}">
+                                                             
+                                <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete {{ artwork.title }}">
                                     <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                     <span class="visually-hidden">
                                         Delete {{ artwork.title }}
                                     </span>
-                                </span>
+                                </a>
 
                             </div>
                         </div>

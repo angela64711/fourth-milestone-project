@@ -176,3 +176,29 @@ def artwork_edit(request, slug):
     }
 
     return render(request, "dashboard/artwork_form.html", context)
+
+
+@artist_required
+def artwork_delete(request, slug):
+    """
+    Allow authorized artists to delete an existing artwork.
+    """
+    artwork = get_object_or_404(Artwork, slug=slug)
+
+    if request.method == "POST":
+        artwork_title = artwork.title
+        artwork.delete()
+
+        messages.success(
+            request,
+            f'"{artwork_title}" was deleted successfully.',
+        )
+        return redirect("dashboard:home")
+
+    context = {
+        "artwork": artwork,
+        "page_title": "Delete Artwork",
+        "submit_label": "Delete Artwork",
+    }
+
+    return render(request, "dashboard/artwork_delete.html", context)
