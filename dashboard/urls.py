@@ -5,8 +5,16 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.artwork_list, name="home"),
-    path("artwork/add/", views.artwork_add, name="artwork_add"),
-    path("artwork/<slug:slug>/edit/", views.artwork_edit, name="artwork_edit"),
+    path(
+        "artwork/add/",
+        views.artwork_add,
+        name="artwork_add",
+    ),
+    path(
+        "artwork/<slug:slug>/edit/",
+        views.artwork_edit,
+        name="artwork_edit",
+    ),
     path(
         "artwork/<slug:slug>/delete/",
         views.artwork_delete,
@@ -26,5 +34,10 @@ urlpatterns = [
         "collections/<int:pk>/move/<str:direction>/",
         views.collection_move,
         name="collection_move",
+    ),
+    path(
+        "collections/add/",
+        views.collection_add,
+        name="collection_add",
     ),
 ]

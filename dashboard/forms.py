@@ -1,6 +1,6 @@
 from django import forms
 
-from artworks.models import Artwork
+from artworks.models import Artwork, Collection
 
 
 class ArtworkForm(forms.ModelForm):
@@ -50,6 +50,33 @@ class ArtworkForm(forms.ModelForm):
             "etsy_url": forms.URLInput(
                 attrs={
                     "class": "form-control",
+                }
+            ),
+        }
+
+
+class CollectionForm(forms.ModelForm):
+    """
+    Form for artists to create and edit collections.
+    """
+
+    class Meta:
+        model = Collection
+        fields = [
+            "name",
+            "description",
+        ]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
                 }
             ),
         }

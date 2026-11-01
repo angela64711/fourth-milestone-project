@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from artworks.models import Artwork, Collection
-from .forms import ArtworkForm
+from .forms import ArtworkForm, CollectionForm
 
 
 def artist_required(view_func):
@@ -273,3 +273,36 @@ def collection_move(request, pk, direction):
             neighbour.save(update_fields=["display_order"])
 
     return redirect("dashboard:collection_list")
+
+
+@artist_required
+def collection_add(request):
+    """
+    Allow artists to create a new artwork collection.
+    """
+    if request.method == "POST":
+        form = CollectionForm(request.POST)
+
+        if form.is_valid():
+            collection = form.save()
+
+            messages.success(
+                request,
+                f'"{collection.name}" was added successfully.',
+            )
+
+            return redirect(
+                "dashboard:collection_list",
+            )
+    else:
+        form = CollectionForm()
+
+    context = {
+        "form": form,
+    }
+
+    return render(
+        request,
+        "dashboard/collection_form.html",
+        context,
+    )
