@@ -42,7 +42,7 @@ def artwork_list(request):
     year = request.GET.get("year", "")
     etsy = request.GET.get("etsy", "")
     description = request.GET.get("description", "")
-    sort = request.GET.get("sort", "title")
+    sort = request.GET.get("sort", "recent")
 
     # Search by artwork title
     if query:
@@ -134,6 +134,45 @@ def artwork_add(request):
 
     context = {
         "form": form,
+    }
+
+    return render(request, "dashboard/artwork_form.html", context)
+
+
+@artist_required
+def artwork_edit(request, slug):
+    """
+    Allow authorized artists to edit an existing artwork.
+    """
+    artwork = get_object_or_404(Artwork, slug=slug)
+
+    if request.method == "POST":
+        form = ArtworkForm(
+            request.POST,
+            request.FILES,
+            instance=artwork,
+        )
+
+        if form.is_valid():
+            artwork = form.save()
+
+            messages.success(
+                request,
+                f'"{artwork.title}" was updated successfully.',
+            )
+
+            return redirect(
+                "dashboard:artwork_overview",
+                slug=artwork.slug,
+            )
+    else:
+        form = ArtworkForm(instance=artwork)
+
+    context = {
+        "form": form,
+        "artwork": artwork,
+        "page_title": "Edit Artwork",
+        "submit_label": "Save Changes",
     }
 
     return render(request, "dashboard/artwork_form.html", context)

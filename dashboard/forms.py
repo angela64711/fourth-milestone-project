@@ -30,9 +30,10 @@ class ArtworkForm(forms.ModelForm):
                     "class": "form-select",
                 }
             ),
-            "year": forms.NumberInput(
+            "year": forms.TextInput(
                 attrs={
                     "class": "form-control",
+                    "inputmode": "numeric",
                 }
             ),
             "description": forms.Textarea(

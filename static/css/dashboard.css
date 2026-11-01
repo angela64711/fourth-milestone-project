@@ -159,17 +159,42 @@
     text-decoration: none;
 }
 
-/*--------------------------------------------------------- Artwork Overview page */
+/*--------------------------------------------------------- Artwork Overview Page */
 
 #artwork-preview {
     max-height: 550px;
     width: auto;
     object-fit: contain;
 }
+/*------------------------------------------------------------ Artwork Edit Page*/
+
+
+/* Display the current artwork filename on a separate line */
+
+#artwork-image-field a {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+#artwork-image-field input[type="file"] {
+    font-size: 0.8rem;
+}
+
 
 /*----------------------------------------------------------- Media Queries */
 
-@media (min-width: 1400px) {
+@media screen and (min-width: 576px) {
+    
+    #artwork-image-field a {
+        display: inline;
+    }
+
+    #artwork-image-field input[type="file"] {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 1400px) {
     /* Compact dashboard sidebar links */
     #dashboard-sidebar .nav-link {
         padding: 0.5rem;

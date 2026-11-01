@@ -133,12 +133,12 @@
 
                     <!-- Management actions -->
                     <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
-
-                        <!-- Connect when edit view exists -->
-                        <span class="btn btn-dark">
+                        
+                        <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}"
+                            class="btn btn-dark">
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Artwork
-                        </span>
+                        </a>
 
                         <!-- Connect when delete view exists -->
                         <span class="btn btn-outline-danger">

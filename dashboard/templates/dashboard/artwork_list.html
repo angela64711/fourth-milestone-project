@@ -231,14 +231,14 @@
                                         View {{ artwork.title }}
                                     </span>
                                 </a>
-                                      
-                                <!-- Connect when edit view exists -->
-                                <span class="btn btn-sm btn-outline-secondary" title="Edit {{ artwork.title }}">
+                               
+                                <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}"
+                                    class="btn btn-sm btn-outline-secondary" title="View {{ artwork.title }}">
                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                     <span class="visually-hidden">
                                         Edit {{ artwork.title }}
                                     </span>
-                                </span>
+                                </a>
 
                                 <!-- Connect when delete view exists -->
                                 <span class="btn btn-sm btn-outline-danger" title="Delete {{ artwork.title }}">
