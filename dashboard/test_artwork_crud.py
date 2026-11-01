@@ -1,3 +1,5 @@
+from tempfile import TemporaryDirectory
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.messages import get_messages
@@ -89,6 +91,16 @@ class DashboardArtworkOverviewTests(TestCase):
 )
 class DashboardArtworkAddTests(TestCase):
     """Test adding artworks through the artist dashboard."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.temp_media = TemporaryDirectory()
+        cls.addClassCleanup(cls.temp_media.cleanup)
+
+        media_override = override_settings(MEDIA_ROOT=cls.temp_media.name)
+        media_override.enable()
+        cls.addClassCleanup(media_override.disable)
 
     @classmethod
     def setUpTestData(cls):
