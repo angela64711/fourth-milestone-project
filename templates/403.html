@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}403 — Access Denied | Frank Moth{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main id="error-page" class="container-fluid px-3 px-md-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-8 text-center">
+
+            <p id="error-number" class="mb-3">403</p>
+
+            <h1 class="mb-4">
+                Some spaces are reserved for the artist.
+            </h1>
+
+            <p id="error-subtitle" class="mb-5">
+                You don't have permission to access this page.
+            </p>
+
+            <a id="error-home-link" href="{% url 'home' %}">
+                <span>Back to Home</span>
+                <span id="error-home-underline"></span>
+            </a>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}

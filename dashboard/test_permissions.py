@@ -172,3 +172,17 @@ class DashboardPermissionTests(TestCase):
 
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
+
+    @override_settings(DEBUG=False)
+    def test_regular_user_sees_custom_403_page(self):
+        self.client.force_login(self.regular_user)
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTemplateUsed(response, "403.html")
+        self.assertContains(
+            response,
+            "Some spaces are reserved for the artist.",
+            status_code=403,
+        )
