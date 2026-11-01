@@ -70,13 +70,19 @@ class DashboardArtworkListTests(TestCase):
         return [artwork.title for artwork in response.context["page_obj"].object_list]
 
     def test_artwork_list_displays_all_artworks(self):
+        """
+        Test that artworks display newest first by default.
+        """
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "dashboard/artwork_list.html")
+        self.assertTemplateUsed(
+            response,
+            "dashboard/artwork_list.html",
+        )
         self.assertEqual(
             self.get_artwork_titles(response),
-            ["Blue Dream", "Golden Sky", "Silent Dream"],
+            ["Silent Dream", "Golden Sky", "Blue Dream"],
         )
 
     def test_search_matches_titles_case_insensitively(self):
@@ -84,7 +90,7 @@ class DashboardArtworkListTests(TestCase):
 
         self.assertEqual(
             self.get_artwork_titles(response),
-            ["Blue Dream", "Silent Dream"],
+            ["Silent Dream", "Blue Dream"],
         )
 
     def test_filter_by_collection(self):
@@ -95,35 +101,41 @@ class DashboardArtworkListTests(TestCase):
 
         self.assertEqual(
             self.get_artwork_titles(response),
-            ["Blue Dream", "Silent Dream"],
+            ["Silent Dream", "Blue Dream"],
         )
 
     def test_filter_by_year_availability(self):
         expected = {
-            "present": ["Blue Dream", "Golden Sky"],
+            "present": ["Golden Sky", "Blue Dream"],
             "missing": ["Silent Dream"],
         }
 
         for value, titles in expected.items():
             with self.subTest(year=value):
                 response = self.client.get(self.url, {"year": value})
-                self.assertEqual(self.get_artwork_titles(response), titles)
+                self.assertEqual(
+                    self.get_artwork_titles(response),
+                    titles,
+                )
 
     def test_filter_by_etsy_url_availability(self):
         expected = {
             "present": ["Blue Dream"],
-            "missing": ["Golden Sky", "Silent Dream"],
+            "missing": ["Silent Dream", "Golden Sky"],
         }
 
         for value, titles in expected.items():
             with self.subTest(etsy=value):
                 response = self.client.get(self.url, {"etsy": value})
-                self.assertEqual(self.get_artwork_titles(response), titles)
+                self.assertEqual(
+                    self.get_artwork_titles(response),
+                    titles,
+                )
 
     def test_filter_by_description_availability(self):
         expected = {
             "present": ["Blue Dream"],
-            "missing": ["Golden Sky", "Silent Dream"],
+            "missing": ["Silent Dream", "Golden Sky"],
         }
 
         for value, titles in expected.items():
@@ -132,7 +144,10 @@ class DashboardArtworkListTests(TestCase):
                     self.url,
                     {"description": value},
                 )
-                self.assertEqual(self.get_artwork_titles(response), titles)
+                self.assertEqual(
+                    self.get_artwork_titles(response),
+                    titles,
+                )
 
     def test_sort_by_year_descending_with_missing_last(self):
         response = self.client.get(self.url, {"sort": "year"})
@@ -161,7 +176,10 @@ class DashboardArtworkListTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(len(response.context["page_obj"]), 36)
-        self.assertEqual(response.context["page_obj"].paginator.num_pages, 2)
+        self.assertEqual(
+            response.context["page_obj"].paginator.num_pages,
+            2,
+        )
 
         response = self.client.get(self.url, {"page": 2})
 
@@ -220,9 +238,15 @@ class DashboardArtworkListTests(TestCase):
         response = self.client.get(self.url, {"page": "invalid"})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["page_obj"].number, 1)
+        self.assertEqual(
+            response.context["page_obj"].number,
+            1,
+        )
 
         response = self.client.get(self.url, {"page": 999})
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context["page_obj"].number, 2)
+        self.assertEqual(
+            response.context["page_obj"].number,
+            2,
+        )

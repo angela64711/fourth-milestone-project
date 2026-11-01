@@ -191,3 +191,160 @@ class DashboardArtworkAddTests(TestCase):
         self.assertFalse(response.context["form"].is_valid())
         self.assertIn("title", response.context["form"].errors)
         self.assertIn("image", response.context["form"].errors)
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
+class DashboardArtworkEditTests(TestCase):
+    """Test editing artworks through the artist dashboard."""
+
+    @classmethod
+    def setUpTestData(cls):
+        user_model = get_user_model()
+
+        cls.artist = user_model.objects.create_user(
+            username="editartist",
+            password="testpassword123",
+        )
+        artist_group, _ = Group.objects.get_or_create(name="Artists")
+        cls.artist.groups.add(artist_group)
+
+        cls.collection = Collection.objects.create(
+            name="Test Collection",
+            slug="test-collection",
+            description="A collection for testing.",
+        )
+
+        cls.artwork = Artwork.objects.create(
+            title="Original Artwork",
+            collection=cls.collection,
+            year=2024,
+            description="Original description.",
+            image="artworks/original.jpg",
+        )
+
+    def setUp(self):
+        self.client.force_login(self.artist)
+        self.url = reverse(
+            "dashboard:artwork_edit",
+            kwargs={"slug": self.artwork.slug},
+        )
+
+    def test_edit_page_displays_prepopulated_form(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            "dashboard/artwork_form.html",
+        )
+        self.assertIsInstance(
+            response.context["form"],
+            ArtworkForm,
+        )
+        self.assertEqual(
+            response.context["form"].instance,
+            self.artwork,
+        )
+        self.assertEqual(
+            response.context["form"]["title"].value(),
+            "Original Artwork",
+        )
+        self.assertEqual(
+            response.context["form"]["year"].value(),
+            2024,
+        )
+
+    def test_valid_post_updates_artwork_and_redirects(self):
+        original_pk = self.artwork.pk
+        original_slug = self.artwork.slug
+
+        response = self.client.post(
+            self.url,
+            {
+                "title": "Updated Artwork",
+                "collection": self.collection.pk,
+                "year": 2026,
+                "description": "Updated description.",
+            },
+        )
+
+        self.artwork.refresh_from_db()
+
+        self.assertEqual(self.artwork.pk, original_pk)
+        self.assertEqual(self.artwork.slug, original_slug)
+        self.assertEqual(self.artwork.title, "Updated Artwork")
+        self.assertEqual(self.artwork.year, 2026)
+        self.assertEqual(
+            self.artwork.description,
+            "Updated description.",
+        )
+        self.assertEqual(
+            self.artwork.image.name,
+            "artworks/original.jpg",
+        )
+        self.assertEqual(Artwork.objects.count(), 1)
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "dashboard:artwork_overview",
+                kwargs={"slug": original_slug},
+            ),
+        )
+
+    def test_success_message_after_editing_artwork(self):
+        response = self.client.post(
+            self.url,
+            {
+                "title": "Updated Artwork",
+                "collection": self.collection.pk,
+            },
+        )
+
+        messages = [str(message) for message in get_messages(response.wsgi_request)]
+
+        self.assertIn(
+            '"Updated Artwork" was updated successfully.',
+            messages,
+        )
+
+    def test_invalid_post_does_not_update_artwork(self):
+        response = self.client.post(
+            self.url,
+            {
+                "title": "",
+                "collection": self.collection.pk,
+                "year": 2026,
+            },
+        )
+
+        self.artwork.refresh_from_db()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            "dashboard/artwork_form.html",
+        )
+        self.assertIn("title", response.context["form"].errors)
+        self.assertEqual(self.artwork.title, "Original Artwork")
+        self.assertEqual(self.artwork.year, 2024)
+        self.assertEqual(Artwork.objects.count(), 1)
+
+    def test_nonexistent_artwork_returns_404(self):
+        url = reverse(
+            "dashboard:artwork_edit",
+            kwargs={"slug": "nonexistent-artwork"},
+        )
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)

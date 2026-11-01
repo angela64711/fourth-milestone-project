@@ -97,6 +97,10 @@ class DashboardPermissionTests(TestCase):
                 "dashboard:artwork_overview",
                 kwargs={"slug": self.artwork.slug},
             ),
+            reverse(
+                "dashboard:artwork_edit",
+                kwargs={"slug": self.artwork.slug},
+            ),
         ]
 
         for url in urls:
@@ -115,6 +119,10 @@ class DashboardPermissionTests(TestCase):
             reverse("dashboard:artwork_add"),
             reverse(
                 "dashboard:artwork_overview",
+                kwargs={"slug": self.artwork.slug},
+            ),
+            reverse(
+                "dashboard:artwork_edit",
                 kwargs={"slug": self.artwork.slug},
             ),
         ]
@@ -140,6 +148,13 @@ class DashboardPermissionTests(TestCase):
                 ),
                 "dashboard/artwork_overview.html",
             ),
+            (
+                reverse(
+                    "dashboard:artwork_edit",
+                    kwargs={"slug": self.artwork.slug},
+                ),
+                "dashboard/artwork_form.html",
+            ),
         ]
 
         for url, template in pages:
@@ -163,6 +178,13 @@ class DashboardPermissionTests(TestCase):
                     kwargs={"slug": self.artwork.slug},
                 ),
                 "dashboard/artwork_overview.html",
+            ),
+            (
+                reverse(
+                    "dashboard:artwork_edit",
+                    kwargs={"slug": self.artwork.slug},
+                ),
+                "dashboard/artwork_form.html",
             ),
         ]
 

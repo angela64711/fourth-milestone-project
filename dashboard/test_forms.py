@@ -125,3 +125,35 @@ class ArtworkFormTests(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("year", form.errors)
+
+    def test_valid_form_updates_existing_artwork(self):
+        """
+        Test that a valid form updates an existing artwork
+        instead of creating a new record.
+        """
+        artwork = Artwork.objects.create(
+            title="Original Artwork",
+            collection=self.collection,
+            year=2024,
+            image="artworks/existing.jpg",
+        )
+
+        data = self.valid_data.copy()
+        data["title"] = "Updated Artwork"
+        data["year"] = 2026
+
+        form = ArtworkForm(
+            data=data,
+            instance=artwork,
+        )
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+        updated_artwork = form.save()
+        updated_artwork.refresh_from_db()
+
+        self.assertEqual(updated_artwork.image.name, "artworks/existing.jpg")
+        self.assertEqual(updated_artwork.pk, artwork.pk)
+        self.assertEqual(updated_artwork.title, "Updated Artwork")
+        self.assertEqual(updated_artwork.year, 2026)
+        self.assertEqual(Artwork.objects.count(), 1)
