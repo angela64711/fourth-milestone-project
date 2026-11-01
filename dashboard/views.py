@@ -306,3 +306,18 @@ def collection_add(request):
         "dashboard/collection_form.html",
         context,
     )
+
+
+@artist_required
+def collection_overview(request, slug):
+    """
+    Display an individual collection and its details
+    in the artist dashboard.
+    """
+    collection = get_object_or_404(Collection, slug=slug)
+
+    context = {
+        "collection": collection,
+    }
+
+    return render(request, "dashboard/collection_overview.html", context)

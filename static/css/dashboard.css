@@ -159,13 +159,35 @@
     text-decoration: none;
 }
 
-/*--------------------------------------------------------- Artwork Overview Page */
+/*----------------------------------------------- Artwork & Collection Overview & List Pages */
 
-#artwork-preview {
+#artwork-preview, 
+#collection-preview {
     max-height: 550px;
     width: auto;
     object-fit: contain;
 }
+
+.collection-title-link {
+    color: var(--dark-accent-color);
+    text-decoration: none;
+    background-image: linear-gradient(
+        var(--accent-color),
+        var(--accent-color)
+    );
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-size: 50% 2px;
+    transition: background-size 0.25s ease;
+}
+
+.collection-title-link:hover,
+.collection-title-link:focus-visible {
+    color: var(--dark-accent-color);
+    background-size: 100% 2px;
+}
+
+
 /*------------------------------------------------------------ Artwork Edit Page*/
 
 /* Display the current artwork filename on a separate line */

@@ -104,10 +104,14 @@
 
                     <!-- Collection information -->
                     <div class="col-8 col-sm-5 col-xl-5">
-
+                        
                         <h2 class="h3 mb-2">
-                            {{ collection.name }}
+                            <a href="{% url 'dashboard:collection_overview' slug=collection.slug %}"
+                                class="collection-title-link">
+                                {{ collection.name }}
+                            </a>
                         </h2>
+
                         <p class="text-body-secondary small mb-0">
                             {{ collection.artwork_count }}
                             artwork{{ collection.artwork_count|pluralize }}

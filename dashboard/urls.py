@@ -40,4 +40,9 @@ urlpatterns = [
         views.collection_add,
         name="collection_add",
     ),
+    path(
+        "collections/<slug:slug>/",
+        views.collection_overview,
+        name="collection_overview",
+    ),
 ]
