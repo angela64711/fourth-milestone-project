@@ -267,3 +267,210 @@ class CollectionOrderingTests(TestCase):
             self.second_collection.display_order,
             original_order,
         )
+
+    def test_first_collection_cannot_move_up(self):
+        """
+        Moving the first collection up leaves the order unchanged.
+        """
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "up"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertRedirects(
+            response,
+            reverse("dashboard:collection_list"),
+        )
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_last_collection_cannot_move_down(self):
+        """
+        Moving the last collection down leaves the order unchanged.
+        """
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.third_collection.pk, "down"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertRedirects(
+            response,
+            reverse("dashboard:collection_list"),
+        )
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_get_request_cannot_change_order(self):
+        """
+        Collection ordering only accepts POST requests.
+        """
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "down"],
+        )
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 405)
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_nonexistent_collection_returns_404(self):
+        """
+        Moving a nonexistent collection returns 404.
+        """
+        url = reverse(
+            "dashboard:collection_move",
+            args=[99999, "down"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_invalid_direction_does_not_change_order(self):
+        """
+        An unsupported direction must not reorder collections.
+        """
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "sideways"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertRedirects(
+            response,
+            reverse("dashboard:collection_list"),
+        )
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_anonymous_user_cannot_reorder_collections(self):
+        """
+        Anonymous users must authenticate before accessing ordering.
+        """
+        self.client.logout()
+
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "down"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_regular_user_cannot_reorder_collections(self):
+        """
+        Authenticated users outside the Artists group cannot reorder.
+        """
+        user_model = get_user_model()
+
+        regular_user = user_model.objects.create_user(
+            username="regularorderinguser",
+            password="testpassword123",
+        )
+
+        self.client.force_login(regular_user)
+
+        url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "down"],
+        )
+
+        response = self.client.post(url)
+
+        self.assertEqual(response.status_code, 403)
+
+        self.assertEqual(
+            list(Collection.objects.all()),
+            [
+                self.first_collection,
+                self.second_collection,
+                self.third_collection,
+            ],
+        )
+
+    def test_public_collections_follow_updated_order(self):
+        """
+        Public collections use the order saved in the dashboard.
+        """
+        Artwork.objects.create(
+            title="First Ordering Artwork",
+            collection=self.first_collection,
+            image="artworks/first-ordering.jpg",
+        )
+
+        Artwork.objects.create(
+            title="Second Ordering Artwork",
+            collection=self.second_collection,
+            image="artworks/second-ordering.jpg",
+        )
+
+        Artwork.objects.create(
+            title="Third Ordering Artwork",
+            collection=self.third_collection,
+            image="artworks/third-ordering.jpg",
+        )
+
+        move_url = reverse(
+            "dashboard:collection_move",
+            args=[self.first_collection.pk, "down"],
+        )
+
+        self.client.post(move_url)
+
+        response = self.client.get(reverse("art"))
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            list(response.context["collections"]),
+            [
+                self.second_collection,
+                self.first_collection,
+                self.third_collection,
+            ],
+        )
