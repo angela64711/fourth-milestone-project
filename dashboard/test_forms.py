@@ -2,7 +2,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
 from artworks.models import Artwork, Collection
-from .forms import ArtworkForm
+from .forms import ArtworkForm, CollectionForm
 
 
 class ArtworkFormTests(TestCase):
@@ -157,3 +157,42 @@ class ArtworkFormTests(TestCase):
         self.assertEqual(updated_artwork.title, "Updated Artwork")
         self.assertEqual(updated_artwork.year, 2026)
         self.assertEqual(Artwork.objects.count(), 1)
+
+
+class CollectionFormTests(TestCase):
+    """
+    Test collection form validation and required fields.
+    """
+
+    def setUp(self):
+        self.valid_data = {
+            "name": "Digital Dreams",
+            "description": "A collection of digital artworks.",
+        }
+
+    def test_valid_collection_form(self):
+        form = CollectionForm(data=self.valid_data)
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_required_fields(self):
+        for field in ("name", "description"):
+            with self.subTest(field=field):
+                data = self.valid_data.copy()
+                data.pop(field)
+
+                form = CollectionForm(data=data)
+
+                self.assertFalse(form.is_valid())
+                self.assertIn(field, form.errors)
+
+    def test_duplicate_collection_name_is_rejected(self):
+        Collection.objects.create(
+            name="Digital Dreams",
+            description="An existing collection.",
+        )
+
+        form = CollectionForm(data=self.valid_data)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("name", form.errors)
