@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.db.models import F
+from django.db.models import F, Count, Prefetch
 from django.shortcuts import get_object_or_404, redirect, render
 
 from artworks.models import Artwork, Collection
@@ -202,3 +202,25 @@ def artwork_delete(request, slug):
     }
 
     return render(request, "dashboard/artwork_delete.html", context)
+
+
+@artist_required
+def collection_list(request):
+    """
+    Display all collections with their covers and artwork counts.
+    """
+    collections = Collection.objects.annotate(
+        artwork_count=Count("artworks")
+    ).prefetch_related(
+        Prefetch(
+            "artworks",
+            queryset=Artwork.objects.order_by("title"),
+            to_attr="ordered_artworks",
+        )
+    )
+
+    context = {
+        "collections": collections,
+    }
+
+    return render(request, "dashboard/collection_list.html", context)
