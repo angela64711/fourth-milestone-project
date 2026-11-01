@@ -22,4 +22,9 @@ urlpatterns = [
         views.collection_list,
         name="collection_list",
     ),
+    path(
+        "collections/<int:pk>/move/<str:direction>/",
+        views.collection_move,
+        name="collection_move",
+    ),
 ]

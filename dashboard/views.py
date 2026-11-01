@@ -4,8 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.http import Http404
+from django.db import transaction
 from django.db.models import F, Count, Prefetch
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from artworks.models import Artwork, Collection
 from .forms import ArtworkForm
@@ -209,14 +212,17 @@ def collection_list(request):
     """
     Display all collections with their covers and artwork counts.
     """
-    collections = Collection.objects.annotate(
-        artwork_count=Count("artworks")
-    ).prefetch_related(
-        Prefetch(
-            "artworks",
-            queryset=Artwork.objects.order_by("title"),
-            to_attr="ordered_artworks",
+
+    collections = (
+        Collection.objects.annotate(artwork_count=Count("artworks"))
+        .prefetch_related(
+            Prefetch(
+                "artworks",
+                queryset=Artwork.objects.order_by("title"),
+                to_attr="ordered_artworks",
+            )
         )
+        .order_by("display_order", "id")
     )
 
     context = {
@@ -224,3 +230,46 @@ def collection_list(request):
     }
 
     return render(request, "dashboard/collection_list.html", context)
+
+
+@artist_required
+@require_POST
+def collection_move(request, pk, direction):
+    """
+    Move a collection one position up or down in display order.
+    """
+    if direction not in ("up", "down"):
+        return redirect("dashboard:collection_list")
+
+    with transaction.atomic():
+        collections = list(
+            Collection.objects.select_for_update().order_by("display_order", "id")
+        )
+
+        current_index = next(
+            (
+                index
+                for index, collection in enumerate(collections)
+                if collection.pk == pk
+            ),
+            None,
+        )
+
+        if current_index is None:
+            raise Http404("Collection not found.")
+
+        neighbour_index = current_index - 1 if direction == "up" else current_index + 1
+
+        if 0 <= neighbour_index < len(collections):
+            current = collections[current_index]
+            neighbour = collections[neighbour_index]
+
+            current.display_order, neighbour.display_order = (
+                neighbour.display_order,
+                current.display_order,
+            )
+
+            current.save(update_fields=["display_order"])
+            neighbour.save(update_fields=["display_order"])
+
+    return redirect("dashboard:collection_list")
