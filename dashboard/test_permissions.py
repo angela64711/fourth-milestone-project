@@ -101,6 +101,10 @@ class DashboardPermissionTests(TestCase):
                 "dashboard:artwork_edit",
                 kwargs={"slug": self.artwork.slug},
             ),
+            reverse(
+                "dashboard:artwork_delete",
+                kwargs={"slug": self.artwork.slug},
+            ),
         ]
 
         for url in urls:
@@ -123,6 +127,10 @@ class DashboardPermissionTests(TestCase):
             ),
             reverse(
                 "dashboard:artwork_edit",
+                kwargs={"slug": self.artwork.slug},
+            ),
+            reverse(
+                "dashboard:artwork_delete",
                 kwargs={"slug": self.artwork.slug},
             ),
         ]
@@ -155,6 +163,13 @@ class DashboardPermissionTests(TestCase):
                 ),
                 "dashboard/artwork_form.html",
             ),
+            (
+                reverse(
+                    "dashboard:artwork_delete",
+                    kwargs={"slug": self.artwork.slug},
+                ),
+                "dashboard/artwork_delete.html",
+            ),
         ]
 
         for url, template in pages:
@@ -186,6 +201,13 @@ class DashboardPermissionTests(TestCase):
                 ),
                 "dashboard/artwork_form.html",
             ),
+            (
+                reverse(
+                    "dashboard:artwork_delete",
+                    kwargs={"slug": self.artwork.slug},
+                ),
+                "dashboard/artwork_delete.html",
+            ),
         ]
 
         for url, template in pages:
@@ -194,6 +216,33 @@ class DashboardPermissionTests(TestCase):
 
                 self.assertEqual(response.status_code, 200)
                 self.assertTemplateUsed(response, template)
+
+    def test_anonymous_user_cannot_delete_artwork(self):
+        url = reverse(
+            "dashboard:artwork_delete",
+            kwargs={"slug": self.artwork.slug},
+        )
+
+        response = self.client.post(url)
+
+        self.assertRedirects(
+            response,
+            f"/accounts/login/?next={url}",
+        )
+        self.assertTrue(Artwork.objects.filter(pk=self.artwork.pk).exists())
+
+    def test_regular_user_cannot_delete_artwork(self):
+        self.client.force_login(self.regular_user)
+
+        url = reverse(
+            "dashboard:artwork_delete",
+            kwargs={"slug": self.artwork.slug},
+        )
+
+        response = self.client.post(url)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(Artwork.objects.filter(pk=self.artwork.pk).exists())
 
     @override_settings(DEBUG=False)
     def test_regular_user_sees_custom_403_page(self):

@@ -348,3 +348,101 @@ class DashboardArtworkEditTests(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 404)
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
+class DashboardArtworkDeleteTests(TestCase):
+    """Test deleting artworks through the artist dashboard."""
+
+    @classmethod
+    def setUpTestData(cls):
+        user_model = get_user_model()
+
+        cls.artist = user_model.objects.create_user(
+            username="deleteartist",
+            password="testpassword123",
+        )
+        artist_group, _ = Group.objects.get_or_create(name="Artists")
+        cls.artist.groups.add(artist_group)
+
+        cls.collection = Collection.objects.create(
+            name="Test Collection",
+            slug="test-collection",
+            description="A collection for testing.",
+        )
+
+        cls.artwork = Artwork.objects.create(
+            title="Artwork to Delete",
+            collection=cls.collection,
+            year=2025,
+            image="artworks/delete-test.jpg",
+        )
+
+    def setUp(self):
+        self.client.force_login(self.artist)
+        self.url = reverse(
+            "dashboard:artwork_delete",
+            kwargs={"slug": self.artwork.slug},
+        )
+
+    def test_delete_page_displays_correct_artwork(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            "dashboard/artwork_delete.html",
+        )
+        self.assertEqual(
+            response.context["artwork"],
+            self.artwork,
+        )
+        self.assertContains(response, "Artwork to Delete")
+
+    def test_get_request_does_not_delete_artwork(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Artwork.objects.filter(pk=self.artwork.pk).exists())
+        self.assertEqual(Artwork.objects.count(), 1)
+
+    def test_post_deletes_artwork_and_redirects(self):
+        artwork_pk = self.artwork.pk
+
+        response = self.client.post(self.url)
+
+        self.assertFalse(Artwork.objects.filter(pk=artwork_pk).exists())
+        self.assertEqual(Artwork.objects.count(), 0)
+        self.assertRedirects(
+            response,
+            reverse("dashboard:home"),
+        )
+
+    def test_success_message_after_deleting_artwork(self):
+        response = self.client.post(self.url)
+
+        messages = [str(message) for message in get_messages(response.wsgi_request)]
+
+        self.assertIn(
+            '"Artwork to Delete" was deleted successfully.',
+            messages,
+        )
+
+    def test_nonexistent_artwork_returns_404(self):
+        url = reverse(
+            "dashboard:artwork_delete",
+            kwargs={"slug": "nonexistent-artwork"},
+        )
+
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)
