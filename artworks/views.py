@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, render
 
 from .models import Artwork, Collection
@@ -9,19 +8,13 @@ def collections(request):
     """
     Display collections containing artworks, with automatic covers.
     """
-    collections = (
-        Collection.objects.filter(artworks__isnull=False)
-        .distinct()
-        .prefetch_related(
-            Prefetch(
-                "artworks",
-                queryset=Artwork.objects.order_by("title"),
-                to_attr="ordered_artworks",
-            )
-        )
-    )
+    collections = Collection.objects.filter(artworks__isnull=False).distinct()
 
-    return render(request, "artworks/collections.html", {"collections": collections})
+    return render(
+        request,
+        "artworks/collections.html",
+        {"collections": collections},
+    )
 
 
 def artworks(request, slug):
@@ -30,7 +23,10 @@ def artworks(request, slug):
     """
     collection = get_object_or_404(Collection, slug=slug)
 
-    artworks = Artwork.objects.filter(collection=collection).order_by("-year", "title")
+    artworks = Artwork.objects.filter(collection=collection).order_by(
+        "-year",
+        "title",
+    )
 
     paginator = Paginator(artworks, 24)
     page_number = request.GET.get("page")

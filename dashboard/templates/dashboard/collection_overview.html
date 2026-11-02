@@ -80,7 +80,7 @@
                 <!-- Collection cover -->
                 <div class="col-12 col-lg-6 col-xl-5">
 
-                    {% with cover=collection.artworks.all|dictsort:"title"|first %}
+                    {% with cover=collection.cover %}
                         {% if cover %}
                             <img id="collection-preview"
                                 src="{{ cover.image.url }}"

@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.db import transaction
-from django.db.models import F, Count, Prefetch
+from django.db.models import F, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -212,17 +212,8 @@ def collection_list(request):
     """
     Display all collections with their covers and artwork counts.
     """
-
-    collections = (
-        Collection.objects.annotate(artwork_count=Count("artworks"))
-        .prefetch_related(
-            Prefetch(
-                "artworks",
-                queryset=Artwork.objects.order_by("title"),
-                to_attr="ordered_artworks",
-            )
-        )
-        .order_by("display_order", "id")
+    collections = Collection.objects.annotate(artwork_count=Count("artworks")).order_by(
+        "display_order", "id"
     )
 
     context = {
@@ -242,8 +233,10 @@ def collection_move(request, pk, direction):
         return redirect("dashboard:collection_list")
 
     with transaction.atomic():
-        collections = list(
-            Collection.objects.select_for_update().order_by("display_order", "id")
+        collections = (
+            list(
+                Collection.objects.select_for_update().order_by("display_order", "id")
+            ),
         )
 
         current_index = next(

@@ -86,8 +86,8 @@
                     <!-- Collection cover -->
                     <div class="col-4 col-sm-3 col-xl-2">
 
-                        {% if collection.ordered_artworks %}
-                        <img src="{{ collection.ordered_artworks.0.image.url }}"
+                        {% if collection.cover %}
+                        <img src="{{ collection.cover.image.url }}"
                             alt="Cover artwork for {{ collection.name }}"
                             class="img-fluid rounded w-100 object-fit-cover" style="aspect-ratio: 1 / 1;"
                             loading="lazy">

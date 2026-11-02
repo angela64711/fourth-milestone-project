@@ -27,8 +27,10 @@
                     <!-- Collection image -->
                     <div
                         class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-2 text-md-end{% endif %}">
-                        <img src="{{ collection.ordered_artworks.0.image.url }}"
-                            alt="Artwork from the {{ collection.name }} collection" class="img-fluid d-block mx-auto mx-md-0" loading="lazy">
+                        <img src="{{ collection.cover.image.url }}"
+                            alt="Artwork from the {{ collection.name }} collection"
+                            class="img-fluid d-block mx-auto {% if forloop.counter|divisibleby:2 %}me-md-0{% else %}ms-md-0{% endif %}"
+                            loading="lazy">
                     </div>
 
                     <!-- Collection information -->

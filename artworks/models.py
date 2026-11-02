@@ -60,6 +60,17 @@ class Collection(models.Model):
 
         super().save(*args, **kwargs)
 
+    @property
+    def cover(self):
+        """
+        Return the selected cover artwork, or the first artwork
+        alphabetically if no cover has been selected.
+        """
+        if self.cover_artwork:
+            return self.cover_artwork
+
+        return self.artworks.order_by("title").first()
+
     def __str__(self):
         return self.name
 

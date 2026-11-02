@@ -359,3 +359,46 @@ class CollectionModelTest(TestCase):
 
         self.assertIsNone(collection.cover_artwork)
         self.assertTrue(Collection.objects.filter(pk=collection.pk).exists())
+
+    def test_cover_returns_manually_selected_artwork(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+        artwork = Artwork.objects.create(
+            title="Selected Cover",
+            collection=collection,
+            image="artworks/selected.jpg",
+        )
+
+        collection.cover_artwork = artwork
+        collection.save()
+
+        self.assertEqual(collection.cover, artwork)
+
+    def test_cover_defaults_to_first_artwork_alphabetically(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+
+        Artwork.objects.create(
+            title="Zebra Dreams",
+            collection=collection,
+            image="artworks/zebra.jpg",
+        )
+        first_artwork = Artwork.objects.create(
+            title="Autumn Dreams",
+            collection=collection,
+            image="artworks/autumn.jpg",
+        )
+
+        self.assertEqual(collection.cover, first_artwork)
+
+    def test_cover_returns_none_for_empty_collection(self):
+        collection = Collection.objects.create(
+            name="Empty Collection",
+            description="A collection without artworks.",
+        )
+
+        self.assertIsNone(collection.cover)
