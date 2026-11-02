@@ -26,20 +26,20 @@
                         </a>
                     </li>
 
-                    <li class="nav-item col ms-xl-3">                        
-                        <a class="nav-link"
-                            href="{% url 'dashboard:collection_list' %}">
-                            <i class="fa-solid fa-layer-group me-md-2"
-                                aria-hidden="true"></i>
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link" href="{% url 'dashboard:collection_list' %}">
+                            <i class="fa-solid fa-layer-group me-md-2" aria-hidden="true"></i>
                             Collections
                         </a>
                     </li>
 
                     <li class="nav-item col ms-xl-3">
-                        <span class="nav-link">
+
+                        <a class="nav-link" href="{% url 'dashboard:commission_list' %}">
                             <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
                             Commissions
-                        </span>
+                        </a>
+
                     </li>
 
                     <li class="nav-item col ms-xl-3">
@@ -114,15 +114,12 @@
                         <dt class="col-12 mt-3">Etsy URL</dt>
                         <dd class="col-12">
                             {% if artwork.etsy_url %}
-                                <a href="{{ artwork.etsy_url }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    View on Etsy
-                                    <i class="fa-solid fa-arrow-up-right-from-square ms-1"
-                                        aria-hidden="true"></i>
-                                </a>
+                            <a href="{{ artwork.etsy_url }}" target="_blank" rel="noopener noreferrer">
+                                View on Etsy
+                                <i class="fa-solid fa-arrow-up-right-from-square ms-1" aria-hidden="true"></i>
+                            </a>
                             {% else %}
-                                <span class="text-body-secondary">Not provided</span>
+                            <span class="text-body-secondary">Not provided</span>
                             {% endif %}
                         </dd>
 
@@ -135,15 +132,13 @@
 
                     <!-- Management actions -->
                     <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
-                        
-                        <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}"
-                            class="btn btn-dark">
+
+                        <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}" class="btn btn-dark">
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Artwork
                         </a>
-          
-                        <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}"
-                            class="btn btn-outline-danger">
+
+                        <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}" class="btn btn-outline-danger">
                             <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
                             Delete Artwork
                         </a>

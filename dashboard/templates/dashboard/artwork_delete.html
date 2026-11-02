@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load static %}
 
@@ -27,20 +26,20 @@
                         </a>
                     </li>
 
-                    <li class="nav-item col ms-xl-3">         
-                        <a class="nav-link"
-                            href="{% url 'dashboard:collection_list' %}">
-                            <i class="fa-solid fa-layer-group me-md-2"
-                                aria-hidden="true"></i>
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link" href="{% url 'dashboard:collection_list' %}">
+                            <i class="fa-solid fa-layer-group me-md-2" aria-hidden="true"></i>
                             Collections
                         </a>
                     </li>
 
                     <li class="nav-item col ms-xl-3">
-                        <span class="nav-link">
+
+                        <a class="nav-link" href="{% url 'dashboard:commission_list' %}">
                             <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
                             Commissions
-                        </span>
+                        </a>
+
                     </li>
 
                     <li class="nav-item col ms-xl-3">
@@ -75,8 +74,8 @@
 
                 <!-- Artwork image -->
                 <div class="col-12 col-lg-6 col-xl-5">
-                    <img id="artwork-preview" src="{{ artwork.image.url }}"
-                        alt="{{ artwork.title }}" class="img-fluid rounded">
+                    <img id="artwork-preview" src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
+                        class="img-fluid rounded">
                 </div>
 
                 <!-- Artwork deletion confirmation -->

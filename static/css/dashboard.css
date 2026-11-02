@@ -1,6 +1,21 @@
-
-
 /* ------------------------------------------------------Dashboard filters */
+
+/* Dashboard layout fills the available page height */
+#main-content:has(#dashboard-layout) {
+    display: flex;
+    flex-direction: column;
+}
+
+#dashboard-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#dashboard-layout > .row {
+    flex: 1;
+}
+
 #dashboard-layout .form-label {
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
@@ -12,7 +27,7 @@
     background-color: var(--background-color);
     color: var(--text-color);
     border: 1px solid transparent;
-    border-radius: 6px;   
+    border-radius: 6px;
     box-shadow: 0 1px 5px rgba(38, 62, 96, 0.12);
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
@@ -161,7 +176,7 @@
 
 /*----------------------------------------------- Artwork & Collection Overview & List Pages */
 
-#artwork-preview, 
+#artwork-preview,
 #collection-preview {
     max-height: 550px;
     width: auto;
@@ -171,10 +186,8 @@
 .collection-title-link {
     color: var(--dark-accent-color);
     text-decoration: none;
-    background-image: linear-gradient(
-        var(--accent-color),
-        var(--accent-color)
-    );
+    background-image: linear-gradient(var(--accent-color),
+            var(--accent-color));
     background-position: left bottom;
     background-repeat: no-repeat;
     background-size: 50% 2px;
@@ -235,16 +248,15 @@
     line-height: 1;
 }
 
-.cover-artwork-radio:checked + .cover-artwork-thumbnail {
+.cover-artwork-radio:checked+.cover-artwork-thumbnail {
     border-color: var(--accent-color);
 }
 
-.cover-artwork-radio:checked
-    + .cover-artwork-thumbnail .cover-artwork-check {
+.cover-artwork-radio:checked+.cover-artwork-thumbnail .cover-artwork-check {
     display: block;
 }
 
-.cover-artwork-radio:focus-visible + .cover-artwork-thumbnail {
+.cover-artwork-radio:focus-visible+.cover-artwork-thumbnail {
     outline: 2px solid var(--dark-accent-color);
     outline-offset: 3px;
 }
@@ -253,7 +265,7 @@
 /*----------------------------------------------------------- Media Queries */
 
 @media screen and (min-width: 576px) {
-    
+
     #artwork-image-field a {
         display: inline;
     }
@@ -264,6 +276,7 @@
 }
 
 @media screen and (min-width: 1400px) {
+
     /* Compact dashboard sidebar links */
     #dashboard-sidebar .nav-link {
         padding: 0.5rem;

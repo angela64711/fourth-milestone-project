@@ -11,6 +11,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from artworks.models import Artwork, Collection
+from commissions.models import CommissionOrder
+
 from .forms import ArtworkForm, CollectionForm
 
 
@@ -420,3 +422,60 @@ def collection_delete(request, slug):
         "dashboard/collection_delete.html",
         context,
     )
+
+
+@artist_required
+def commission_list(request):
+    """
+    Display paid commission orders in the artist dashboard.
+    Show outstanding orders by default.
+    """
+    status = request.GET.get("status", "todo")
+
+    if status not in ("todo", "completed", "all"):
+        status = "todo"
+
+    orders = CommissionOrder.objects.filter(
+        payment_status="paid",
+    ).order_by("-created_on")
+
+    if status == "todo":
+        orders = orders.filter(is_completed=False)
+    elif status == "completed":
+        orders = orders.filter(is_completed=True)
+
+    context = {
+        "orders": orders,
+        "selected_status": status,
+    }
+
+    return render(
+        request,
+        "dashboard/commission_list.html",
+        context,
+    )
+
+
+@artist_required
+@require_POST
+def commission_mark_completed(request, pk):
+    """
+    Allow authorized artists to mark a paid commission
+    as completed.
+    """
+    order = get_object_or_404(
+        CommissionOrder,
+        pk=pk,
+        payment_status="paid",
+    )
+
+    if not order.is_completed:
+        order.is_completed = True
+        order.save(update_fields=["is_completed", "updated_on"])
+
+        messages.success(
+            request,
+            "Commission marked as completed.",
+        )
+
+    return redirect("dashboard:commission_list")

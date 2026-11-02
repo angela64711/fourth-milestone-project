@@ -34,10 +34,12 @@
                     </li>
 
                     <li class="nav-item col ms-xl-3">
-                        <span class="nav-link">
+
+                        <a class="nav-link" href="{% url 'dashboard:commission_list' %}">
                             <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
                             Commissions
-                        </span>
+                        </a>
+
                     </li>
 
                     <li class="nav-item col ms-xl-3">
@@ -66,8 +68,7 @@
                     </p>
                 </div>
 
-               <a href="{% url 'dashboard:collection_add' %}"
-                    class="btn btn-dark align-self-start">
+                <a href="{% url 'dashboard:collection_add' %}" class="btn btn-dark align-self-start">
                     <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
                     Add Collection
                 </a>
@@ -87,8 +88,7 @@
                     <div class="col-4 col-sm-3 col-xl-2">
 
                         {% if collection.cover %}
-                        <img src="{{ collection.cover.image.url }}"
-                            alt="Cover artwork for {{ collection.name }}"
+                        <img src="{{ collection.cover.image.url }}" alt="Cover artwork for {{ collection.name }}"
                             class="img-fluid rounded w-100 object-fit-cover" style="aspect-ratio: 1 / 1;"
                             loading="lazy">
                         {% else %}
@@ -104,7 +104,7 @@
 
                     <!-- Collection information -->
                     <div class="col-8 col-sm-5 col-xl-5">
-                        
+
                         <h2 class="h3 mb-2">
                             <a href="{% url 'dashboard:collection_overview' slug=collection.slug %}"
                                 class="collection-title-link">
@@ -164,7 +164,7 @@
                                 <i class="fa-solid fa-pen me-1" aria-hidden="true"></i>
                                 Edit
                             </a>
-                            
+
                             <a href="{% url 'dashboard:collection_delete' collection.slug %}"
                                 class="btn btn-sm btn-outline-danger">
                                 <i class="fa-solid fa-trash me-1" aria-hidden="true"></i>

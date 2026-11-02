@@ -55,4 +55,14 @@ urlpatterns = [
         views.collection_overview,
         name="collection_overview",
     ),
+    path(
+        "commissions/",
+        views.commission_list,
+        name="commission_list",
+    ),
+    path(
+        "commissions/<int:pk>/complete/",
+        views.commission_mark_completed,
+        name="commission_mark_completed",
+    ),
 ]

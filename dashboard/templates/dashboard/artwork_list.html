@@ -17,7 +17,7 @@
             </div>
 
             <nav aria-label="Artist dashboard navigation">
-                
+
                 <ul class="nav row row-cols-2 row-cols-sm-4 row-cols-lg-1 g-2">
 
                     <li class="nav-item col ms-xl-3">
@@ -27,20 +27,18 @@
                         </a>
                     </li>
 
-                    <li class="nav-item col ms-xl-3">             
-                        <a class="nav-link"
-                            href="{% url 'dashboard:collection_list' %}">
-                            <i class="fa-solid fa-layer-group me-md-2"
-                                aria-hidden="true"></i>
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link" href="{% url 'dashboard:collection_list' %}">
+                            <i class="fa-solid fa-layer-group me-md-2" aria-hidden="true"></i>
                             Collections
                         </a>
                     </li>
 
                     <li class="nav-item col ms-xl-3">
-                        <span class="nav-link">
+                        <a class="nav-link" href="{% url 'dashboard:commission_list' %}">
                             <i class="fa-solid fa-receipt me-md-2" aria-hidden="true"></i>
                             Commissions
-                        </span>
+                        </a>
                     </li>
 
                     <li class="nav-item col ms-xl-3">
@@ -73,8 +71,7 @@
                 </div>
 
                 <!-- Link will be added with the create view -->
-                <a href="{% url 'dashboard:artwork_add' %}"
-                    class="btn btn-dark align-self-start">
+                <a href="{% url 'dashboard:artwork_add' %}" class="btn btn-dark align-self-start">
                     <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
                     Add Artwork
                 </a>
@@ -226,14 +223,13 @@
                                         gap-2 mt-auto">
 
                                 <a href="{% url 'dashboard:artwork_overview' artwork.slug %}"
-                                    class="btn btn-sm btn-outline-secondary"
-                                    title="View {{ artwork.title }}">
+                                    class="btn btn-sm btn-outline-secondary" title="View {{ artwork.title }}">
                                     <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                     <span class="visually-hidden">
                                         View {{ artwork.title }}
                                     </span>
                                 </a>
-                               
+
                                 <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}"
                                     class="btn btn-sm btn-outline-secondary" title="View {{ artwork.title }}">
                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>
@@ -241,10 +237,9 @@
                                         Edit {{ artwork.title }}
                                     </span>
                                 </a>
-                                                             
+
                                 <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}"
-                                    class="btn btn-sm btn-outline-danger"
-                                    title="Delete {{ artwork.title }}">
+                                    class="btn btn-sm btn-outline-danger" title="Delete {{ artwork.title }}">
                                     <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                     <span class="visually-hidden">
                                         Delete {{ artwork.title }}
@@ -271,7 +266,7 @@
             <!-- Pagination: connect after view pagination is added -->
 
             {% if page_obj.has_other_pages %}
-            
+
             <nav id="dashboard-pagination" class="mt-4" aria-label="Artwork pagination">
                 <ul class="pagination justify-content-center flex-wrap">
 
@@ -292,7 +287,7 @@
                     <li class="page-item {% if page_obj.number == number %}active{% endif %}">
                         <a class="page-link {% if page_obj.number == number %}active-page{% endif %}"
                             href="?{% if query_string %}{{ query_string }}&amp;{% endif %}page={{ number }}"
-                            {% if page_obj.number == number %}aria-current="page"{% endif %}>
+                            {% if page_obj.number == number %}aria-current="page" {% endif %}>
                             {{ number }}
                         </a>
                     </li>

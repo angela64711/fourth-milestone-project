@@ -1,0 +1,323 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="dashboard-layout" class="container-fluid">
+    <div class="row">
+
+        <!-- Dashboard navigation -->
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 p-3 p-lg-4">
+
+            <div class="mb-4 ms-3">
+                <h2 id="dashboard-title" class="mb-1">Artist Dashboard</h2>
+            </div>
+
+            <nav aria-label="Artist dashboard navigation">
+                <ul class="nav row row-cols-2 row-cols-sm-4 row-cols-lg-1 g-2">
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link" href="{% url 'dashboard:home' %}">
+                            <i class="fa-solid fa-images me-md-2" aria-hidden="true"></i>
+                            Artworks
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link"
+                            href="{% url 'dashboard:collection_list' %}">
+                            <i class="fa-solid fa-layer-group me-md-2"
+                                aria-hidden="true"></i>
+                            Collections
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link active"
+                            href="{% url 'dashboard:commission_list' %}"
+                            aria-current="page">
+                            <i class="fa-solid fa-receipt me-md-2"
+                                aria-hidden="true"></i>
+                            Commissions
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <span class="nav-link">
+                            <i class="fa-solid fa-envelope me-md-2"
+                                aria-hidden="true"></i>
+                            Messages
+                        </span>
+                    </li>
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Commission management -->
+        <main class="col-12 col-lg-9 p-3 p-lg-4">
+
+            <div class="mb-4">
+                <h1 class="mb-1">Commission Orders</h1>
+                <p class="text-body-secondary mb-0">
+                    View and manage successfully paid commission orders.
+                </p>
+            </div>
+
+            <!-- Status filters -->
+            <nav class="d-flex flex-wrap gap-2 mb-4"
+                aria-label="Commission order filters">
+
+                <a href="{% url 'dashboard:commission_list' %}?status=todo"
+                    class="btn btn-sm {% if selected_status == 'todo' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    {% if selected_status == 'todo' %}aria-current="page"{% endif %}>
+                    To do
+                </a>
+
+                <a href="{% url 'dashboard:commission_list' %}?status=completed"
+                    class="btn btn-sm {% if selected_status == 'completed' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    {% if selected_status == 'completed' %}aria-current="page"{% endif %}>
+                    Completed
+                </a>
+
+                <a href="{% url 'dashboard:commission_list' %}?status=all"
+                    class="btn btn-sm {% if selected_status == 'all' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    {% if selected_status == 'all' %}aria-current="page"{% endif %}>
+                    All
+                </a>
+
+            </nav>
+
+            {% if orders %}
+
+            <div class="accordion" id="dashboard-commission-orders">
+
+                {% for order in orders %}
+
+                <div class="accordion-item mb-3">
+
+                    <!-- Order summary -->
+                    <h2 class="accordion-header" id="order-heading-{{ order.pk }}">
+                        <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#order-details-{{ order.pk }}"
+                            aria-expanded="false"
+                            aria-controls="order-details-{{ order.pk }}">
+
+                            <span class="d-flex flex-column flex-xl-row
+                                         align-items-start align-items-xl-center
+                                         justify-content-between gap-2 w-100 me-3">
+
+                                <span>
+                                    <strong>{{ order.full_name }}</strong>
+                                    <small class="d-block text-body-secondary">
+                                        {{ order.order_number|truncatechars:13 }}
+                                        &middot;
+                                        {{ order.created_on|date:"d M Y" }}
+                                    </small>
+                                </span>
+
+                                <span>
+                                    {{ order.get_artwork_format_display }}
+                                    {% if order.artwork_size %}
+                                    &middot; {{ order.get_artwork_size_display }}
+                                    {% endif %}
+                                </span>
+
+                                <span class="d-flex flex-column align-items-start
+                                             align-items-xl-end">
+                                    <strong>€{{ order.total_price|floatformat:2 }}</strong>
+                                    <small>
+                                        {% if order.is_completed %}
+                                            Completed
+                                        {% else %}
+                                            To do
+                                        {% endif %}
+                                    </small>
+                                </span>
+
+                            </span>
+                        </button>
+                    </h2>
+
+                    <!-- Expandable order details -->
+                    <div id="order-details-{{ order.pk }}"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="order-heading-{{ order.pk }}"
+                        data-bs-parent="#dashboard-commission-orders">
+
+                        <div class="accordion-body">
+
+                            <h3 class="h5 mb-3">Commission details</h3>
+
+                            <dl class="row gy-2">
+                                <dt class="col-sm-4">Order reference</dt>
+                                <dd class="col-sm-8 text-break">
+                                    {{ order.order_number }}
+                                </dd>
+
+                                <dt class="col-sm-4">Order date</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.created_on|date:"d M Y, H:i" }}
+                                </dd>
+
+                                <dt class="col-sm-4">Creative approach</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.get_creative_direction_display }}
+                                </dd>
+
+                                <dt class="col-sm-4">Artwork format</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.get_artwork_format_display }}
+                                </dd>
+
+                                {% if order.artwork_size %}
+                                <dt class="col-sm-4">Artwork size</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.get_artwork_size_display }}
+                                </dd>
+                                {% endif %}
+
+                                {% if order.creative_direction == "idea" %}
+
+                                    {% if order.mood_labels %}
+                                    <dt class="col-sm-4">Moods</dt>
+                                    <dd class="col-sm-8">
+                                        {{ order.mood_labels|join:", " }}
+                                    </dd>
+                                    {% endif %}
+
+                                    {% if order.colour_labels %}
+                                    <dt class="col-sm-4">Colours</dt>
+                                    <dd class="col-sm-8">
+                                        {{ order.colour_labels|join:", " }}
+                                    </dd>
+                                    {% endif %}
+
+                                    {% if order.imagery %}
+                                    <dt class="col-sm-4">Imagery</dt>
+                                    <dd class="col-sm-8">
+                                        {{ order.get_imagery_display }}
+                                    </dd>
+                                    {% endif %}
+
+                                    {% if order.story %}
+                                    <dt class="col-sm-4">Customer's story</dt>
+                                    <dd class="col-sm-8">
+                                        {{ order.story|linebreaksbr }}
+                                    </dd>
+                                    {% endif %}
+
+                                {% endif %}
+                            </dl>
+
+                            <hr class="my-4">
+
+                            <h3 class="h5 mb-3">Customer details</h3>
+
+                            <dl class="row gy-2">
+                                <dt class="col-sm-4">Name</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.full_name }}
+                                </dd>
+
+                                <dt class="col-sm-4">Email</dt>
+                                <dd class="col-sm-8 text-break">
+                                    <a href="mailto:{{ order.email }}">
+                                        {{ order.email }}
+                                    </a>
+                                </dd>
+
+                                {% if order.shipping_address %}
+                                <dt class="col-sm-4">Delivery address</dt>
+                                <dd class="col-sm-8">
+                                    {{ order.shipping_address|linebreaksbr }}<br>
+                                    {{ order.postal_code }} {{ order.city }}<br>
+                                    {{ order.country }}
+                                </dd>
+                                {% endif %}
+                            </dl>
+
+                            <hr class="my-4">
+
+                            <h3 class="h5 mb-3">Payment summary</h3>
+
+                            <dl class="row gy-2">
+                                <dt class="col-sm-4">Artwork price</dt>
+                                <dd class="col-sm-8">
+                                    €{{ order.artwork_price|floatformat:2 }}
+                                </dd>
+
+                                <dt class="col-sm-4">Shipping</dt>
+                                <dd class="col-sm-8">
+                                    €{{ order.shipping_cost|floatformat:2 }}
+                                </dd>
+
+                                <dt class="col-sm-4">Total paid</dt>
+                                <dd class="col-sm-8">
+                                    <strong>
+                                        €{{ order.total_price|floatformat:2 }}
+                                    </strong>
+                                </dd>
+                            </dl>
+
+                            <!-- Completion action -->
+                            <div class="border-top pt-4 mt-4">
+
+                                {% if order.is_completed %}
+                                <p class="mb-0">
+                                    <i class="fa-solid fa-check me-2"
+                                        aria-hidden="true"></i>
+                                    This commission has been completed.
+                                </p>
+                                {% else %}
+                                <form method="post"
+                                    action="{% url 'dashboard:commission_mark_completed' order.pk %}">
+                                    {% csrf_token %}
+
+                                    <button type="submit" class="btn btn-dark">
+                                        <i class="fa-solid fa-check me-2"
+                                            aria-hidden="true"></i>
+                                        Mark completed
+                                    </button>
+                                </form>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <!-- Empty state -->
+            <div class="text-center py-5">
+                <h2 class="h5">No commission orders found</h2>
+                <p class="text-body-secondary">
+                    {% if selected_status == "todo" %}
+                        There are no outstanding paid commissions.
+                    {% elif selected_status == "completed" %}
+                        No commissions have been marked as completed yet.
+                    {% else %}
+                        There are no successfully paid commissions yet.
+                    {% endif %}
+                </p>
+            </div>
+
+            {% endif %}
+
+        </main>
+    </div>
+</div>
+{% endblock %}
