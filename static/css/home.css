@@ -70,6 +70,41 @@
 }
 
 
+#blois-frame {
+    position: relative;
+}
+
+#blois-playback-toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(38, 62, 96, 0.8);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#blois-frame:hover #blois-playback-toggle,
+#blois-playback-toggle:focus-visible {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    #blois-playback-toggle {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #blois-playback-toggle {
+        transition: none;
+    }
+}
+
 /*--- Desktop composition in media queries at the bottom*/
 
 

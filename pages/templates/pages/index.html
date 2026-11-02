@@ -37,16 +37,22 @@
 
             <!-- Framed video -->
             <figure id="hero-video-area" class="m-0">
+                
                 <div id="blois-frame">
                     <video id="blois-video"
                         class="d-block w-100"
-                        autoplay muted loop playsinline
-                        preload="metadata"
-                        tabindex="0"
-                        aria-label="Blois artwork video. Press Enter or Space to pause or play.">
+                        muted loop playsinline
+                        preload="metadata">
                         <source src="{% static 'videos/blois.mp4' %}" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
+
+                    <button id="blois-playback-toggle"
+                        type="button"
+                        aria-label="Play Blois artwork video"
+                        aria-controls="blois-video">
+                        <i class="fa-solid fa-play" aria-hidden="true"></i>
+                    </button>
                 </div>
 
                 <figcaption class="video-caption mt-2">
@@ -494,4 +500,8 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/homepage.js' %}"></script>
 {% endblock %}
