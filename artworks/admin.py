@@ -68,4 +68,32 @@ class ArtworkAdmin(admin.ModelAdmin):
     image_preview.short_description = "Current artwork image"
 
 
-admin.site.register(Collection)
+@admin.register(Collection)
+class CollectionAdmin(admin.ModelAdmin):
+    """
+    Configure collection management and cover previews in Django admin.
+    """
+
+    list_display = (
+        "name",
+        "display_order",
+    )
+
+    search_fields = ("name",)
+
+    readonly_fields = ("cover_preview",)
+
+    def cover_preview(self, obj):
+        if obj.pk:
+            cover = obj.cover
+
+            if cover and cover.image:
+                return format_html(
+                    '<img src="{}" style="max-height: 250px; width: auto;" '
+                    'alt="Collection cover preview">',
+                    cover.image.url,
+                )
+
+        return "No cover image available"
+
+    cover_preview.short_description = "Current collection cover"
