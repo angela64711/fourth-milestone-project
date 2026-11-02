@@ -413,3 +413,139 @@ class CollectionEditTests(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.collection.name, "Updated Collection")
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
+class CollectionDeleteTests(TestCase):
+    """
+    Test collection deletion and protection of collections
+    containing artworks.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        user_model = get_user_model()
+
+        cls.artist = user_model.objects.create_user(
+            username="collectiondeleteartist",
+            password="testpassword123",
+        )
+        artist_group, _ = Group.objects.get_or_create(name="Artists")
+        cls.artist.groups.add(artist_group)
+
+        cls.empty_collection = Collection.objects.create(
+            name="Empty Collection",
+            description="A collection without artworks.",
+        )
+        cls.populated_collection = Collection.objects.create(
+            name="Populated Collection",
+            description="A collection containing artwork.",
+        )
+        cls.artwork = Artwork.objects.create(
+            title="Protected Artwork",
+            collection=cls.populated_collection,
+            image="artworks/protected.jpg",
+        )
+
+    def setUp(self):
+        self.client.force_login(self.artist)
+        self.url = reverse(
+            "dashboard:collection_delete",
+            kwargs={"slug": self.empty_collection.slug},
+        )
+        self.populated_url = reverse(
+            "dashboard:collection_delete",
+            kwargs={"slug": self.populated_collection.slug},
+        )
+
+    def test_get_displays_confirmation_without_deleting(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            "dashboard/collection_delete.html",
+        )
+        self.assertContains(response, "Delete Collection")
+        self.assertTrue(
+            Collection.objects.filter(
+                pk=self.empty_collection.pk,
+            ).exists()
+        )
+
+    def test_post_deletes_empty_collection_and_redirects(self):
+        response = self.client.post(self.url)
+
+        self.assertFalse(
+            Collection.objects.filter(
+                pk=self.empty_collection.pk,
+            ).exists()
+        )
+        self.assertRedirects(
+            response,
+            reverse("dashboard:collection_list"),
+        )
+
+    def test_collection_with_artworks_cannot_be_deleted(self):
+        response = self.client.post(self.populated_url)
+
+        self.assertTrue(
+            Collection.objects.filter(
+                pk=self.populated_collection.pk,
+            ).exists()
+        )
+        self.assertTrue(Artwork.objects.filter(pk=self.artwork.pk).exists())
+        self.assertRedirects(
+            response,
+            reverse(
+                "dashboard:collection_overview",
+                kwargs={"slug": self.populated_collection.slug},
+            ),
+        )
+
+        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        self.assertTrue(any("cannot be deleted" in message for message in messages))
+
+    def test_populated_collection_page_disables_deletion(self):
+        response = self.client.get(self.populated_url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "cannot be deleted")
+        self.assertNotContains(response, 'type="submit"')
+
+    def test_regular_user_cannot_delete_collection(self):
+        regular_user = get_user_model().objects.create_user(
+            username="regularcollectiondeleter",
+            password="testpassword123",
+        )
+        self.client.force_login(regular_user)
+
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(
+            Collection.objects.filter(
+                pk=self.empty_collection.pk,
+            ).exists()
+        )
+
+    def test_anonymous_user_cannot_delete_collection(self):
+        self.client.logout()
+
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(
+            Collection.objects.filter(
+                pk=self.empty_collection.pk,
+            ).exists()
+        )
