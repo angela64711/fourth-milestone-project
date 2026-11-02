@@ -233,10 +233,8 @@ def collection_move(request, pk, direction):
         return redirect("dashboard:collection_list")
 
     with transaction.atomic():
-        collections = (
-            list(
-                Collection.objects.select_for_update().order_by("display_order", "id")
-            ),
+        collections = list(
+            Collection.objects.select_for_update().order_by("display_order", "id")
         )
 
         current_index = next(
@@ -314,3 +312,61 @@ def collection_overview(request, slug):
     }
 
     return render(request, "dashboard/collection_overview.html", context)
+
+
+@artist_required
+def collection_edit(request, slug):
+    """
+    Allow authorized artists to edit collection details
+    and select an artwork from the collection as its cover.
+    """
+    collection = get_object_or_404(Collection, slug=slug)
+    artworks = collection.artworks.order_by("title")
+
+    if request.method == "POST":
+        form = CollectionForm(request.POST, instance=collection)
+        cover_id = request.POST.get("cover_artwork", "")
+
+        if form.is_valid():
+            if cover_id:
+                selected_cover = artworks.filter(pk=cover_id).first()
+
+                if selected_cover is None:
+                    form.add_error(
+                        None,
+                        "Please select a valid artwork from this collection.",
+                    )
+                else:
+                    collection.cover_artwork = selected_cover
+            else:
+                collection.cover_artwork = None
+
+            if not form.errors:
+                collection = form.save(commit=False)
+                collection.save()
+
+                messages.success(
+                    request,
+                    f'"{collection.name}" was updated successfully.',
+                )
+
+                return redirect(
+                    "dashboard:collection_overview",
+                    slug=collection.slug,
+                )
+    else:
+        form = CollectionForm(instance=collection)
+
+    context = {
+        "form": form,
+        "collection": collection,
+        "artworks": artworks,
+        "page_title": "Edit Collection",
+        "submit_label": "Save Changes",
+    }
+
+    return render(
+        request,
+        "dashboard/collection_form.html",
+        context,
+    )

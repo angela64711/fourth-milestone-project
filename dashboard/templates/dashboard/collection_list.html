@@ -159,11 +159,11 @@
                     <div class="col-8 col-sm-9 col-xl-3 ps-4">
                         <div class="d-flex flex-wrap justify-content-sm-end gap-2">
 
-                            <!-- Connect when edit view exists -->
-                            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+                            <a href="{% url 'dashboard:collection_edit' slug=collection.slug %}"
+                                class="btn btn-sm btn-outline-secondary">
                                 <i class="fa-solid fa-pen me-1" aria-hidden="true"></i>
                                 Edit
-                            </button>
+                            </a>
 
                             <!-- Connect when delete view exists -->
                             <button type="button" class="btn btn-sm btn-outline-danger" disabled>

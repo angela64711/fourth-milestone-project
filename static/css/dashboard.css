@@ -201,6 +201,54 @@
     font-size: 0.8rem;
 }
 
+/*---------------------------------------------------------------- Collection Edit Page */
+
+#collection-form-content {
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* -------------------------------- Collection Cover Selection */
+
+.cover-artwork-item[hidden] {
+    display: none;
+}
+
+.cover-artwork-option {
+    cursor: pointer;
+}
+
+.cover-artwork-thumbnail img {
+    aspect-ratio: 1 / 1;
+}
+
+.cover-artwork-thumbnail {
+    border: 3px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cover-artwork-check {
+    display: none;
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.cover-artwork-radio:checked + .cover-artwork-thumbnail {
+    border-color: var(--accent-color);
+}
+
+.cover-artwork-radio:checked
+    + .cover-artwork-thumbnail .cover-artwork-check {
+    display: block;
+}
+
+.cover-artwork-radio:focus-visible + .cover-artwork-thumbnail {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
 
 /*----------------------------------------------------------- Media Queries */
 

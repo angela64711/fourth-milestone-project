@@ -41,6 +41,11 @@ urlpatterns = [
         name="collection_add",
     ),
     path(
+        "collections/<slug:slug>/edit/",
+        views.collection_edit,
+        name="collection_edit",
+    ),
+    path(
         "collections/<slug:slug>/",
         views.collection_overview,
         name="collection_overview",

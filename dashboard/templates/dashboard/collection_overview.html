@@ -121,11 +121,11 @@
                     <!-- Management actions -->
                     <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
 
-                        <!-- Connect when edit view exists -->
-                        <button type="button" class="btn btn-dark" disabled>
+                        <a href="{% url 'dashboard:collection_edit' slug=collection.slug %}"
+                            class="btn btn-dark">
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Collection
-                        </button>
+                        </a>
 
                         <!-- Connect when delete view exists -->
                         <button type="button"
