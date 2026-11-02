@@ -328,8 +328,16 @@ def collection_edit(request, slug):
         cover_id = request.POST.get("cover_artwork", "")
 
         if form.is_valid():
+
+            # Validate the submitted cover ID before querying the database.
+            # Reject non-numeric IDs, nonexistent artworks, and artworks from
+            # other collections to prevent errors or invalid cover assignments.
             if cover_id:
-                selected_cover = artworks.filter(pk=cover_id).first()
+                selected_cover = (
+                    artworks.filter(pk=int(cover_id)).first()
+                    if cover_id.isdecimal()
+                    else None
+                )
 
                 if selected_cover is None:
                     form.add_error(

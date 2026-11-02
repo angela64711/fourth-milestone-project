@@ -360,6 +360,35 @@ class CollectionModelTest(TestCase):
         self.assertIsNone(collection.cover_artwork)
         self.assertTrue(Collection.objects.filter(pk=collection.pk).exists())
 
+    def test_deleting_selected_cover_uses_alphabetical_fallback(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+
+        fallback_artwork = Artwork.objects.create(
+            title="Autumn Dreams",
+            collection=collection,
+            image="artworks/autumn.jpg",
+        )
+
+        selected_cover = Artwork.objects.create(
+            title="Zebra Dreams",
+            collection=collection,
+            image="artworks/zebra.jpg",
+        )
+
+        collection.cover_artwork = selected_cover
+        collection.save()
+
+        self.assertEqual(collection.cover, selected_cover)
+
+        selected_cover.delete()
+        collection.refresh_from_db()
+
+        self.assertIsNone(collection.cover_artwork)
+        self.assertEqual(collection.cover, fallback_artwork)
+
     def test_cover_returns_manually_selected_artwork(self):
         collection = Collection.objects.create(
             name="Test Collection",
