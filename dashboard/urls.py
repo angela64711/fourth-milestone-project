@@ -65,4 +65,9 @@ urlpatterns = [
         views.commission_mark_completed,
         name="commission_mark_completed",
     ),
+    path(
+        "messages/",
+        views.message_list,
+        name="message_list",
+    ),
 ]

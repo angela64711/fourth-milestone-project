@@ -10,6 +10,7 @@ from django.db.models import F, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from .models import IncomingMessage
 from artworks.models import Artwork, Collection
 from commissions.models import CommissionOrder
 
@@ -479,3 +480,21 @@ def commission_mark_completed(request, pk):
         )
 
     return redirect("dashboard:commission_list")
+
+
+@artist_required
+def message_list(request):
+    """
+    Display incoming contact messages in the artist dashboard.
+    """
+    incoming_messages = IncomingMessage.objects.all()
+
+    context = {
+        "incoming_messages": incoming_messages,
+    }
+
+    return render(
+        request,
+        "dashboard/message_list.html",
+        context,
+    )

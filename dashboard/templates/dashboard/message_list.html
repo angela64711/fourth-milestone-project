@@ -1,0 +1,182 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="dashboard-layout" class="container-fluid">
+    <div class="row">
+
+        <!-- Dashboard navigation -->
+        <aside id="dashboard-sidebar" class="col-12 col-lg-3 p-3 p-lg-4">
+
+            <div class="mb-4 ms-3">
+                <h2 id="dashboard-title" class="mb-1">Artist Dashboard</h2>
+            </div>
+
+            <nav aria-label="Artist dashboard navigation">
+                <ul class="nav row row-cols-2 row-cols-sm-4 row-cols-lg-1 g-2">
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link"
+                            href="{% url 'dashboard:home' %}">
+                            <i class="fa-solid fa-images me-md-2"
+                                aria-hidden="true"></i>
+                            Artworks
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link"
+                            href="{% url 'dashboard:collection_list' %}">
+                            <i class="fa-solid fa-layer-group me-md-2"
+                                aria-hidden="true"></i>
+                            Collections
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link"
+                            href="{% url 'dashboard:commission_list' %}">
+                            <i class="fa-solid fa-receipt me-md-2"
+                                aria-hidden="true"></i>
+                            Commissions
+                        </a>
+                    </li>
+
+                    <li class="nav-item col ms-xl-3">
+                        <a class="nav-link active"
+                            href="{% url 'dashboard:message_list' %}"
+                            aria-current="page">
+                            <i class="fa-solid fa-envelope me-md-2"
+                                aria-hidden="true"></i>
+                            Messages
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Incoming messages -->
+        <main class="col-12 col-lg-9 p-3 p-lg-4">
+
+            <div class="mb-4">
+                <h1 class="mb-1">Incoming Messages</h1>
+                <p class="text-body-secondary mb-0">
+                    View messages submitted through the contact form.
+                </p>
+            </div>
+
+            {% if incoming_messages %}
+
+            <div class="accordion" id="dashboard-messages">
+
+                {% for message in incoming_messages %}
+
+                <div class="accordion-item mb-3">
+
+                    <!-- Message summary -->
+                    <h2 class="accordion-header"
+                        id="message-heading-{{ message.pk }}">
+
+                        <button class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#message-details-{{ message.pk }}"
+                            aria-expanded="false"
+                            aria-controls="message-details-{{ message.pk }}">
+
+                            <span class="d-flex flex-column flex-xl-row
+                                         align-items-start align-items-xl-center
+                                         justify-content-between gap-2 w-100 me-3">
+
+                                <span>
+                                    <strong>{{ message.name }}</strong>
+                                    <small class="d-block text-body-secondary">
+                                        {{ message.created_on|date:"d M Y, H:i" }}
+                                    </small>
+                                </span>
+
+                                <span class="text-break">
+                                    {{ message.subject }}
+                                </span>
+
+                                <span class="text-body-secondary small">
+                                    {{ message.message|truncatechars:60 }}
+                                </span>
+
+                            </span>
+                        </button>
+                    </h2>
+
+                    <!-- Expandable message details -->
+                    <div id="message-details-{{ message.pk }}"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="message-heading-{{ message.pk }}"
+                        data-bs-parent="#dashboard-messages">
+
+                        <div class="accordion-body">
+
+                            <h3 class="h5 mb-3">Message details</h3>
+
+                            <dl class="row gy-2">
+
+                                <dt class="col-sm-3">Received</dt>
+                                <dd class="col-sm-9">
+                                    {{ message.created_on|date:"d M Y, H:i" }}
+                                </dd>
+
+                                <dt class="col-sm-3">Name</dt>
+                                <dd class="col-sm-9">
+                                    {{ message.name }}
+                                </dd>
+
+                                <dt class="col-sm-3">Email</dt>
+                                <dd class="col-sm-9 text-break">
+                                    <a href="mailto:{{ message.email }}">
+                                        {{ message.email }}
+                                    </a>
+                                </dd>
+
+                                <dt class="col-sm-3">Subject</dt>
+                                <dd class="col-sm-9">
+                                    {{ message.subject }}
+                                </dd>
+
+                                <dt class="col-12">Message</dt>
+                                <dd class="col-12 text-break">
+                                    {{ message.message|linebreaksbr }}
+                                </dd>
+
+                            </dl>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <!-- Empty state -->
+            <div class="text-center py-5">
+                <h2 class="h5">No messages yet</h2>
+                <p class="text-body-secondary">
+                    Messages submitted through the contact form
+                    will appear here.
+                </p>
+            </div>
+
+            {% endif %}
+
+        </main>
+    </div>
+</div>
+{% endblock %}
