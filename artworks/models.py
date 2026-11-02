@@ -13,6 +13,13 @@ class Collection(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
     description = models.TextField()
+    cover_artwork = models.ForeignKey(
+        "Artwork",
+        on_delete=models.SET_NULL,
+        related_name="cover_for_collections",
+        null=True,
+        blank=True,
+    )
     display_order = models.PositiveIntegerField(
         blank=True,
         null=True,

@@ -315,3 +315,47 @@ class CollectionModelTest(TestCase):
 
         self.assertEqual(collection.name, "Renamed Collection")
         self.assertEqual(collection.slug, "original-collection")
+
+    def test_collection_cover_is_optional(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+
+        self.assertIsNone(collection.cover_artwork)
+
+    def test_collection_can_store_selected_cover_artwork(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+        artwork = Artwork.objects.create(
+            title="Cover Artwork",
+            collection=collection,
+            image="artworks/cover.jpg",
+        )
+
+        collection.cover_artwork = artwork
+        collection.save()
+        collection.refresh_from_db()
+
+        self.assertEqual(collection.cover_artwork, artwork)
+
+    def test_deleting_selected_artwork_clears_collection_cover(self):
+        collection = Collection.objects.create(
+            name="Test Collection",
+            description="A collection for testing.",
+        )
+        artwork = Artwork.objects.create(
+            title="Cover Artwork",
+            collection=collection,
+            image="artworks/cover.jpg",
+        )
+        collection.cover_artwork = artwork
+        collection.save()
+
+        artwork.delete()
+        collection.refresh_from_db()
+
+        self.assertIsNone(collection.cover_artwork)
+        self.assertTrue(Collection.objects.filter(pk=collection.pk).exists())
