@@ -177,6 +177,10 @@ class CommissionOrder(models.Model):
         default="pending",
     )
 
+    # Track whether the artist has fulfilled the commission.
+    # This is separate from the Stripe payment status.
+    is_completed = models.BooleanField(default=False)
+
     # Stripe's PaymentIntent ID links our order to its payment.
     stripe_payment_intent = models.CharField(
         max_length=255,
