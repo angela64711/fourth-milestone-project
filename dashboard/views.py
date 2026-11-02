@@ -378,3 +378,45 @@ def collection_edit(request, slug):
         "dashboard/collection_form.html",
         context,
     )
+
+
+@artist_required
+def collection_delete(request, slug):
+    """
+    Allow authorized artists to delete empty collections.
+    Prevent deletion of collections containing artworks.
+    """
+    collection = get_object_or_404(Collection, slug=slug)
+
+    if request.method == "POST":
+        if collection.artworks.exists():
+            messages.error(
+                request,
+                "This collection cannot be deleted because it contains "
+                "artworks. Reassign its artworks before deleting it.",
+            )
+            return redirect(
+                "dashboard:collection_overview",
+                slug=collection.slug,
+            )
+
+        collection_name = collection.name
+        collection.delete()
+
+        messages.success(
+            request,
+            f'"{collection_name}" was deleted successfully.',
+        )
+        return redirect("dashboard:collection_list")
+
+    context = {
+        "collection": collection,
+        "page_title": "Delete Collection",
+        "submit_label": "Delete Collection",
+    }
+
+    return render(
+        request,
+        "dashboard/collection_delete.html",
+        context,
+    )

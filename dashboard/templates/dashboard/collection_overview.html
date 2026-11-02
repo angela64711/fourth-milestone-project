@@ -126,13 +126,12 @@
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Collection
                         </a>
-
-                        <!-- Connect when delete view exists -->
-                        <button type="button"
-                            class="btn btn-outline-danger" disabled>
+                     
+                        <a href="{% url 'dashboard:collection_delete' slug=collection.slug %}"
+                            class="btn btn-outline-danger">
                             <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
                             Delete Collection
-                        </button>
+                        </a>
 
                     </div>
 

@@ -46,6 +46,11 @@ urlpatterns = [
         name="collection_edit",
     ),
     path(
+        "collections/<slug:slug>/delete/",
+        views.collection_delete,
+        name="collection_delete",
+    ),
+    path(
         "collections/<slug:slug>/",
         views.collection_overview,
         name="collection_overview",
