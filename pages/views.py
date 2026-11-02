@@ -1,11 +1,16 @@
-from django.contrib import messages
-from django.core.mail import EmailMessage
+import logging
 
 from django.conf import settings
-
+from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.db import DatabaseError
 from django.shortcuts import redirect, render
 
+from dashboard.models import IncomingMessage
+
 from .forms import ContactForm
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -48,10 +53,24 @@ def contact(request):
             try:
                 email_message.send(fail_silently=False)
             except Exception:
+                logger.exception("Contact email sending failed.")
                 messages.error(
                     request, "Your message could not be sent. Please try again later."
                 )
+
             else:
+                try:
+                    IncomingMessage.objects.create(
+                        name=name,
+                        email=email,
+                        subject=subject,
+                        message=message,
+                    )
+                except DatabaseError:
+                    logger.exception(
+                        "Contact email sent, but message could not be saved."
+                    )
+
                 messages.success(
                     request, "Thank you! Your message has been sent successfully."
                 )
