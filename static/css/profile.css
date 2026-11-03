@@ -76,9 +76,12 @@
     box-shadow: none;
 }
 
-/* ------------------------------------------------------------ Auth Pages */
+
+/*-------------------------------------------- Authentication Pages */
+
 
 .auth-page h1 {
+    font-weight: 400;
     text-decoration: underline;
     text-decoration-color: var(--accent-color);
     text-decoration-thickness: 3px;

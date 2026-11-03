@@ -60,7 +60,7 @@ input:focus-visible {
 .underline-link {
     display: inline-block;
     font-family: var(--secondary-font);
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
     font-weight: 400;
     color: var(--dark-accent-color);
     text-decoration: none;
@@ -462,12 +462,26 @@ input:focus-visible {
 /* Extra-large devices: 1200px and above */
 
 @media screen and (min-width: 1200px) {
+    .site-navbar {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .navbar-brand {
+        margin-right: 0.25rem;
+    }
+
     .navbar-collapse {
         padding-top: 0;
     }
 
     .navbar-nav {
-        gap: 0.5rem;
+        gap: 0;
+    }
+
+    .navbar-nav a.nav-link {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     /* Keep the dot closer to desktop account navigation links */
