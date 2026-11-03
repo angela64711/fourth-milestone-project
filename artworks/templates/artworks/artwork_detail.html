@@ -10,13 +10,23 @@
 
 <main id="artwork-detail" class="container py-4">
 
-    <!-- Back to collection gallery -->
+    
+    <!-- Back navigation -->
     <div class="mb-1 mb-lg-2 text-center text-lg-start">
-        <a href="{% url 'artworks' artwork.collection.slug %}?page={{ gallery_page }}" class="underline-link">
+        {% if from_favourites %}
+        <a href="{% url 'profiles:my_account' %}" class="underline-link">
+            <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
+            Back to My Favourites
+        </a>
+        {% else %}
+        <a href="{% url 'artworks' artwork.collection.slug %}?page={{ gallery_page }}"
+            class="underline-link">
             <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
             Back to Collection
         </a>
+        {% endif %}
     </div>
+
 
     <!-- Decorative heading -->
     <div id="artwork-detail-decoration" class="text-center mb-3 mb-lg-5" aria-hidden="true">
@@ -27,9 +37,42 @@
     <!-- Artwork and information -->
     <div class="row g-4">
 
-        <!-- Artwork image -->
+        <!-- Artwork image and favourite control -->
         <div class="col-12 col-lg-6">
-            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-fluid mx-auto">
+            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
+                class="img-fluid mx-auto">
+
+            <!-- Favourite control -->
+            <div class="mt-3 text-center">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'toggle_favourite' artwork.slug %}">
+                    {% csrf_token %}
+
+                    {% if from_favourites %}
+                    <input type="hidden" name="from" value="favourites">
+                    {% else %}
+                    <input type="hidden" name="page" value="{{ gallery_page }}">
+                    {% endif %}
+
+                    <button type="submit" class="btn favourite-btn">
+                        {% if is_favourite %}
+                        <i class="fa-solid fa-heart me-2" aria-hidden="true"></i>
+                        Remove from Favourites
+                        {% else %}
+                        <i class="fa-regular fa-heart me-2" aria-hidden="true"></i>
+                        Add to Favourites
+                        {% endif %}
+                    </button>
+                </form>
+
+                    {% else %}
+                    <button type="button" class="btn favourite-btn"
+                        data-bs-toggle="modal" data-bs-target="#favouriteAuthModal">
+                        <i class="fa-regular fa-heart me-2" aria-hidden="true"></i>
+                        Add to Favourites
+                    </button>
+                    {% endif %}
+            </div>
         </div>
 
         <!-- Artwork information -->
@@ -90,5 +133,48 @@
     </div>
 
 </main>
+
+<!-- Favourite authentication modal -->
+
+{% if not user.is_authenticated %}
+<div class="modal fade" id="favouriteAuthModal" tabindex="-1"
+    aria-labelledby="favouriteAuthModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="favouriteAuthModalLabel">
+                    Add to Favourites
+                </h2>
+
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p class="mb-0">
+                    Log in or create an account to save this artwork
+                    to your favourites.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}"
+                    class="btn btn-primary">
+                    Log In
+                </a>
+
+                <a href="{% url 'account_signup' %}?next={{ request.get_full_path|urlencode }}"
+                    class="btn btn-outline-secondary">
+                    Register
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

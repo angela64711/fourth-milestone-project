@@ -2,11 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from commissions.models import CommissionOrder
+from artworks.models import Favourite
 
 
 @login_required
 def my_account(request):
-    """Display the logged-in user's paid commission history."""
+    """
+    Display the logged-in user's paid commission history.
+    """
+    favourites = Favourite.objects.filter(user=request.user).select_related(
+        "artwork", "artwork__collection"
+    )
 
     orders = list(
         CommissionOrder.objects.filter(
@@ -27,5 +33,8 @@ def my_account(request):
     return render(
         request,
         "profiles/my_account.html",
-        {"orders": orders},
+        {
+            "favourites": favourites,
+            "orders": orders,
+        },
     )

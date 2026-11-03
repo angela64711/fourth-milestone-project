@@ -4,6 +4,8 @@ from django.db.models.deletion import PROTECT
 from django.db.models.functions import Lower
 from django.utils.text import slugify
 
+from django.conf import settings
+
 
 class Collection(models.Model):
     """
@@ -134,3 +136,33 @@ class Artwork(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Favourite(models.Model):
+    """
+    Stores artworks saved by registered users.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favourites",
+    )
+    artwork = models.ForeignKey(
+        Artwork,
+        on_delete=models.CASCADE,
+        related_name="favourites",
+    )
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_on"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "artwork"],
+                name="unique_user_artwork_favourite",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self.artwork}"

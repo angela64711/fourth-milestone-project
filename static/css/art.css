@@ -203,6 +203,33 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Favourite button */
+.favourite-btn {
+    background-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    border: 1px solid var(--dark-accent-color);
+    border-radius: 0.375rem;
+    padding: 0.65rem 1.25rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.favourite-btn:hover {
+    background-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    opacity: 0.9;
+    transform: translateY(-3px);
+}
+
+.favourite-btn:focus-visible {
+    outline: 2px solid var(--dark-accent-color);
+    outline-offset: 3px;
+}
+
+.favourite-btn .fa-heart {
+    color: var(--accent-color);
+}
+
+
 #buying-options-heading {
     color: var(--dark-accent-color);
     font-size: 1.4rem;
