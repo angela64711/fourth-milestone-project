@@ -1,9 +1,20 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
-from .models import Artwork, Collection
+from .models import Artwork, Collection, Favourite
 
 
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
 class CollectionsViewTest(TestCase):
     """
     Tests the collections listing page and its filtering.
@@ -45,6 +56,16 @@ class CollectionsViewTest(TestCase):
         self.assertNotContains(response, "Empty Collection")
 
 
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
 class CollectionGalleryViewTest(TestCase):
     """
     Tests collection galleries, invalid slugs and pagination.
@@ -113,6 +134,16 @@ class CollectionGalleryViewTest(TestCase):
         self.assertFalse(second_page.context["page_obj"].has_next())
 
 
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
 class ArtworkDetailViewTest(TestCase):
     """
     Tests artwork details, invalid slugs and gallery navigation.
@@ -163,3 +194,215 @@ class ArtworkDetailViewTest(TestCase):
             response,
             f'{reverse("artworks", args=[self.collection.slug])}?page=3',
         )
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
+class ArtworkFavouriteStatusViewTest(TestCase):
+    """
+    Tests favourite status and navigation on artwork detail pages.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            username="favouriteuser",
+            password="TestPassword123!",
+        )
+        cls.collection = Collection.objects.create(
+            name="Favourite Collection",
+            description="Collection for favourite view tests.",
+        )
+        cls.artwork = Artwork.objects.create(
+            title="Favourite Detail Artwork",
+            collection=cls.collection,
+            image="artworks/favourite-detail.jpg",
+        )
+        cls.url = reverse("artwork_detail", args=[cls.artwork.slug])
+
+    def test_anonymous_user_sees_login_prompt(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Add to Favourites")
+        self.assertContains(response, "favouriteAuthModal")
+        self.assertFalse(response.context["is_favourite"])
+
+    def test_logged_in_user_sees_unsaved_artwork(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.url)
+
+        self.assertFalse(response.context["is_favourite"])
+        self.assertContains(response, "Add to Favourites")
+
+    def test_saved_artwork_displays_remove_button(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.url)
+
+        self.assertTrue(response.context["is_favourite"])
+        self.assertContains(response, "Remove from Favourites")
+
+    def test_navigation_returns_to_my_favourites(self):
+        response = self.client.get(
+            self.url,
+            {"from": "favourites"},
+        )
+
+        self.assertTrue(response.context["from_favourites"])
+        self.assertContains(response, "Back to My Favourites")
+        self.assertContains(
+            response,
+            reverse("profiles:my_account"),
+        )
+
+
+@override_settings(
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+)
+class ToggleFavouriteViewTest(TestCase):
+    """
+    Tests favourite creation, removal, permissions and redirects.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            username="toggleuser",
+            password="TestPassword123!",
+        )
+        cls.collection = Collection.objects.create(
+            name="Toggle Collection",
+            description="Collection for toggle tests.",
+        )
+        cls.artwork = Artwork.objects.create(
+            title="Toggle Test Artwork",
+            collection=cls.collection,
+            image="artworks/toggle.jpg",
+        )
+        cls.url = reverse("toggle_favourite", args=[cls.artwork.slug])
+        cls.detail_url = reverse(
+            "artwork_detail",
+            args=[cls.artwork.slug],
+        )
+
+    def test_anonymous_user_is_redirected_to_login(self):
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/accounts/login/", response.url)
+        self.assertFalse(Favourite.objects.exists())
+
+    def test_get_request_is_not_allowed(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 405)
+        self.assertFalse(Favourite.objects.exists())
+
+    def test_post_adds_favourite(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(self.url)
+
+        self.assertTrue(
+            Favourite.objects.filter(
+                user=self.user,
+                artwork=self.artwork,
+            ).exists()
+        )
+        self.assertRedirects(
+            response,
+            f"{self.detail_url}?page=1",
+        )
+
+    def test_post_removes_existing_favourite(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.post(self.url)
+
+        self.assertFalse(
+            Favourite.objects.filter(
+                user=self.user,
+                artwork=self.artwork,
+            ).exists()
+        )
+        self.assertRedirects(
+            response,
+            f"{self.detail_url}?page=1",
+        )
+
+    def test_gallery_page_is_preserved_after_toggle(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            self.url,
+            {"page": "3"},
+        )
+
+        self.assertRedirects(
+            response,
+            f"{self.detail_url}?page=3",
+        )
+
+    def test_favourites_origin_is_preserved_after_toggle(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            self.url,
+            {"from": "favourites"},
+        )
+
+        self.assertRedirects(
+            response,
+            f"{self.detail_url}?from=favourites",
+        )
+
+    def test_success_message_contains_favourites_link(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            self.url,
+            follow=True,
+        )
+
+        favourites_url = reverse("profiles:my_account") + "#my-favourites"
+
+        self.assertContains(response, "Artwork added to your favourites.")
+        self.assertContains(response, "View My Favourites")
+        self.assertContains(response, f'href="{favourites_url}"')
+
+    def test_invalid_artwork_returns_404(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("toggle_favourite", args=["nonexistent-artwork"])
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertFalse(Favourite.objects.exists())

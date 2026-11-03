@@ -122,7 +122,7 @@ class CollectionListTests(TestCase):
         first_collection = collections[self.first_collection.pk]
 
         self.assertEqual(
-            first_collection.ordered_artworks[0],
+            first_collection.cover,
             self.apple_artwork,
         )
 

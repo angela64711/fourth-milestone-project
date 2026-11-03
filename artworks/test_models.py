@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError
 from django.test import TestCase
+from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
 
-from .models import Artwork, Collection
+from .models import Artwork, Collection, Favourite
 
 
 class ArtworkModelTest(TestCase):
@@ -431,3 +433,104 @@ class CollectionModelTest(TestCase):
         )
 
         self.assertIsNone(collection.cover)
+
+
+class FavouriteModelTest(TestCase):
+    """
+    Tests favourite creation, uniqueness, relationships and deletion.
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        User = get_user_model()
+
+        cls.user = User.objects.create_user(
+            username="testuser",
+            password="TestPassword123!",
+        )
+        cls.other_user = User.objects.create_user(
+            username="otheruser",
+            password="TestPassword123!",
+        )
+
+        cls.collection = Collection.objects.create(
+            name="Favourite Test Collection",
+            description="A collection for favourite tests.",
+        )
+
+        cls.artwork = Artwork.objects.create(
+            title="Favourite Test Artwork",
+            collection=cls.collection,
+            image="artworks/favourite-test.jpg",
+        )
+
+    def test_favourite_can_be_created(self):
+        favourite = Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+
+        self.assertEqual(favourite.user, self.user)
+        self.assertEqual(favourite.artwork, self.artwork)
+        self.assertEqual(Favourite.objects.count(), 1)
+
+    def test_same_user_cannot_favourite_artwork_twice(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+
+        # Roll back the failed insert without breaking the test transaction.
+        with transaction.atomic():
+            with self.assertRaises(IntegrityError):
+                Favourite.objects.create(
+                    user=self.user,
+                    artwork=self.artwork,
+                )
+
+        self.assertEqual(Favourite.objects.count(), 1)
+
+    def test_different_users_can_favourite_same_artwork(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+        Favourite.objects.create(
+            user=self.other_user,
+            artwork=self.artwork,
+        )
+
+        self.assertEqual(Favourite.objects.count(), 2)
+
+    def test_favourite_string_representation(self):
+        favourite = Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+
+        self.assertEqual(
+            str(favourite),
+            f"{self.user} - {self.artwork}",
+        )
+
+    def test_deleting_user_removes_their_favourites(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+
+        self.user.delete()
+
+        self.assertFalse(Favourite.objects.exists())
+        self.assertTrue(Artwork.objects.filter(pk=self.artwork.pk).exists())
+
+    def test_deleting_artwork_removes_its_favourites(self):
+        Favourite.objects.create(
+            user=self.user,
+            artwork=self.artwork,
+        )
+
+        self.artwork.delete()
+
+        self.assertFalse(Favourite.objects.exists())
+        self.assertTrue(get_user_model().objects.filter(pk=self.user.pk).exists())
