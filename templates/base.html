@@ -271,9 +271,14 @@
                         justify-content-between align-items-center gap-3">
 
                 <!-- Contact -->
-                <a href="{% url 'contact' %}" class="footer-link">
+                <a id="contact-link" href="{% url 'contact' %}">
                     Contact
                 </a>
+                
+                <!-- Copyright -->
+                <p id="copyright" class="mb-0 text-center">
+                    &copy; <span id="copyright-year">2026</span> Frank Moth. All rights reserved.
+                </p>
 
                   <!-- Social media -->
                 <div class="footer-socials d-flex align-items-center
@@ -323,8 +328,17 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
     </script>
 
+    <!-- Copyright year -->
+    <script>
+        const copyrightYear = document.getElementById("copyright-year");
+
+        if (copyrightYear) {
+            copyrightYear.textContent = new Date().getFullYear();
+        }
+    </script>
+
     {% block extra_js %}{% endblock %}
 
 </body>
-
 </html>
+
