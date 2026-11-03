@@ -1,4 +1,57 @@
-/* My Account - Commission accordion */
+/*-----------------------------------------My Account Page*/
+
+#my-account h1 {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 10px;
+}
+
+#my-favourites {
+    background-color: var(--background-color);
+}
+
+
+#my-favourites img {
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+#my-favourites .btn-primary,
+#my-commissions .btn-primary {
+    background-color: var(--dark-accent-color);
+    border-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    border-radius: 4px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#my-favourites .btn-primary:hover,
+#my-commissions .btn-primary:hover {
+    background-color: var(--dark-accent-color);
+    border-color: var(--dark-accent-color);
+    color: var(--off-white-color);
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+#my-favourites a img {
+    transition: transform 0.2s ease;
+}
+
+#my-favourites a:hover img {
+    transform: translateY(-3px);
+}
+
+
+#my-favourites h2,
+#my-commissions h2 {
+    color: var(--dark-accent-color);
+}
+
+
+/* Commission accordion */
 
 #my-account .accordion-button {
     background-color: var(--off-white-color);
@@ -23,7 +76,7 @@
     box-shadow: none;
 }
 
-/* -------------------------------------------------------------- Auth Pages */
+/* ------------------------------------------------------------ Auth Pages */
 
 .auth-page h1 {
     text-decoration: underline;

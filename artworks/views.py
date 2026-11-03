@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.html import format_html
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -82,7 +83,16 @@ def toggle_favourite(request, slug):
     )
 
     if created:
-        messages.success(request, "Artwork added to your favourites.")
+        favourites_url = reverse("profiles:my_account") + "#my-favourites"
+
+        # Include a link to My Favourites in the success message when artwork is added.
+        messages.success(
+            request,
+            format_html(
+                'Artwork added to your favourites. <a href="{}">View My Favourites</a>',
+                favourites_url,
+            ),
+        )
     else:
         favourite.delete()
         messages.success(request, "Artwork removed from your favourites.")
