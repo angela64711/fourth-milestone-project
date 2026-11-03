@@ -118,12 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
             'input[name="artwork_format"]:checked'
         );
 
-        const requiresSize = selectedFormat &&
-            ["print", "framed"].includes(selectedFormat.value);
+        const isDigital = selectedFormat?.value === "digital";
 
-        artworkSize.disabled = !requiresSize;
+        artworkSize.disabled = isDigital;
 
-        if (!requiresSize) {
+        if (isDigital) {
             artworkSize.querySelectorAll('input[type="radio"]').forEach(
                 function (radio) {
                     radio.checked = false;
