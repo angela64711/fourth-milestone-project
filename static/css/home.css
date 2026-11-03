@@ -1,7 +1,15 @@
 /* -------------------------------------------------------- Home Page */
 
+#homepage-hero {
+    background: radial-gradient(
+        ellipse at top left,
+        #E0DCD5 0%,
+        #EFEBE5 20%,
+        var(--off-white-color) 50%
+    );
+}
+
 #homepage-intro {
-    color: var(--text-color);
     line-height: 1.5;
     font-size: clamp(2rem, 3.5vw, 3.5rem);
 }
@@ -53,7 +61,7 @@
 
 #hero-heading-area {
     grid-area: heading;
-    background-color: var(--off-white-color);
+    background: transparent;
 }
 
 #hero-video-area {
@@ -434,6 +442,18 @@
     }
 }
 
+@media screen and (min-width: 768px) {
+    
+    #blois-frame {
+        padding: 32px;
+        border-radius: 4px;
+        border: 14px solid var(--dark-accent-color);
+        background-color: var(--off-white-color);
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.18),
+            inset 0 0 14px rgba(0, 0, 0, 0.22);
+    }
+}
 
 @media screen and (min-width: 992px) {
 
@@ -468,17 +488,6 @@
             100% 100%,
             0 90%
         );
-        filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.18));
-    }
-
-    #blois-frame {
-        padding: 32px;
-        border-radius: 4px;
-        border: 14px solid var(--dark-accent-color);
-        background-color: var(--off-white-color);
-        box-shadow:
-            0 8px 24px rgba(0, 0, 0, 0.18),
-            inset 0 0 14px rgba(0, 0, 0, 0.22);
     }
 
     #hero-heading-area {
@@ -486,13 +495,13 @@
     }
 
     #hero-video-area {
-        align-self: start;
+        align-self: center;
     }
 
     #hero-clients-area {
         align-self: end;
-        background: transparent;
-        padding: 2rem 2.5rem 1rem 1.5rem;
+        background-color: var(--dark-accent-color);
+        padding: 1.5rem 2.5rem 1rem 1.5rem;
     }
 
     #homepage-clients {

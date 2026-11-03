@@ -144,7 +144,7 @@ input:focus-visible {
     position: absolute;
     width: 6px;
     height: 6px;
-    left: -12px;
+    left: -10px;
     top: 50%;
     transform: translateY(-50%);
     border-radius: 50%;
@@ -486,7 +486,11 @@ input:focus-visible {
 
     /* Keep the dot closer to desktop account navigation links */
     .navbar-nav > .nav-item.d-xl-flex > a.nav-link::before {
-        left: -5px;
+        left: -2px;
+    }
+
+    .navbar-nav a.nav-link::before {
+        left: 0;
     }
 }
 
