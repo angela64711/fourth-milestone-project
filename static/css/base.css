@@ -85,13 +85,15 @@ input:focus-visible {
     transform: rotate(-45deg);
 }
 
-/*-------------------------------------------------------- Navbar */
+/* -------------------------------------------------------- Navbar */
 
 .site-navbar {
     background-color: var(--background-color);
     padding: 0.75rem 0.25rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
 }
+
+/* Navbar brand */
 
 .navbar-brand {
     font-family: var(--primary-font);
@@ -112,32 +114,32 @@ input:focus-visible {
     color: var(--text-color);
 }
 
+/* Navigation links */
+
 .navbar-nav {
     gap: 0.25rem;
 }
 
 .navbar-nav .nav-link {
     font-family: var(--secondary-font);
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: var(--text-color);
 }
 
-/* Navigation link indicators */
-
-.navbar-nav .nav-link:not(.account-link) {
+.navbar-nav a.nav-link {
     position: relative;
     display: inline-block;
     padding-left: 0;
     padding-right: 0;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     text-decoration: none;
     transition: transform 0.2s ease;
 }
 
-/* Green dot */
+/* Green dot indicator */
 
-.navbar-nav .nav-link:not(.account-link)::before {
+.navbar-nav a.nav-link::before {
     content: "";
     position: absolute;
     width: 6px;
@@ -150,9 +152,9 @@ input:focus-visible {
     opacity: 0;
 }
 
-/* Charcoal underline */
+/* Charcoal underline indicator */
 
-.navbar-nav .nav-link:not(.account-link)::after {
+.navbar-nav a.nav-link::after {
     content: "";
     position: absolute;
     left: 0;
@@ -163,29 +165,27 @@ input:focus-visible {
     opacity: 0;
 }
 
-/* Hover, focus and active indicators */
+/* Navigation hover, focus and active states */
 
-.navbar-nav .nav-link:not(.account-link):hover::before,
-.navbar-nav .nav-link:not(.account-link):hover::after,
-.navbar-nav .nav-link:not(.account-link):focus-visible::before,
-.navbar-nav .nav-link:not(.account-link):focus-visible::after,
-.navbar-nav .nav-link:not(.account-link).active::before,
-.navbar-nav .nav-link:not(.account-link).active::after {
+.navbar-nav a.nav-link:hover::before,
+.navbar-nav a.nav-link:hover::after,
+.navbar-nav a.nav-link:focus-visible::before,
+.navbar-nav a.nav-link:focus-visible::after,
+.navbar-nav a.nav-link.active::before,
+.navbar-nav a.nav-link.active::after {
     opacity: 1;
 }
 
-/* Movement only on hover */
-
-.navbar-nav .nav-link:not(.account-link):not(.active):hover {
+.navbar-nav a.nav-link:not(.active):hover {
     transform: translateY(-2px);
 }
 
-/* -------------------------------------------------- Account control */
+/* ------------------------------------------------ Account Controls */
 
 .account-link {
     display: inline-block;
     font-family: var(--secondary-font);
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: var(--text-color);
     text-decoration: none;
     transition: color 0.2s ease, transform 0.2s ease;
@@ -210,19 +210,29 @@ input:focus-visible {
 }
 
 /* Hide Bootstrap's default dropdown arrow */
+
 .account-icon::after {
     display: none;
 }
 
-/* Mobile navigation toggle */
+/* Account dropdown menu */
+
+.site-navbar .dropdown-item:hover,
+.site-navbar .dropdown-item:focus,
+.site-navbar .dropdown-item:active {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* ------------------------------------------------ Mobile Navigation */
+
+/* Hamburger toggle */
 
 .navbar-toggler {
     border: none;
     padding: 0.25rem;
     transition: transform 0.2s ease;
 }
-
-/* Mobile navigation toggler */
 
 .navbar-toggler-icon {
     width: 1.5rem;
@@ -256,13 +266,6 @@ input:focus-visible {
 
 .site-navbar .container-fluid>.d-flex {
     column-gap: 0.5rem !important;
-}
-
-
-/*-------------------------------------------- Authentication Pages */
-
-.auth-page h1 {
-    font-weight: 400;
 }
 
 
@@ -347,21 +350,13 @@ input:focus-visible {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.messages .alert-success,
-.messages .alert-danger,
-.messages .alert-error,
-.messages .alert-warning,
-.messages .alert-info {
-    border: none;
-}
-
 
 /*------------------------------------------------------ Footer */
 
 .site-footer {
     background-color: var(--background-color);
     padding: 0.75rem 1rem;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .footer-content {
@@ -369,21 +364,28 @@ input:focus-visible {
     text-align: center;
 }
 
-#copyright,
-#contact-link {
+#copyright {
     display: inline-block;
-    font-family: var(--secondary-font);
     font-size: 1rem;
+    font-family: var(--secondary-font);
     color: var(--text-color);
     text-decoration: none;
 }
 
 #contact-link {
+    display: inline-block;
     font-size: 1.2rem;
+    font-family: var(--secondary-font);
+    color: var(--text-color);
+    text-decoration: none;
 }
 
-#contact-link:hover,
-#contact-link:focus-visible {
+#contact-link i {
+    font-size: 1.1rem;
+}
+
+#contact-link:hover span,
+#contact-link:focus-visible span {
     color: var(--text-color);
     text-decoration: underline;
     text-decoration-color: var(--accent-color);
@@ -395,17 +397,14 @@ input:focus-visible {
 }
 
 .footer-socials a {
+    display: inline-block;
     font-family: var(--secondary-font);
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-color);
     text-decoration: none;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-socials a {
-    display: inline-block;
-    font-size: 0.95rem;
-}
 
 .footer-socials a:hover {
     color: var(--accent-color);
@@ -469,5 +468,22 @@ input:focus-visible {
 
     .navbar-nav {
         gap: 0.5rem;
+    }
+
+    /* Keep the dot closer to desktop account navigation links */
+    .navbar-nav > .nav-item.d-xl-flex > a.nav-link::before {
+        left: -5px;
+    }
+}
+
+/* XXL devices: 1400px and above */
+
+@media screen and (min-width: 1400px) {
+    .navbar-nav {
+        gap: 1rem;
+    }
+
+    .footer-socials a {
+        font-size: 1.25rem;
     }
 }

@@ -27,7 +27,6 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/9ddbc03291.js" crossorigin="anonymous"></script>
 
-    <!-- Favicon -->
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicons/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicons/favicon-32x32.png' %}">
@@ -163,13 +162,16 @@
                         {% if user.is_authenticated %}
                         <li class="nav-item d-xl-none">
                             {% if is_artist %}
-                            <a class="nav-link" href="{% url 'dashboard:home' %}">
+                            <a class="nav-link {% if request.resolver_match.namespace == 'dashboard' %}active{% endif %}"
+                                href="{% url 'dashboard:home' %}"
+                                {% if request.resolver_match.namespace == 'dashboard' %}aria-current="page"{% endif %}>
                                 Dashboard
                             </a>
                             {% else %}
+                            
                             <a class="nav-link {% if request.resolver_match.url_name == 'my_account' %}active{% endif %}"
                                 href="{% url 'profiles:my_account' %}"
-                                {% if request.resolver_match.url_name == 'my_account' %}aria-current="page" {% endif %}>
+                                {% if request.resolver_match.url_name == 'my_account' %}aria-current="page"{% endif %}>
                                 My Account
                             </a>
                             {% endif %}
@@ -177,7 +179,7 @@
                         {% endif %}
 
                         <!-- Desktop account control -->
-                        <li class="nav-item d-none d-xl-flex align-items-center gap-2">
+                        <li class="nav-item d-none d-xl-flex align-items-center gap-1">
 
                             <!-- Desktop account dropdown -->
                             <div class="dropdown">
@@ -224,12 +226,15 @@
 
                             {% if user.is_authenticated %}
                                 {% if is_artist %}
-                                <a class="account-link" href="{% url 'dashboard:home' %}">
+                                <a class="nav-link {% if request.resolver_match.namespace == 'dashboard' %}active{% endif %}"
+                                    href="{% url 'dashboard:home' %}"
+                                    {% if request.resolver_match.namespace == 'dashboard' %}aria-current="page"{% endif %}>
                                     Dashboard
                                 </a>
                                 {% else %}
-                                <a class="account-link" href="{% url 'profiles:my_account' %}"
-                                    {% if request.resolver_match.url_name == 'my_account' %}aria-current="page" {% endif %}>
+                                <a class="nav-link {% if request.resolver_match.url_name == 'my_account' %}active{% endif %}"
+                                    href="{% url 'profiles:my_account' %}"
+                                    {% if request.resolver_match.url_name == 'my_account' %}aria-current="page"{% endif %}>
                                     My Account
                                 </a>
                                 {% endif %}
@@ -271,8 +276,10 @@
                         justify-content-between align-items-center gap-3">
 
                 <!-- Contact -->
-                <a id="contact-link" href="{% url 'contact' %}">
-                    Contact
+                <a id="contact-link" href="{% url 'contact' %}"
+                    class="d-inline-flex align-items-center gap-2">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    <span>Contact Us</span>
                 </a>
                 
                 <!-- Copyright -->
