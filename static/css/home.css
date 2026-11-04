@@ -482,8 +482,8 @@
         background-color: var(--dark-accent-color);
         clip-path: polygon(
             0 30%,
-            25% 20%,
-            25% 0,
+            28% 20%,
+            32% 0,
             100% 0,
             100% 100%,
             0 90%
@@ -502,6 +502,7 @@
         align-self: end;
         background-color: var(--dark-accent-color);
         padding: 1.5rem 2.5rem 1rem 1.5rem;
+        border-radius: 0;
     }
 
     #homepage-clients {
