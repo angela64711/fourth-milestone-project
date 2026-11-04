@@ -470,7 +470,6 @@
 }
 
 #contact-submit {
-    border-radius: 6px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -480,7 +479,6 @@
     border-color: var(--accent-color);
     color: var(--dark-accent-color);
 }
-
 
 #contact-logo {
     width: 100%;
@@ -494,9 +492,6 @@
     border-radius: 50%;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
 }
-
-
-
 
 
 /*--------------------------------------------------Media Queries */

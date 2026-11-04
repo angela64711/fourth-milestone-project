@@ -23,7 +23,6 @@
     background-color: var(--dark-accent-color);
     border-color: var(--dark-accent-color);
     color: var(--off-white-color);
-    border-radius: 4px;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -96,7 +95,6 @@
 }
 
 .auth-page .btn {
-    border-radius: 6px;
     border-radius: 6px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
 }

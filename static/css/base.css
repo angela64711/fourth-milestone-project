@@ -69,14 +69,18 @@ input:focus-visible {
     transition: transform 0.2s ease;
 }
 
-.underline-link:hover,
 .underline-link:focus-visible {
     color: var(--dark-accent-color);
 }
 
-.underline-link:hover {
-    transform: translateY(-2px);
-    font-weight: 500;
+/* Apply hover effects only on devices with a precise pointer (e.g. mouse), 
+preventing sticky hover states on touchscreens. */
+@media (hover: hover) and (pointer: fine) {
+    .underline-link:hover {
+        color: var(--dark-accent-color);
+        transform: translateY(-2px);
+        font-weight: 500;
+    }
 }
 
 .diagonal-arrow {
@@ -273,7 +277,7 @@ input:focus-visible {
 
 .btn {
     font-family: var(--secondary-font);
-    border-radius: 0;
+    border-radius:4px;
 }
 
 .btn-primary {
@@ -282,12 +286,20 @@ input:focus-visible {
     color: var(--off-white-color);
 }
 
-.btn-primary:hover,
 .btn-primary:focus {
-    background-color: var(--text-color);
-    border-color: var(--text-color);
-    color: var(--off-white-color);
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--dark-accent-color);
 }
+
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--dark-accent-color);
+    }
+}
+
 
 /* ----------------------------------------------------- Back to Top Button */
 
