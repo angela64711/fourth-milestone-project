@@ -477,9 +477,11 @@ class CommissionPaymentVerificationTest(TestCase):
                 else:
                     payment_data[field] = invalid_value
 
-                mock_retrieve.return_value = stripe.StripeObject.construct_from(
-                    payment_data,
-                    "sk_test_mock",
+                mock_retrieve.return_value = (
+                    stripe.StripeObject.construct_from(
+                        payment_data,
+                        "sk_test_mock",
+                    )
                 )
 
                 response = self.client.post(
@@ -520,7 +522,9 @@ class CommissionPaymentVerificationTest(TestCase):
 
     @patch("commissions.views.stripe.PaymentIntent.retrieve")
     @patch("commissions.views.stripe.PaymentIntent.create")
-    def test_checkout_recovers_completed_payment(self, mock_create, mock_retrieve):
+    def test_checkout_recovers_completed_payment(
+        self, mock_create, mock_retrieve
+    ):
         """Checkout recovers a successful payment and sends confirmation."""
         session = self.client.session
 
@@ -583,7 +587,9 @@ class CommissionPaymentVerificationTest(TestCase):
 
     @patch("commissions.views.stripe.PaymentIntent.retrieve")
     @patch("commissions.emails.send_mail")
-    def test_email_failure_does_not_invalidate_payment(self, mock_send, mock_retrieve):
+    def test_email_failure_does_not_invalidate_payment(
+        self, mock_send, mock_retrieve
+    ):
         """A failed email does not undo a successful Stripe payment."""
         mock_retrieve.return_value = self.successful_payment()
         mock_send.side_effect = ConnectionError("Email server unavailable")

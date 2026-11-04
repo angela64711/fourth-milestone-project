@@ -58,7 +58,9 @@ class CommissionCreativeForm(forms.Form):
         moods = self.cleaned_data["moods"]
 
         if len(moods) > 2:
-            raise forms.ValidationError("Please select no more than two moods.")
+            raise forms.ValidationError(
+                "Please select no more than two moods."
+            )
 
         return moods
 
@@ -67,7 +69,9 @@ class CommissionCreativeForm(forms.Form):
         colours = self.cleaned_data["colours"]
 
         if len(colours) > 2:
-            raise forms.ValidationError("Please select no more than two colours.")
+            raise forms.ValidationError(
+                "Please select no more than two colours."
+            )
 
         return colours
 
@@ -85,16 +89,26 @@ class CommissionCreativeForm(forms.Form):
             story = cleaned_data.get("story", "")
 
             if not story.strip():
-                self.add_error("story", "Please describe your idea for the artwork.")
+                self.add_error(
+                    "story", "Please describe your idea for the artwork."
+                )
 
             if not cleaned_data.get("moods") and "moods" not in self.errors:
                 self.add_error("moods", "Please select at least one mood.")
 
-            if not cleaned_data.get("colours") and "colours" not in self.errors:
+            if (
+                not cleaned_data.get("colours")
+                and "colours" not in self.errors
+            ):
                 self.add_error("colours", "Please select at least one colour.")
 
-            if not cleaned_data.get("imagery") and "imagery" not in self.errors:
-                self.add_error("imagery", "Please select an imagery direction.")
+            if (
+                not cleaned_data.get("imagery")
+                and "imagery" not in self.errors
+            ):
+                self.add_error(
+                    "imagery", "Please select an imagery direction."
+                )
 
         elif creative_direction == "surprise":
             # Ignore creative preferences for surprise commissions.
@@ -108,7 +122,9 @@ class CommissionCreativeForm(forms.Form):
 
         if artwork_format in ["print", "framed"]:
             if not cleaned_data.get("artwork_size"):
-                self.add_error("artwork_size", "Please select an artwork size.")
+                self.add_error(
+                    "artwork_size", "Please select an artwork size."
+                )
 
         elif artwork_format == "digital":
             # Digital artwork does not require physical dimensions.

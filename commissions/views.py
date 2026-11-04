@@ -29,7 +29,9 @@ def commission_creative(request):
     if request.method == "POST":
         # Authentication must also be enforced on the server.
         if not request.user.is_authenticated:
-            return HttpResponseForbidden("Please log in to create a commission.")
+            return HttpResponseForbidden(
+                "Please log in to create a commission."
+            )
 
         form = CommissionCreativeForm(request.POST)
 
@@ -93,7 +95,8 @@ def commission_customer_details(request):
 
             # Combine first and last name for the existing model.
             customer_details["full_name"] = (
-                f"{customer_details['first_name']} " f"{customer_details['last_name']}"
+                f"{customer_details['first_name']} "
+                f"{customer_details['last_name']}"
             )
 
             # Combine address components for the existing model.
@@ -348,7 +351,8 @@ def commission_checkout(request):
             intent.id == order.stripe_payment_intent
             and intent.amount == expected_amount
             and intent.currency.lower() == settings.STRIPE_CURRENCY.lower()
-            and intent.metadata.to_dict().get("order_number") == str(order.order_number)
+            and intent.metadata.to_dict().get("order_number")
+            == str(order.order_number)
         )
 
         if not payment_matches:
@@ -422,7 +426,8 @@ def commission_verify_payment(request, order_number):
         intent.id == order.stripe_payment_intent
         and intent.amount == expected_amount
         and intent.currency.lower() == settings.STRIPE_CURRENCY.lower()
-        and intent.metadata.to_dict().get("order_number") == str(order.order_number)
+        and intent.metadata.to_dict().get("order_number")
+        == str(order.order_number)
     )
 
     if not payment_matches:

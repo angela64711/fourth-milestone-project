@@ -51,7 +51,9 @@ def get_shipping_cost(artwork_format, delivery_region=""):
     try:
         return SHIPPING_PRICES[artwork_format][delivery_region]
     except KeyError:
-        raise ValueError("Invalid artwork format or delivery region.") from None
+        raise ValueError(
+            "Invalid artwork format or delivery region."
+        ) from None
 
 
 def calculate_commission_total(

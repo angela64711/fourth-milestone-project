@@ -182,7 +182,9 @@ class DashboardArtworkAddTests(TestCase):
             },
         )
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
 
         self.assertIn(
             '"New Artwork" was added successfully.',
@@ -322,7 +324,9 @@ class DashboardArtworkEditTests(TestCase):
             },
         )
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
 
         self.assertIn(
             '"Updated Artwork" was updated successfully.',
@@ -442,7 +446,9 @@ class DashboardArtworkDeleteTests(TestCase):
     def test_success_message_after_deleting_artwork(self):
         response = self.client.post(self.url)
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
 
         self.assertIn(
             '"Artwork to Delete" was deleted successfully.',

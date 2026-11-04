@@ -55,7 +55,8 @@ def contact(request):
             except Exception:
                 logger.exception("Contact email sending failed.")
                 messages.error(
-                    request, "Your message could not be sent. Please try again later."
+                    request,
+                    "Your message could not be sent. Please try again later.",
                 )
 
             else:
@@ -72,7 +73,8 @@ def contact(request):
                     )
 
                 messages.success(
-                    request, "Thank you! Your message has been sent successfully."
+                    request,
+                    "Thank you! Your message has been sent successfully.",
                 )
                 return redirect("contact")
     else:

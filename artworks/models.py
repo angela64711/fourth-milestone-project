@@ -45,7 +45,8 @@ class Collection(models.Model):
 
             while Collection.objects.filter(slug=slug).exists():
                 suffix = f"-{counter}"
-                slug = f"{base_slug[:120 - len(suffix)].rstrip('-')}" f"{suffix}"
+                max_length = 120 - len(suffix)
+                slug = f"{base_slug[:max_length].rstrip('-')}{suffix}"
                 counter += 1
 
             self.slug = slug

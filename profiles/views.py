@@ -25,7 +25,9 @@ def my_account(request):
     colour_choices = dict(CommissionOrder.COLOUR_CHOICES)
 
     for order in orders:
-        order.mood_labels = [mood_choices.get(value, value) for value in order.moods]
+        order.mood_labels = [
+            mood_choices.get(value, value) for value in order.moods
+        ]
         order.colour_labels = [
             colour_choices.get(value, value) for value in order.colours
         ]

@@ -68,7 +68,9 @@ class CommissionPricingTest(SimpleTestCase):
                 size=size,
                 region=region,
             ):
-                result = calculate_commission_total(artwork_format, size, region)
+                result = calculate_commission_total(
+                    artwork_format, size, region
+                )
 
                 self.assertEqual(
                     result["total_price"],

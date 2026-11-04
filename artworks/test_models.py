@@ -93,8 +93,15 @@ class ArtworkModelTest(TestCase):
             self.collection.delete()
 
         # Confirm that both records remain in the database.
-        self.assertTrue(Collection.objects.filter(pk=self.collection.pk).exists())
-        self.assertTrue(Artwork.objects.filter(slug="protected-artwork").exists())
+        collection_exists = Collection.objects.filter(
+            pk=self.collection.pk
+        ).exists()
+        artwork_exists = Artwork.objects.filter(
+            slug="protected-artwork"
+        ).exists()
+
+        self.assertTrue(collection_exists)
+        self.assertTrue(artwork_exists)
 
     def test_etsy_urls_must_be_unique(self):
         Artwork.objects.create(
@@ -533,4 +540,6 @@ class FavouriteModelTest(TestCase):
         self.artwork.delete()
 
         self.assertFalse(Favourite.objects.exists())
-        self.assertTrue(get_user_model().objects.filter(pk=self.user.pk).exists())
+        self.assertTrue(
+            get_user_model().objects.filter(pk=self.user.pk).exists()
+        )

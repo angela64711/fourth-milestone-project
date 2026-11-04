@@ -19,7 +19,9 @@ def send_confirmation_email(order):
     colour_labels = dict(CommissionOrder.COLOUR_CHOICES)
 
     moods = ", ".join(mood_labels.get(mood, mood) for mood in order.moods)
-    colours = ", ".join(colour_labels.get(colour, colour) for colour in order.colours)
+    colours = ", ".join(
+        colour_labels.get(colour, colour) for colour in order.colours
+    )
 
     # Builds the email from the saved order information.
     lines = [
@@ -84,7 +86,10 @@ def send_confirmation_email(order):
             "",
             "The artist will contact you when your artwork is ready.",
             "",
-            "Thank you for being part of our creative journey. We're excited to create something special for you.",
+            (
+                "Thank you for being part of our creative journey. "
+                "We're excited to create something special for you."
+            ),
             "Frank Moth",
         ]
     )

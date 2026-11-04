@@ -27,7 +27,9 @@ def artist_required(view_func):
     def wrapper(request, *args, **kwargs):
         user = request.user
 
-        if not (user.is_superuser or user.groups.filter(name="Artists").exists()):
+        if not (
+            user.is_superuser or user.groups.filter(name="Artists").exists()
+        ):
             raise PermissionDenied
 
         return view_func(request, *args, **kwargs)
@@ -78,7 +80,9 @@ def artwork_list(request):
 
     # Sort artworks
     if sort == "year":
-        artworks = artworks.order_by(F("year").desc(nulls_last=True), "title", "pk")
+        artworks = artworks.order_by(
+            F("year").desc(nulls_last=True), "title", "pk"
+        )
     elif sort == "recent":
         artworks = artworks.order_by("-created_on", "pk")
     else:
@@ -132,7 +136,9 @@ def artwork_add(request):
         if form.is_valid():
             artwork = form.save()
 
-            messages.success(request, f'"{artwork.title}" was added successfully.')
+            messages.success(
+                request, f'"{artwork.title}" was added successfully.'
+            )
 
             return redirect("dashboard:artwork_overview", slug=artwork.slug)
     else:
@@ -215,9 +221,9 @@ def collection_list(request):
     """
     Display all collections with their covers and artwork counts.
     """
-    collections = Collection.objects.annotate(artwork_count=Count("artworks")).order_by(
-        "display_order", "id"
-    )
+    collections = Collection.objects.annotate(
+        artwork_count=Count("artworks")
+    ).order_by("display_order", "id")
 
     context = {
         "collections": collections,
@@ -237,7 +243,9 @@ def collection_move(request, pk, direction):
 
     with transaction.atomic():
         collections = list(
-            Collection.objects.select_for_update().order_by("display_order", "id")
+            Collection.objects.select_for_update().order_by(
+                "display_order", "id"
+            )
         )
 
         current_index = next(
@@ -252,7 +260,9 @@ def collection_move(request, pk, direction):
         if current_index is None:
             raise Http404("Collection not found.")
 
-        neighbour_index = current_index - 1 if direction == "up" else current_index + 1
+        neighbour_index = (
+            current_index - 1 if direction == "up" else current_index + 1
+        )
 
         if 0 <= neighbour_index < len(collections):
             current = collections[current_index]

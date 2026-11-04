@@ -99,7 +99,9 @@ class CollectionGalleryViewTest(TestCase):
         )
 
     def test_gallery_displays_correct_collection_and_artworks(self):
-        response = self.client.get(reverse("artworks", args=[self.collection.slug]))
+        response = self.client.get(
+            reverse("artworks", args=[self.collection.slug])
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "artworks/artworks.html")
@@ -108,7 +110,9 @@ class CollectionGalleryViewTest(TestCase):
         self.assertNotIn(self.other_artwork, response.context["page_obj"])
 
     def test_invalid_collection_slug_returns_404(self):
-        response = self.client.get(reverse("artworks", args=["nonexistent-collection"]))
+        response = self.client.get(
+            reverse("artworks", args=["nonexistent-collection"])
+        )
 
         self.assertEqual(response.status_code, 404)
 
@@ -167,7 +171,9 @@ class ArtworkDetailViewTest(TestCase):
         )
 
     def test_artwork_detail_displays_correct_information(self):
-        response = self.client.get(reverse("artwork_detail", args=[self.artwork.slug]))
+        response = self.client.get(
+            reverse("artwork_detail", args=[self.artwork.slug])
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "artworks/artwork_detail.html")

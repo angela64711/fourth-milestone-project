@@ -83,7 +83,9 @@ class CollectionAddTests(TestCase):
             self.valid_data,
         )
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
 
         self.assertIn(
             '"Digital Dreams" was added successfully.',
@@ -512,8 +514,12 @@ class CollectionDeleteTests(TestCase):
             ),
         )
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
-        self.assertTrue(any("cannot be deleted" in message for message in messages))
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
+        self.assertTrue(
+            any("cannot be deleted" in message for message in messages)
+        )
 
     def test_populated_collection_page_disables_deletion(self):
         response = self.client.get(self.populated_url)

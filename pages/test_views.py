@@ -111,7 +111,9 @@ class ContactViewTest(TestCase):
             self.valid_data["message"],
         )
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
         self.assertIn(
             "Thank you! Your message has been sent successfully.",
             messages,
@@ -127,7 +129,9 @@ class ContactViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(IncomingMessage.objects.count(), 0)
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
         self.assertIn(
             "Your message could not be sent. Please try again later.",
             messages,
@@ -143,7 +147,9 @@ class ContactViewTest(TestCase):
         self.assertRedirects(response, self.url)
         self.assertEqual(len(mail.outbox), 1)
 
-        messages = [str(message) for message in get_messages(response.wsgi_request)]
+        messages = [
+            str(message) for message in get_messages(response.wsgi_request)
+        ]
         self.assertIn(
             "Thank you! Your message has been sent successfully.",
             messages,

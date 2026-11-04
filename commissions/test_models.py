@@ -110,7 +110,9 @@ class CommissionOrderModelTest(TestCase):
         with self.assertRaises(ProtectedError):
             self.user.delete()
 
-        self.assertTrue(get_user_model().objects.filter(pk=self.user.pk).exists())
+        self.assertTrue(
+            get_user_model().objects.filter(pk=self.user.pk).exists()
+        )
         self.assertTrue(CommissionOrder.objects.filter(pk=order.pk).exists())
 
     def test_commission_string_method(self):

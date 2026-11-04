@@ -28,13 +28,17 @@ class CommissionCreativeFormTest(SimpleTestCase):
         """An idea commission requires a meaningful story."""
         for story in ["", "   "]:
             with self.subTest(story=story):
-                form = CommissionCreativeForm(data=self.valid_form_data(story=story))
+                form = CommissionCreativeForm(
+                    data=self.valid_form_data(story=story)
+                )
                 self.assertFalse(form.is_valid())
                 self.assertIn("story", form.errors)
 
     def test_story_maximum_length(self):
         """Stories exceeding 1000 characters are rejected."""
-        form = CommissionCreativeForm(data=self.valid_form_data(story="A" * 1001))
+        form = CommissionCreativeForm(
+            data=self.valid_form_data(story="A" * 1001)
+        )
         self.assertFalse(form.is_valid())
         self.assertIn("story", form.errors)
 
@@ -61,7 +65,9 @@ class CommissionCreativeFormTest(SimpleTestCase):
             (["dreamlike", "romantic", "serene"], False),
         ]:
             with self.subTest(moods=moods):
-                form = CommissionCreativeForm(data=self.valid_form_data(moods=moods))
+                form = CommissionCreativeForm(
+                    data=self.valid_form_data(moods=moods)
+                )
                 self.assertEqual(form.is_valid(), expected_valid)
 
     def test_colours_selection_limits(self):

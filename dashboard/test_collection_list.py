@@ -96,7 +96,8 @@ class CollectionListTests(TestCase):
         response = self.client.get(self.url)
 
         collections = {
-            collection.pk: collection for collection in response.context["collections"]
+            collection.pk: collection
+            for collection in response.context["collections"]
         }
 
         self.assertEqual(
@@ -116,7 +117,8 @@ class CollectionListTests(TestCase):
         response = self.client.get(self.url)
 
         collections = {
-            collection.pk: collection for collection in response.context["collections"]
+            collection.pk: collection
+            for collection in response.context["collections"]
         }
 
         first_collection = collections[self.first_collection.pk]

@@ -85,11 +85,13 @@ def toggle_favourite(request, slug):
     if created:
         favourites_url = reverse("profiles:my_account") + "#my-favourites"
 
-        # Include a link to My Favourites in the success message when artwork is added.
+        # Include a link to My Favourites in the success
+        # message when artwork is added.
         messages.success(
             request,
             format_html(
-                'Artwork added to your favourites. <a href="{}">View My Favourites</a>',
+                "Artwork added to your favourites. "
+                '<a href="{}">View My Favourites</a>',
                 favourites_url,
             ),
         )
@@ -103,4 +105,6 @@ def toggle_favourite(request, slug):
         )
 
     page = request.POST.get("page", "1")
-    return redirect(f"{reverse('artwork_detail', args=[artwork.slug])}?page={page}")
+    return redirect(
+        f"{reverse('artwork_detail', args=[artwork.slug])}?page={page}"
+    )

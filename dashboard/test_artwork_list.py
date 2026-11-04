@@ -67,7 +67,10 @@ class DashboardArtworkListTests(TestCase):
         self.url = reverse("dashboard:home")
 
     def get_artwork_titles(self, response):
-        return [artwork.title for artwork in response.context["page_obj"].object_list]
+        return [
+            artwork.title
+            for artwork in response.context["page_obj"].object_list
+        ]
 
     def test_artwork_list_displays_all_artworks(self):
         """
