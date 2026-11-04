@@ -399,16 +399,22 @@ input:focus-visible {
 .footer-socials a {
     display: inline-block;
     font-family: var(--secondary-font);
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    padding: 0.5rem;
     color: var(--text-color);
     text-decoration: none;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 
 
-.footer-socials a:hover {
-    color: var(--accent-color);
-    transform: scale(1.08);
+/* Apply hover effects only on devices with a precise pointer (e.g. mouse), 
+preventing sticky hover states on touchscreens. */
+
+ @media (hover: hover) and (pointer: fine) {
+    .footer-socials a:hover {
+        color: var(--accent-color);
+        transform: scale(1.08);
+    }
 }
 
 .footer-socials a:focus-visible {
