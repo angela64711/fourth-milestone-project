@@ -33,6 +33,10 @@ h3 {
     color: var(--text-color);
 }
 
+p {
+    font-size: 1.25rem;
+}
+
 button,
 input,
 textarea,
@@ -60,7 +64,7 @@ input:focus-visible {
 .underline-link {
     display: inline-block;
     font-family: var(--secondary-font);
-    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
     font-weight: 400;
     color: var(--dark-accent-color);
     text-decoration: none;
@@ -97,26 +101,46 @@ preventing sticky hover states on touchscreens. */
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
 }
 
-/* Navbar brand */
+/* Frank Moth Logo */
 
-.navbar-brand {
+
+#navbar-brand {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
     font-family: var(--primary-font);
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-size: clamp(1.8rem, 2.6vw, 2.5rem);
     font-weight: 400;
     color: var(--text-color);
     letter-spacing: 0.05em;
     margin-right: 0;
-    transition: color 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
 }
 
-.navbar-brand:hover {
-    color: var(--accent-color);
-    transform: translateY(-2px);
+#navbar-brand::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
 }
 
-.navbar-brand:focus-visible {
+#navbar-brand:hover,
+#navbar-brand:focus-visible {
     color: var(--text-color);
 }
+
+#navbar-brand:hover::after,
+#navbar-brand:focus-visible::after {
+    transform: scaleX(1);
+}
+
+
 
 /* Navigation links */
 
@@ -126,7 +150,7 @@ preventing sticky hover states on touchscreens. */
 
 .navbar-nav .nav-link {
     font-family: var(--secondary-font);
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--text-color);
 }
 
@@ -446,14 +470,13 @@ preventing sticky hover states on touchscreens. */
         padding: 0.75rem 1rem;
     }
 
-    .navbar-brand {
+    #navbar-brand {
         margin-right: 1rem;
     }
 
     .site-navbar .container-fluid>.d-flex {
         column-gap: 1rem !important;
     }
-
 }
 
 /* Medium devices: 768px and above */
@@ -485,7 +508,7 @@ preventing sticky hover states on touchscreens. */
         padding-right: 0.5rem;
     }
 
-    .navbar-brand {
+    #navbar-brand {
         margin-right: 0.25rem;
     }
 
@@ -493,13 +516,13 @@ preventing sticky hover states on touchscreens. */
         padding-top: 0;
     }
 
-    .navbar-nav {
-        gap: 0;
-    }
-
     .navbar-nav a.nav-link {
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .navbar-nav a.nav-link::before {
+        left: -3px;
     }
 
     /* Keep the dot closer to desktop account navigation links */
@@ -507,9 +530,7 @@ preventing sticky hover states on touchscreens. */
         left: -2px;
     }
 
-    .navbar-nav a.nav-link::before {
-        left: 0;
-    }
+   
 }
 
 /* XXL devices: 1400px and above */
@@ -517,9 +538,5 @@ preventing sticky hover states on touchscreens. */
 @media screen and (min-width: 1400px) {
     .navbar-nav {
         gap: 1rem;
-    }
-
-    .footer-socials a {
-        font-size: 1.25rem;
     }
 }
