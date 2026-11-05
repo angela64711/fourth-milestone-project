@@ -95,12 +95,12 @@
                 <!-- Collection metadata -->
                 <div class="col-12 col-lg-6 col-xl-7">
 
-                    <h2 class="mb-4">{{ collection.name }}</h2>
+                    <h2 id="collection-name" class="mb-4">{{ collection.name }}</h2>
 
                     <dl class="row g-2">
 
-                        <dt class="col-sm-4">Artworks</dt>
-                        <dd class="col-sm-8">
+                        <dt class="col-sm-2">Artworks</dt>
+                        <dd class="col-sm-10">
                             {{ collection.artworks.count }}
                         </dd>
 
@@ -112,15 +112,15 @@
                     </dl>
 
                     <!-- Management actions -->
-                    <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
+                    <div class="d-flex flex-wrap gap-3 border-top pt-4 mt-4">
 
-                        <a href="{% url 'dashboard:collection_edit' slug=collection.slug %}" class="btn btn-dark">
+                        <a href="{% url 'dashboard:collection_edit' slug=collection.slug %}" class="btn btn-dark btn-lg">
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Collection
                         </a>
 
                         <a href="{% url 'dashboard:collection_delete' slug=collection.slug %}"
-                            class="btn btn-outline-danger">
+                            class="btn btn-outline-danger btn-lg">
                             <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
                             Delete Collection
                         </a>

@@ -121,11 +121,11 @@
                     {% if collection %}
 
                     <fieldset class="mb-4">
-                        <legend class="h4 mb-2">
+                        <legend class="h3 mb-2">
                             Choose Cover Artwork
                         </legend>
 
-                        <p class="text-body-secondary small mb-3">
+                        <p class="text-body-secondary mb-3">
                             Select an artwork from this collection to use
                             as its cover. If none is selected, the first
                             artwork alphabetically will be used.
@@ -167,7 +167,7 @@
                         </div>
 
                         {% if artworks.count > 8 %}
-                        <button type="button" id="toggle-cover-artworks" class="btn btn-outline-secondary btn-sm mt-3"
+                        <button type="button" id="toggle-cover-artworks" class="btn btn-outline-secondary mt-3"
                             aria-controls="cover-artwork-grid" aria-expanded="false">
                             Show All
                         </button>
@@ -189,18 +189,18 @@
                     <!-- Form actions -->
                     <div class="d-flex flex-wrap gap-2 mt-4">
 
-                        <button type="submit" class="btn btn-dark">
+                        <button type="submit" class="btn btn-dark btn-lg">
                             <i class="fa-solid fa-check me-2" aria-hidden="true"></i>
                             {{ submit_label|default:"Save Collection" }}
                         </button>
 
                         {% if collection %}
                         <a href="{% url 'dashboard:collection_overview' slug=collection.slug %}"
-                            class="btn btn-outline-secondary">
+                            class="btn btn-outline-secondary btn-lg">
                             Cancel
                         </a>
                         {% else %}
-                        <a href="{% url 'dashboard:collection_list' %}" class="btn btn-outline-secondary">
+                        <a href="{% url 'dashboard:collection_list' %}" class="btn btn-outline-secondary btn-lg">
                             Cancel
                         </a>
                         {% endif %}

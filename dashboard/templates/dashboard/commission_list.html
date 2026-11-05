@@ -65,19 +65,19 @@
             <nav class="d-flex flex-wrap gap-2 mb-4" aria-label="Commission order filters">
 
                 <a href="{% url 'dashboard:commission_list' %}?status=todo"
-                    class="btn btn-sm {% if selected_status == 'todo' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    class="btn {% if selected_status == 'todo' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
                     {% if selected_status == 'todo' %}aria-current="page" {% endif %}>
                     To do
                 </a>
 
                 <a href="{% url 'dashboard:commission_list' %}?status=completed"
-                    class="btn btn-sm {% if selected_status == 'completed' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    class="btn {% if selected_status == 'completed' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
                     {% if selected_status == 'completed' %}aria-current="page" {% endif %}>
                     Completed
                 </a>
 
                 <a href="{% url 'dashboard:commission_list' %}?status=all"
-                    class="btn btn-sm {% if selected_status == 'all' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
+                    class="btn {% if selected_status == 'all' %}btn-dark{% else %}btn-outline-secondary{% endif %}"
                     {% if selected_status == 'all' %}aria-current="page" {% endif %}>
                     All
                 </a>

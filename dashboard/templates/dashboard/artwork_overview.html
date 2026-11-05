@@ -86,13 +86,13 @@
 
                     <dl class="row g-2">
 
-                        <dt class="col-sm-4">Collection</dt>
-                        <dd class="col-sm-8">
+                        <dt class="col-sm-3">Collection</dt>
+                        <dd class="col-sm-9">
                             {{ artwork.collection.name }}
                         </dd>
 
-                        <dt class="col-sm-4">Year</dt>
-                        <dd class="col-sm-8">
+                        <dt class="col-sm-3">Year</dt>
+                        <dd class="col-sm-9">
                             {% if artwork.year %}
                             {{ artwork.year }}
                             {% else %}
@@ -121,22 +121,22 @@
                             {% endif %}
                         </dd>
 
-                        <dt class="col-sm-4 mt-3">Date added</dt>
-                        <dd class="col-sm-8 mt-sm-3">
+                        <dt class="col-sm-3 mt-3">Date added</dt>
+                        <dd class="col-sm-9 mt-sm-3">
                             {{ artwork.created_on|date:"d M Y" }}
                         </dd>
 
                     </dl>
 
                     <!-- Management actions -->
-                    <div class="d-flex flex-wrap gap-2 border-top pt-4 mt-4">
+                    <div class="d-flex flex-wrap gap-3 border-top pt-4 mt-4">
 
-                        <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}" class="btn btn-dark">
+                        <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}" class="btn btn-dark btn-lg">
                             <i class="fa-solid fa-pen me-2" aria-hidden="true"></i>
                             Edit Artwork
                         </a>
 
-                        <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}" class="btn btn-outline-danger">
+                        <a href="{% url 'dashboard:artwork_delete' slug=artwork.slug %}" class="btn btn-outline-danger btn-lg">
                             <i class="fa-solid fa-trash me-2" aria-hidden="true"></i>
                             Delete Artwork
                         </a>

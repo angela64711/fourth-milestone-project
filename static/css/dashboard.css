@@ -19,6 +19,7 @@
 #dashboard-layout .form-label {
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
+    font-size: 1.125rem;
     font-weight: 500;
 }
 
@@ -111,10 +112,12 @@
 #dashboard-title {
     color: var(--dark-accent-color);
     font-family: var(--primary-font);
+    font-size: 2.5rem;
 }
 
 #dashboard-sidebar .nav-link {
     color: var(--dark-accent-color);
+    font-size: 1.25rem;
     padding-left: 0;
     padding-right: 0;
     text-decoration: underline;
@@ -147,7 +150,8 @@
     border: none;
     border-radius: 0;
     color: var(--dark-accent-color);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--secondary-font);
+    font-size: 1.125rem;
     padding: 0.5rem 0.75rem;
     box-shadow: none;
     text-decoration: none;
@@ -183,6 +187,21 @@
     object-fit: contain;
 }
 
+#add-artwork-btn,
+#add-collection-btn {
+    font-size: 1.125rem;
+    padding: 0.625rem 1.25rem;
+}
+
+#dashboard-layout .card-title {
+    font-size: 1.125rem;
+}
+
+#dashboard-layout dl dt {
+    font-size: 1.125rem;
+    color: var(--dark-accent-color);
+}
+
 .collection-title-link {
     color: var(--dark-accent-color);
     text-decoration: none;
@@ -200,6 +219,10 @@
     background-size: 100% 2px;
 }
 
+#collection-name {
+    color: var(--dark-accent-color);
+    font-size: 2.25rem;
+}
 
 /*------------------------------------------------------------ Artwork Edit Page*/
 
