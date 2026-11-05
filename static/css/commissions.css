@@ -5,7 +5,7 @@
     background-image:
         linear-gradient(rgba(253, 252, 250, 0.85),
             rgba(253, 252, 250, 0.85)),
-        url("../images/featured/commissions-bg.png");
+        url("../images/site/commissions-bg.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,7 +18,7 @@
 #commission-title {
     font-family: var(--primary-font);
     color: var(--dark-accent-color);
-    font-size: clamp(1.75rem, 5vw, 3.2rem);
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
     line-height: 1.2;
 }
 
@@ -105,7 +105,7 @@
 
 #preferences-form legend:not(.visually-hidden) {
     font-family: var(--primary-font);
-    font-size: clamp(1.75rem, 3.5vw, 2.1rem);
+    font-size: clamp(2.2rem, 4.5vw, 2.9rem);
     font-weight: 500;
     color: var(--dark-accent-color);
 }
@@ -125,7 +125,7 @@
 
 #story .form-control {
     border: 1px solid var(--dark-accent-color);
-    border-radius: 0;
+    border-radius: 4px;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.12);
 }
 
@@ -135,7 +135,7 @@
 .choice-card {
     position: relative;
     background-color: var(--off-white-color);
-    border-radius: 0;
+    border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16),
         0 1px 3px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -206,14 +206,14 @@ fieldset:disabled .choice-card:has(> input:disabled) {
 }
 
 #creative-direction .choice-label {
-    padding: 0.75rem 1.25rem 1.25rem;
+    padding: 1.25rem;
 }
 
 #creative-direction .choice-label>span {
     display: block;
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-size: clamp(1.625rem, 3vw, 1.75rem);
     font-weight: 400;
     line-height: 1.35;
     padding-left: 1.25rem;
@@ -224,15 +224,9 @@ fieldset:disabled .choice-card:has(> input:disabled) {
     display: block;
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
-    font-size: clamp(1.125rem, 2.3vw, 1.3rem);
+    font-size: clamp(1.35rem, 2.5vw, 1.5rem);
     font-weight: 400;
     line-height: 1.35;
-}
-
-/* Descriptions below choice titles */
-#creative-direction .choice-label small,
-#imagery .choice-label small {
-    margin-top: 0.9rem;
 }
 
 /* Green dots retain their decorative purpose. */
@@ -240,7 +234,14 @@ fieldset:disabled .choice-card:has(> input:disabled) {
 #imagery .choice-label>span::before {
     content: "•";
     color: var(--accent-color);
-    font-size: 1.5rem;
+    font-size: 1.9rem;
+    margin-right: -6px;
+}
+
+/* Descriptions below choice titles */
+#creative-direction .choice-label p,
+#imagery .choice-label p {
+    margin-top: 0.9rem;
 }
 
 /* Mood-only spacing, not a shared card override. */
@@ -448,10 +449,10 @@ fieldset:disabled .colour-option:has(> input:disabled) {
 #continue-button {
     display: inline-block;
     font-family: var(--secondary-font);
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: var(--off-white-color);
     background-color: var(--dark-accent-color);
-    padding: 0.85rem 0.75rem;
+    padding: 0.9rem 0.8rem;
     text-decoration: none;
     border: 0;
     border-radius: 4px;
@@ -476,7 +477,7 @@ fieldset:disabled .colour-option:has(> input:disabled) {
 }
 
 #form-actions p {
-    font-size: 0.85rem;
+    font-size: 1rem;
 }
 
 
@@ -530,9 +531,9 @@ fieldset:disabled .colour-option:has(> input:disabled) {
             linear-gradient(to right,
                 rgba(253, 252, 250, 0.98) 0%,
                 rgba(253, 252, 250, 0.92) 35%,
-                rgba(253, 252, 250, 0.45) 60%,
-                rgba(253, 252, 250, 0) 85%),
-            url("../images/featured/commissions-bg.png");
+                rgba(253, 252, 250, 0.45) 55%,
+                rgba(253, 252, 250, 0) 75%),
+            url("../images/site/commissions-bg.webp");
     }
 
     #commission-intro-description p {
