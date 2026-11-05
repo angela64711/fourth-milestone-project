@@ -489,17 +489,23 @@ fieldset:disabled .colour-option:has(> input:disabled) {
     background-color: var(--dark-accent-color);
 }
 
+.form-control,
 .form-select {
-    border-radius: 0;
+    border-radius: 4px;
     border-color: var(--dark-accent-color);
     background-color: var(--off-white-color);
     color: var(--text-color);
     font-family: var(--secondary-font);
 }
 
+.form-control:focus,
 .form-select:focus {
     border-color: var(--dark-accent-color);
     box-shadow: 0 0 0 0.15rem rgba(38, 62, 96, 0.15);
+}
+
+#save-details {
+    font-size: 1.3rem;
 }
 
 

@@ -251,6 +251,13 @@
                                         €{{ order.total_price|floatformat:2 }}
                                     </strong>
                                 </dd>
+
+                                {% if order.stripe_payment_intent %}
+                                <dt class="col-sm-4">Stripe Payment ID</dt>
+                                <dd class="col-sm-8 text-break">
+                                    {{ order.stripe_payment_intent }}
+                                </dd>
+                                {% endif %}
                             </dl>
 
                             <!-- Completion action -->
