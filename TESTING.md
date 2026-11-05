@@ -179,6 +179,7 @@ Defensive programming was manually tested with the below user acceptance testing
 | As an artist | I want to choose collection cover images | So I can control how collections are presented. | ![Collection cover selection](documentation/user-stories/collection-cover.png) |
 | As a customer | I want an order confirmation email | So I have a record of my paid commission. | ![Confirmation email](documentation/user-stories/confirmation-email.png) |
 | As an artist | I want improved Django Admin artwork management | So I can manage artwork records efficiently. | ![Django Admin artwork management](documentation/user-stories/django-admin-artworks.png) |
+| As a website visitor | I want clear error messages when a page cannot be found or accessed | So I can understand the issue and return to the website. | ![Custom error pages](documentation/user-stories/404.png) |
 
 
 ## Automated Testing
