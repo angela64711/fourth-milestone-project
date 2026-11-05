@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="email-confirm-container" class="auth-page py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div id="email-confirm-panel" class="p-4">
+
+                    <h1 class="mb-4">Confirm your email address</h1>
+
+                    {% if confirmation %}
+
+                        {% if can_confirm %}
+                        <p class="mb-3">
+                            Please confirm that the following email address
+                            belongs to your Frank Moth account:
+                        </p>
+
+                        <p class="mb-4">
+                            <strong>{{ confirmation.email_address.email }}</strong>
+                        </p>
+
+                        <form method="post"
+                            action="{% url 'account_confirm_email' confirmation.key %}">
+                            {% csrf_token %}
+                            {{ redirect_field }}
+
+                            <button type="submit" class="btn btn-primary">
+                                Confirm Email
+                            </button>
+                        </form>
+
+                        {% else %}
+                        <p class="mb-4">
+                            This email address cannot be confirmed because
+                            it is already associated with another account.
+                        </p>
+
+                        <a href="{% url 'account_login' %}" class="btn btn-primary">
+                            Go to Login
+                        </a>
+                        {% endif %}
+
+                    {% else %}
+                    <p class="mb-4">
+                        This email confirmation link has expired or is no
+                        longer valid.
+                    </p>
+
+                    <p class="mb-0">
+                        You can request a new confirmation email from
+                        <a href="{% url 'account_email' %}">
+                            your email settings
+                        </a>.
+                    </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

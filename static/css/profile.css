@@ -78,6 +78,16 @@
 
 /*-------------------------------------------- Authentication Pages */
 
+/* Allow authentication sections to fill the available page height */
+
+main:has(> .auth-page) {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-page {
+    flex-grow: 1;
+}
 
 .auth-page h1 {
     font-weight: 400;
@@ -188,4 +198,22 @@
 #signup-panel {
     background-color: var(--off-white-color);
 }
+
+
+/* ------------------------------------------------------- Email confirmation page */
+
+#email-confirm-container {
+    background-image: url("../images/site/bloom-collage.webp");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    min-height: 80vh;
+}
+
+#email-confirm-panel {
+    background-color: var(--off-white-color);
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
 
