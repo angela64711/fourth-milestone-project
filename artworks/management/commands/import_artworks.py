@@ -125,17 +125,23 @@ class Command(BaseCommand):
 
                 title = str(value("Artwork title") or "").strip()
 
-                image_path = str(value("Expected local image path") or "").strip()
+                image_path = str(
+                    value("Expected local image path") or ""
+                ).strip()
 
                 if not collection_name or not title or not image_path:
-                    self.stderr.write(f"Row {row_number}: Missing required data.")
+                    self.stderr.write(
+                        f"Row {row_number}: Missing required data."
+                    )
                     skipped += 1
                     continue
 
                 # Existing titles are skipped so rerunning the command
                 # does not import the same artwork twice.
                 if Artwork.objects.filter(title__iexact=title).exists():
-                    self.stdout.write(f"Row {row_number}: Already exists: {title}")
+                    self.stdout.write(
+                        f"Row {row_number}: Already exists: {title}"
+                    )
                     skipped += 1
                     continue
 
@@ -160,7 +166,9 @@ class Command(BaseCommand):
                     .exists()
                 ):
                     # If an image doesn't exist the row is skipped
-                    self.stderr.write(f"Row {row_number}: Collection slug conflict.")
+                    self.stderr.write(
+                        f"Row {row_number}: Collection slug conflict."
+                    )
                     skipped += 1
                     continue
 
@@ -170,7 +178,10 @@ class Command(BaseCommand):
                 full_path = (images_folder / relative_path).resolve()
                 images_root = images_folder.resolve()
 
-                if not full_path.is_relative_to(images_root) or not full_path.is_file():
+                if (
+                    not full_path.is_relative_to(images_root)
+                    or not full_path.is_file()
+                ):
                     self.stderr.write(
                         f"Row {row_number}: Image not found "
                         f"or invalid path: {image_path}"
@@ -206,12 +217,14 @@ class Command(BaseCommand):
 
                 # Create the collection only when a valid artwork
                 # actually needs it. Existing collections are reused.
-                collection, collection_created = Collection.objects.get_or_create(
-                    name=collection_name,
-                    defaults={
-                        "slug": collection_slug,
-                        "description": "",
-                    },
+                collection, collection_created = (
+                    Collection.objects.get_or_create(
+                        name=collection_name,
+                        defaults={
+                            "slug": collection_slug,
+                            "description": "",
+                        },
+                    )
                 )
 
                 if collection_created:
@@ -222,7 +235,9 @@ class Command(BaseCommand):
                     slug=artwork_slug,
                     collection=collection,
                     year=year,
-                    description=(str(description) if description is not None else ""),
+                    description=(
+                        str(description) if description is not None else ""
+                    ),
                 )
 
                 # Django's ImageField uses the configured storage
