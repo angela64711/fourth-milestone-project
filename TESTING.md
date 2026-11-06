@@ -80,15 +80,27 @@ I've tested my deployed project to check for responsiveness issues.
 
 
 
+
+
 ## Lighthouse Audit
 
-
 I've tested my deployed project using the Lighthouse Audit tool to check for any major issues. Some warnings are outside of my control, and mobile results tend to be lower than desktop.
+
+### Performance and Image Quality Considerations
+
+The Frank Moth website is a visually driven artist portfolio, where high-quality artwork images are essential to the user experience. Performance optimisation therefore required balancing efficient image delivery with preserving the visual detail and quality of the artwork.
+
+Images were provided in WebP format, and lazy loading was implemented where appropriate to reduce unnecessary initial downloads. Following the initial Lighthouse audits, several images were further resized and optimised based on the recommendations. **The audits were then repeated, and the results presented above reflect the final performance scores after these improvements.** Lighthouse audits generally achieved strong desktop performance scores, while mobile scores were somewhat lower on image-heavy pages.
+
+Mobile Lighthouse testing simulates more constrained device and network conditions, making image-heavy pages particularly challenging. Further image compression could improve performance scores but may compromise the presentation of the artwork, especially on larger desktop displays.
+
+For this reason, the decision was made to prioritise a reasonable balance between performance, image quality and user experience rather than pursuing a perfect Lighthouse score at the expense of the portfolio's visual presentation.
 
 
 | Page | Mobile | Desktop |
 | --- | --- | --- |
 | Home | ![screenshot](documentation/lighthouse/mobile-home.png) | ![screenshot](documentation/lighthouse/desktop-home.png) |
+| Art | ![screenshot](documentation/lighthouse/mobile-art.png) | ![screenshot](documentation/lighthouse/desktop-art.png) |
 | Artworks | ![screenshot](documentation/lighthouse/mobile-artworks.png) | ![screenshot](documentation/lighthouse/desktop-artworks.png) |
 | Artwork Detail | ![screenshot](documentation/lighthouse/mobile-artwork-detail.png) | ![screenshot](documentation/lighthouse/desktop-artwork-detail.png) |
 | In Situ | ![screenshot](documentation/lighthouse/mobile-in-situ.png) | ![screenshot](documentation/lighthouse/desktop-in-situ.png) |
@@ -96,24 +108,23 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | Collaborations | ![screenshot](documentation/lighthouse/mobile-collaborations.png) | ![screenshot](documentation/lighthouse/desktop-collaborations.png) |
 | Where to Buy | ![screenshot](documentation/lighthouse/mobile-where-to-buy.png) | ![screenshot](documentation/lighthouse/desktop-where-to-buy.png) |
 | Commissions | ![screenshot](documentation/lighthouse/mobile-commissions.png) | ![screenshot](documentation/lighthouse/desktop-commissions.png) |
-| Commission Success | ![screenshot](documentation/lighthouse/mobile-commission-success.png) | ![screenshot](documentation/lighthouse/desktop-commission-success.png) |
 | Contact | ![screenshot](documentation/lighthouse/mobile-contact.png) | ![screenshot](documentation/lighthouse/desktop-contact.png) |
 | Register | ![screenshot](documentation/lighthouse/mobile-register.png) | ![screenshot](documentation/lighthouse/desktop-register.png) |
 | Login | ![screenshot](documentation/lighthouse/mobile-login.png) | ![screenshot](documentation/lighthouse/desktop-login.png) |
 | Logout | ![screenshot](documentation/lighthouse/mobile-logout.png) | ![screenshot](documentation/lighthouse/desktop-logout.png) |
 | Account | ![screenshot](documentation/lighthouse/mobile-account.png) | ![screenshot](documentation/lighthouse/desktop-account.png) |
-| Favourites | ![screenshot](documentation/lighthouse/mobile-favourites.png) | ![screenshot](documentation/lighthouse/desktop-favourites.png) |
 | Manage Artworks | ![screenshot](documentation/lighthouse/mobile-manage-artworks.png) | ![screenshot](documentation/lighthouse/desktop-manage-artworks.png) |
+| Artwork Overview | ![screenshot](documentation/lighthouse/mobile-artwork-overview.png) | ![screenshot](documentation/lighthouse/desktop-artwork-overview.png) |
 | Add Artwork | ![screenshot](documentation/lighthouse/mobile-add-artwork.png) | ![screenshot](documentation/lighthouse/desktop-add-artwork.png) |
 | Edit Artwork | ![screenshot](documentation/lighthouse/mobile-edit-artwork.png) | ![screenshot](documentation/lighthouse/desktop-edit-artwork.png) |
 | Delete Artwork | ![screenshot](documentation/lighthouse/mobile-delete-artwork.png) | ![screenshot](documentation/lighthouse/desktop-delete-artwork.png) |
 | Manage Collections | ![screenshot](documentation/lighthouse/mobile-manage-collections.png) | ![screenshot](documentation/lighthouse/desktop-manage-collections.png) |
+| Collection Overview | ![screenshot](documentation/lighthouse/mobile-collection-overview.png) | ![screenshot](documentation/lighthouse/desktop-collection-overview.png) |
 | Add Collection | ![screenshot](documentation/lighthouse/mobile-add-collection.png) | ![screenshot](documentation/lighthouse/desktop-add-collection.png) |
 | Edit Collection | ![screenshot](documentation/lighthouse/mobile-edit-collection.png) | ![screenshot](documentation/lighthouse/desktop-edit-collection.png) |
 | Delete Collection | ![screenshot](documentation/lighthouse/mobile-delete-collection.png) | ![screenshot](documentation/lighthouse/desktop-delete-collection.png) |
 | Manage Commissions | ![screenshot](documentation/lighthouse/mobile-manage-commissions.png) | ![screenshot](documentation/lighthouse/desktop-manage-commissions.png) |
 | Messages | ![screenshot](documentation/lighthouse/mobile-messages.png) | ![screenshot](documentation/lighthouse/desktop-messages.png) |
-| 404 | ![screenshot](documentation/lighthouse/mobile-404.png) | ![screenshot](documentation/lighthouse/desktop-404.png) |
 
 
 
