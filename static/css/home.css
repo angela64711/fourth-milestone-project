@@ -1,3 +1,4 @@
+
 /* -------------------------------------------------------- Home Page */
 
 #homepage-hero {
@@ -9,15 +10,228 @@
     );
 }
 
-#homepage-intro {
-    line-height: 1.5;
-    font-size: clamp(2rem, 3.5vw, 3.6rem);
+/* ------------------------------------------------ Hero composition */
+
+#hero-composition {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-areas:
+        "heading"
+        "video"
+        "statement";
 }
 
-#homepage-clients {
-    font-family: var(--primary-font);
-    font-size: clamp(1rem, 1.2vw, 1.25rem);
+
+/* ------------------------------------------------ Animated hero background */
+
+#homepage-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+#hero-composition {
+    position: relative;
+    isolation: isolate;
+}
+
+/* Shared blob styling */
+
+#homepage-hero::before,
+#homepage-hero::after,
+#hero-composition::before,
+#hero-composition::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: clamp(100px, 12vw, 180px);
+    height: clamp(100px, 12vw, 180px);
+    filter: blur(25px);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+/* Top left - dusty rose */
+
+#homepage-hero::before {
+    top: 5%;
+    left: 5%;
+    background-color: #D9A6A0;
+    border-radius: 65% 35% 55% 45% / 40% 60% 35% 65%;
+    animation: float-rose-one 11s ease-in-out infinite;
+}
+
+/* Top right - sage green */
+
+#homepage-hero::after {
+    top: 5%;
+    right: 5%;
+    background-color: #B4CF9B;
+    border-radius: 35% 65% 40% 60% / 60% 35% 65% 40%;
+    animation: float-green-one 17s ease-in-out infinite;
+}
+
+/* Bottom left - sage green */
+
+#hero-composition::before {
+    bottom: 5%;
+    left: 5%;
+    background-color: #B4CF9B;
+    border-radius: 55% 45% 65% 35% / 35% 65% 45% 55%;
+    animation: float-green-two 15s ease-in-out infinite;
+}
+
+/* Bottom right - dusty rose */
+
+#hero-composition::after {
+    bottom: 5%;
+    right: 5%;
+    background-color: #D9A6A0;
+    border-radius: 40% 60% 35% 65% / 65% 35% 60% 40%;
+    animation: float-rose-two 13s ease-in-out -4s infinite;
+}
+
+/* Top-left rose movement */
+
+@keyframes float-rose-one {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(130px, 60px) rotate(50deg);
+    }
+
+    50% {
+        transform: translate(220px, 180px) rotate(120deg);
+    }
+
+    75% {
+        transform: translate(50px, 240px) rotate(220deg);
+    }
+}
+
+/* Top-right green movement */
+
+@keyframes float-green-one {
+    0%, 100% {
+        transform: translate(-230px, -5px) rotate(0deg);
+    }
+
+    18% {
+        transform: translate(-125px, 25px) rotate(35deg);
+    }
+
+    43% {
+        transform: translate(15px, -10px) rotate(110deg);
+    }
+
+    67% {
+        transform: translate(-65px, 65px) rotate(205deg);
+    }
+
+    85% {
+        transform: translate(-195px, 35px) rotate(290deg);
+    }
+}
+
+/* Bottom-left green movement */
+
+@keyframes float-green-two {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(90px, -130px) rotate(60deg);
+    }
+
+    50% {
+        transform: translate(200px, -220px) rotate(140deg);
+    }
+
+    75% {
+        transform: translate(130px, -60px) rotate(240deg);
+    }
+}
+
+/* Bottom-right rose movement */
+
+@keyframes float-rose-two {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    23% {
+        transform: translate(-100px, -45px) rotate(-55deg);
+    }
+
+    48% {
+        transform: translate(-225px, 15px) rotate(-145deg);
+    }
+
+    72% {
+        transform: translate(-150px, -85px) rotate(-235deg);
+    }
+
+    89% {
+        transform: translate(-35px, -25px) rotate(-310deg);
+    }
+}
+
+/* Accessibility: respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+    #homepage-hero::before,
+    #homepage-hero::after,
+    #hero-composition::before,
+    #hero-composition::after {
+        animation: none;
+    }
+}
+
+
+/* ------------------------------------------------ Artist introduction */
+
+#hero-heading-area {
+    grid-area: heading;
+    min-width: 0;
+}
+
+#homepage-intro {
+    line-height: 1.5;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+}
+
+
+#homepage-artist-statement::before {
+    content: "";
+    display: block;
+    width: 8rem;
+    height: 4px;
+    background-color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+
+#homepage-artist-statement {
+    grid-area: statement;
+    font-family: var(--secondary-font);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
     line-height: 1.6;
+    width: 90%;
+    justify-self: center;
+}
+
+/* ------------------------------------------------ Framed video */
+
+#hero-video-area {
+    grid-area: video;
+    min-width: 0;
+}
+
+#blois-frame {
+    position: relative;
 }
 
 #blois-video {
@@ -28,59 +242,11 @@
 
 .video-caption {
     font-family: var(--secondary-font);
-    font-size: 0.8125rem;
+    font-size: 0.9rem;
     line-height: 1.4;
 }
 
-#homepage-artist-statement {
-    font-family: var(--secondary-font);
-    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-    line-height: 1.5;
-    max-width: 100%;
-}
-
-#homepage-artist-statement::before {
-    content: "••";
-    display: block;
-    color: var(--accent-color);
-    font-size: 2.5rem;
-    line-height: 1;
-    letter-spacing: 0;
-    margin-left: -0.15rem;
-    margin-bottom: 0.25rem;
-}
-
-#hero-composition {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-areas:
-        "heading"
-        "video"
-        "clients";
-}
-
-#hero-heading-area {
-    grid-area: heading;
-    background: transparent;
-}
-
-#hero-video-area {
-    grid-area: video;
-    min-width: 0;
-}
-
-#hero-clients-area {
-    grid-area: clients;
-    background-color: var(--dark-accent-color);
-    color: var(--off-white-color);
-    padding: 1.5rem;
-    border-radius: 4px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.30);   
-}
-
-#blois-frame {
-    position: relative;
-}
+/* Video playback controls */
 
 #blois-playback-toggle {
     position: absolute;
@@ -113,14 +279,45 @@
     }
 }
 
-/*--- Desktop composition in media queries at the bottom*/
 
+/* ------------------------------------------------ Selected clients */
+
+#hero-clients-area {
+    background-color: var(--dark-accent-color);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-shadow:0 -3px 14px rgba(0, 0, 0, 0.25);    
+}
+
+#hero-clients-heading {
+    font-family: var(--secondary-font);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--off-white-color);
+    margin-bottom: 0.75rem;
+}
+
+#homepage-clients {
+    font-family: var(--primary-font);
+    font-size: clamp(1rem, 1.2vw, 1.25rem);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--off-white-color);
+}
+
+
+
+/* Desktop hero layout defined in media queries below */
 
 /*---------------------------------------------------------- Artwork preview*/
 
 #homepage-explore {
     background-color: var(--background-color);
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+    box-shadow:
+    0 0 14px rgba(0, 0, 0, 0.2),
+    inset 0 6px 12px -6px rgba(0, 0, 0, 0.50);
 }
 
 #explore-heading {
@@ -423,15 +620,15 @@
 
 /*------------------------------------------------------- Media Queries */
 
+
 /* Small devices: 576px and above */
 
 @media screen and (min-width: 576px) {
-  
+
     #homepage-artist-statement {
-        max-width: 800px;
-        line-height: 1.6;
+        width: 60%;
     }
-   
+
     #explore-heading::before {
         letter-spacing: 0.15rem;
         margin-bottom: 0.5rem;
@@ -442,18 +639,24 @@
     }
 }
 
+
 @media screen and (min-width: 768px) {
     
+    #homepage-intro {
+        font-size: clamp(2.5rem, 5.5vw, 3rem);
+    }
+
     #blois-frame {
         padding: 32px;
         border-radius: 4px;
-        border: 10px solid var(--dark-accent-color);
+        border: 8px solid var(--dark-accent-color);
         background-color: var(--off-white-color);
         box-shadow:
             0 8px 24px rgba(0, 0, 0, 0.18),
             inset 0 0 14px rgba(0, 0, 0, 0.22);
     }
 }
+
 
 @media screen and (min-width: 992px) {
 
@@ -462,18 +665,18 @@
     }
 
     #hero-composition {
-        position: relative;
-        isolation: isolate;
-        grid-template-columns: minmax(0, 38%) minmax(0, 62%);
-        grid-template-rows: auto 1fr;
+        grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
         grid-template-areas:
             "heading video"
-            "clients video";
-        column-gap: 0;
-        row-gap: 2rem;
-        padding-bottom: 3rem;
+            "statement video";
+        column-gap: 2rem;
+        row-gap: 1.5rem;
     }
-    
+
+    #homepage-intro {
+        font-size: clamp(2rem, 3.5vw, 3.6rem);
+    }
+
     #hero-heading-area {
         padding: 0 2rem 0 0;
     }
@@ -482,15 +685,17 @@
         align-self: center;
     }
 
-    #hero-clients-area {
-        align-self: start;
-        justify-self: start;
-        max-width: 400px;
-    }
-
     #hero-video-area .video-caption {
         color: var(--text-color);
     }
+
+    #homepage-artist-statement {
+        width: 100%;
+        justify-self: auto;
+    }
+
+    #hero-clients-area {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
 }
-
-
