@@ -106,7 +106,7 @@
 
 #dashboard-sidebar {
     background-color: var(--background-color);
-    box-shadow: 3px 0 10px rgba(38, 62, 96, 0.10);
+    box-shadow: 2px 3px 12px rgba(0, 0, 0, 0.20);
 }
 
 #dashboard-title {

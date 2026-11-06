@@ -98,7 +98,7 @@ preventing sticky hover states on touchscreens. */
 .site-navbar {
     background-color: var(--background-color);
     padding: 0.75rem 0.25rem;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 px 10px rgba(0, 0, 0, 0.10);
 }
 
 /* Frank Moth Logo */

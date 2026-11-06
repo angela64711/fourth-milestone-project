@@ -70,13 +70,11 @@
                     </p>
                 </div>
 
-                <!-- Link will be added with the create view -->
                 <a id="add-artwork-btn" href="{% url 'dashboard:artwork_add' %}" class="btn btn-dark align-self-start">
                     <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
                     Add Artwork
                 </a>
             </div>
-
 
             <!-- Search, filters and sorting -->
             <form method="get" class="mb-4" role="search">
@@ -231,7 +229,7 @@
                                 </a>
 
                                 <a href="{% url 'dashboard:artwork_edit' slug=artwork.slug %}"
-                                    class="btn btn-sm btn-outline-secondary" title="View {{ artwork.title }}">
+                                    class="btn btn-sm btn-outline-secondary" title="Edit {{ artwork.title }}">
                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                     <span class="visually-hidden">
                                         Edit {{ artwork.title }}
@@ -262,8 +260,6 @@
                 </p>
             </div>
             {% endif %}
-
-            <!-- Pagination: connect after view pagination is added -->
 
             {% if page_obj.has_other_pages %}
 

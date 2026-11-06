@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load static %}
 
@@ -8,137 +7,135 @@
 
 {% block content %}
 
-<main id="artwork-detail" class="container py-4">
+<main id="artwork-detail" class="py-4">
+    <div class="container">
 
-    
-    <!-- Back navigation -->
-    <div class="mb-1 mb-lg-2 text-center text-lg-start">
-        {% if from_favourites %}
-        <a href="{% url 'profiles:my_account' %}" class="underline-link">
-            <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
-            Back to My Favourites
-        </a>
-        {% else %}
-        <a href="{% url 'artworks' artwork.collection.slug %}?page={{ gallery_page }}"
-            class="underline-link">
-            <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
-            Back to Collection
-        </a>
-        {% endif %}
-    </div>
+        <!-- Back navigation -->
+        <div class="mb-1 mb-lg-2 text-center text-lg-start">
+            {% if from_favourites %}
+            <a href="{% url 'profiles:my_account' %}" class="underline-link">
+                <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
+                Back to My Favourites
+            </a>
+            {% else %}
+            <a href="{% url 'artworks' artwork.collection.slug %}?page={{ gallery_page }}" class="underline-link">
+                <i class="fa-solid fa-arrow-left me-2" aria-hidden="true"></i>
+                Back to Collection
+            </a>
+            {% endif %}
+        </div>
 
 
-    <!-- Decorative heading -->
-    <div id="artwork-detail-decoration" class="text-center mb-3 mb-lg-5" aria-hidden="true">
-        <span>••</span>
-        <div class="border-top border-3"></div>
-    </div>
+        <!-- Decorative heading -->
+        <div id="artwork-detail-decoration" class="text-center mb-3 mb-lg-5" aria-hidden="true">
+            <span>••</span>
+            <div class="border-top border-3"></div>
+        </div>
 
-    <!-- Artwork and information -->
-    <div class="row g-4">
+        <!-- Artwork and information -->
+        <div class="row g-4">
 
-        <!-- Artwork image and favourite control -->
-        <div class="col-12 col-lg-6">
-            <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}"
-                class="img-fluid mx-auto">
+            <!-- Artwork image and favourite control -->
+            <div class="col-12 col-lg-6">
+                <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-fluid mx-auto">
 
-            <!-- Favourite control -->
-            <div class="mt-3 text-center">
-                {% if user.is_authenticated %}
-                <form method="post" action="{% url 'toggle_favourite' artwork.slug %}">
-                    {% csrf_token %}
+                <!-- Favourite control -->
+                <div class="mt-3 text-center">
+                    {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'toggle_favourite' artwork.slug %}">
+                        {% csrf_token %}
 
-                    {% if from_favourites %}
-                    <input type="hidden" name="from" value="favourites">
-                    {% else %}
-                    <input type="hidden" name="page" value="{{ gallery_page }}">
-                    {% endif %}
-
-                    <button type="submit" class="btn favourite-btn">
-                        {% if is_favourite %}
-                        <i class="fa-solid fa-heart me-2" aria-hidden="true"></i>
-                        Remove from Favourites
+                        {% if from_favourites %}
+                        <input type="hidden" name="from" value="favourites">
                         {% else %}
-                        <i class="fa-regular fa-heart me-2" aria-hidden="true"></i>
-                        Add to Favourites
+                        <input type="hidden" name="page" value="{{ gallery_page }}">
                         {% endif %}
-                    </button>
-                </form>
+
+                        <button type="submit" class="btn favourite-btn">
+                            {% if is_favourite %}
+                            <i class="fa-solid fa-heart me-2" aria-hidden="true"></i>
+                            Remove from Favourites
+                            {% else %}
+                            <i class="fa-regular fa-heart me-2" aria-hidden="true"></i>
+                            Add to Favourites
+                            {% endif %}
+                        </button>
+                    </form>
 
                     {% else %}
-                    <button type="button" class="btn favourite-btn"
-                        data-bs-toggle="modal" data-bs-target="#favouriteAuthModal">
+                    <button type="button" class="btn favourite-btn" data-bs-toggle="modal"
+                        data-bs-target="#favouriteAuthModal">
                         <i class="fa-regular fa-heart me-2" aria-hidden="true"></i>
                         Add to Favourites
                     </button>
                     {% endif %}
-            </div>
-        </div>
-
-        <!-- Artwork information -->
-        <div class="col-12 col-lg-6 py-2 py-lg-0 d-flex flex-column justify-content-between">
-
-            <!-- Artwork title and description -->
-            <div>
-                <h1 class="mt-3 mt-lg-0">{{ artwork.title }}</h1>
-
-                <p id="artwork-detail-meta">
-                    {% if artwork.year %}
-                    Created in {{ artwork.year }} ·
-                    {% endif %}
-                    Collection: {{ artwork.collection.name }}
-                </p>
-
-                {% if artwork.description %}
-                <p id="artwork-detail-description" class="mt-4 mt-lg-5">{{ artwork.description }}</p>
-                {% endif %}
+                </div>
             </div>
 
-            <!-- Buying options -->
-            <section class="border-top mt-3 mt-xl-5 pt-4" aria-labelledby="buying-options-heading">
+            <!-- Artwork information -->
+            <div class="col-12 col-lg-6 py-2 py-lg-0 d-flex flex-column justify-content-between">
 
-                <h2 id="buying-options-heading">
-                    Interested in owning this artwork?
-                </h2>
+                <!-- Artwork title and description -->
+                <div>
+                    <h1 class="mt-3 mt-lg-0">{{ artwork.title }}</h1>
 
-                <p class="mt-4">
-                    Discover prints, home décor and other ways to bring
-                    Frank Moth's art into your space.
-                </p>
-
-                {% if artwork.etsy_url %}
-                <p class="mt-4">
-                    <a href="{{ artwork.etsy_url }}" class="underline-link" target="_blank" rel="noopener noreferrer">
-                        View this artwork on Etsy
-                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
-                    </a>
-                </p>
-                {% endif %}
-
-                <p class="mt-4">
-                    <!-- TODO: Replace with Where to Buy URL -->
-                    <a href="{% url 'retail' %}" class="underline-link">
-                        {% if artwork.etsy_url %}
-                        Explore more buying options
-                        {% else %}
-                        Explore buying options
+                    <p id="artwork-detail-meta">
+                        {% if artwork.year %}
+                        Created in {{ artwork.year }} ·
                         {% endif %}
-                        <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
-                    </a>
-                </p>
+                        Collection: {{ artwork.collection.name }}
+                    </p>
 
-            </section>
+                    {% if artwork.description %}
+                    <p id="artwork-detail-description" class="mt-4 mt-lg-5">{{ artwork.description }}</p>
+                    {% endif %}
+                </div>
 
+                <!-- Buying options -->
+                <section class="border-top mt-3 mt-xl-5 pt-4" aria-labelledby="buying-options-heading">
+
+                    <h2 id="buying-options-heading">
+                        Interested in owning this artwork?
+                    </h2>
+
+                    <p class="mt-4">
+                        Discover prints, home décor and other ways to bring
+                        Frank Moth's art into your space.
+                    </p>
+
+                    {% if artwork.etsy_url %}
+                    <p class="mt-4">
+                        <a href="{{ artwork.etsy_url }}" class="underline-link" target="_blank"
+                            rel="noopener noreferrer">
+                            View this artwork on Etsy
+                            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                    {% endif %}
+
+                    <p class="mt-4">
+                        <a href="{% url 'retail' %}" class="underline-link">
+                            {% if artwork.etsy_url %}
+                            Explore more buying options
+                            {% else %}
+                            Explore buying options
+                            {% endif %}
+                            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+                        </a>
+                    </p>
+
+                </section>
+
+            </div>
         </div>
     </div>
-
 </main>
 
 <!-- Favourite authentication modal -->
 
 {% if not user.is_authenticated %}
-<div class="modal fade" id="favouriteAuthModal" tabindex="-1"
-    aria-labelledby="favouriteAuthModalLabel" aria-hidden="true">
+<div class="modal fade" id="favouriteAuthModal" tabindex="-1" aria-labelledby="favouriteAuthModalLabel"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -148,8 +145,7 @@
                     Add to Favourites
                 </h2>
 
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
 
@@ -161,8 +157,7 @@
             </div>
 
             <div class="modal-footer">
-                <a href="{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}"
-                    class="btn btn-primary">
+                <a href="{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-primary">
                     Log In
                 </a>
 

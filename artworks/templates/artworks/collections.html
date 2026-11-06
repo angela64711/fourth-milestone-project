@@ -38,7 +38,7 @@
                         class="col-12 col-md-6 {% if forloop.counter|divisibleby:2 %}order-md-1{% else %}ps-md-4 ps-lg-5{% endif %}">
                         <h2>{{ collection.name }}</h2>
                         <p>{{ collection.description }}</p>
-                        <a href="{% url 'artworks' collection.slug %}" class="underline-link">
+                        <a href="{% url 'artworks' collection.slug %}" class="underline-link mb-3">
                             Explore Collection
                             <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
                         </a>

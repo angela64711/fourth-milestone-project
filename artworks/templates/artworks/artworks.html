@@ -8,76 +8,77 @@
 
 {% block content %}
 
-<section id="artworks-section" class="container py-4 py-lg-5">
+<section id="artworks-section" class="py-4 py-lg-5">
+    <div class="container">
 
-    <!-- Collection introduction -->
-    <header id="artworks-intro" class="text-center mb-3 mb-md-4 mb-lg-5">
-        <h1>{{ collection.name }}</h1>
-        <p>{{ collection.description }}</p>
-    </header>
+        <!-- Collection introduction -->
+        <header id="artworks-intro" class="text-center mb-3 mb-md-4 mb-lg-5">
+            <h1>{{ collection.name }}</h1>
+            <p>{{ collection.description }}</p>
+        </header>
 
-    <!-- Artwork gallery -->
-    <div id="artwork-gallery" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+        <!-- Artwork gallery -->
+        <div id="artwork-gallery" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
 
-        {% for artwork in page_obj %}
+            {% for artwork in page_obj %}
 
-        <div class="col">
-            <a href="{% url 'artwork_detail' artwork.slug %}?page={{ page_obj.number }}"
-                aria-label="View {{ artwork.title }}">
-                <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-fluid w-100" loading="lazy">
-            </a>
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-    <!-- Pagination -->
-    {% if page_obj.has_other_pages %}
-    <nav id="artwork-pagination" aria-label="Artwork gallery pagination" class="mt-2 mt-lg-5">
-        <ul class="pagination justify-content-center align-items-center flex-wrap gap-2">
-
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">
-                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            <div class="col">
+                <a href="{% url 'artwork_detail' artwork.slug %}?page={{ page_obj.number }}"
+                    aria-label="View {{ artwork.title }}">
+                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="img-fluid w-100" loading="lazy">
                 </a>
-            </li>
-            {% endif %}
+            </div>
 
-            {% for number in page_obj.paginator.page_range %}
-            <li class="page-item">
-                {% if number == page_obj.number %}
-                <span class="page-link active-page" aria-current="page">
-                    {{ number }}
-                </span>
-                {% else %}
-                <a class="page-link" href="?page={{ number }}" aria-label="Page {{ number }}">
-                    {{ number }}
-                </a>
-                {% endif %}
-            </li>
             {% endfor %}
 
-            {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">
-                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                </a>
-            </li>
-            {% endif %}
+        </div>
 
-        </ul>
-    </nav>
-    {% endif %}
-    <!-- Back to Collections -->
-    <div class="text-center text-md-end px-2 mt-4">
-        <a href="{% url 'art' %}" class="underline-link">
-            Back to Collections
-            <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
-        </a>
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav id="artwork-pagination" aria-label="Artwork gallery pagination" class="mt-2 mt-lg-5">
+            <ul class="pagination justify-content-center align-items-center flex-wrap gap-2">
+
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">
+                        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for number in page_obj.paginator.page_range %}
+                <li class="page-item">
+                    {% if number == page_obj.number %}
+                    <span class="page-link active-page" aria-current="page">
+                        {{ number }}
+                    </span>
+                    {% else %}
+                    <a class="page-link" href="?page={{ number }}" aria-label="Page {{ number }}">
+                        {{ number }}
+                    </a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+        </nav>
+        {% endif %}
+        <!-- Back to Collections -->
+        <div class="text-center text-md-end px-2 mt-4">
+            <a href="{% url 'art' %}" class="underline-link">
+                Back to Collections
+                <i class="fa-solid fa-arrow-right diagonal-arrow" aria-hidden="true"></i>
+            </a>
+        </div>
     </div>
-
 </section>
 
 {% endblock %}

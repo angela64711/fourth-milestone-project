@@ -30,10 +30,12 @@
 
 .collection-section:nth-child(odd) {
     background-color: var(--background-color);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);          
 }
 
 .collection-section:nth-child(even) {
     background-color: var(--off-white-color);
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 #collections-list img {
@@ -52,12 +54,13 @@
 
 #collections-list p {
     color: var(--text-color);
-    font-size: clamp(1rem, 1.5vw + 0.75rem, 1.25rem);
+    font-size: 1.125;
     margin-bottom: 1.5rem;
 }
 
 #collections-end-decoration {
     background-color: var(--off-white-color);
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 #collections-end-line {
@@ -69,7 +72,7 @@
 #collections-end-dots {
     display: block;
     color: var(--accent-color);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--secondary-font);
     font-size: 2.5rem;
     line-height: 1;
     margin-top: 1rem;
@@ -77,20 +80,36 @@
 
 /* ------------------------------------------- Artworks Page */
 
+#artworks-section {
+    background:
+        radial-gradient(
+            ellipse at top left,
+            #E0DCD5 0%,
+            #EFEBE5 20%,
+            transparent 50%
+        ),
+        radial-gradient(
+            ellipse at bottom right,
+            #E0DCD5 0%,
+            #EFEBE5 20%,
+            var(--off-white-color) 50%
+        );
+}
+
 #artworks-intro {
     border-top: 3px solid var(--dark-accent-color);
 }
 
 #artworks-intro h1 {
-    font-size: clamp(2rem, 5.75vw, 3rem);
+    font-size: clamp(2rem, 6vw, 3.5rem);
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
 
 #artworks-intro p {
     color: var(--text-color);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-family: var(--secondary-font);
+    font-size: clamp(1.125rem, 2.7vw, 1.375rem);
 }
 
 #artworks-intro p::before {
@@ -105,15 +124,9 @@
 }
 
 #artwork-gallery img {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
     border-radius: 4px;
     transition: box-shadow 0.2s ease;
-}
-
-#artwork-gallery img {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-radius: 4px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #artwork-gallery a:hover img {
@@ -129,7 +142,7 @@
     border: none;
     border-radius: 0;
     color: var(--dark-accent-color);
-    font-family: "IBM Plex Mono", monospace;
+    font-family: var(--secondary-font);
     padding: 0.5rem 0.75rem;
     box-shadow: none;
     text-decoration: none;
@@ -158,6 +171,22 @@
 
 
 /* -------------------------------------------------------- Artwork Detail */
+
+#artwork-detail {
+    background:
+        radial-gradient(
+            ellipse at top left,
+            #E0DCD5 0%,
+            #EFEBE5 20%,
+            transparent 50%
+        ),
+        radial-gradient(
+            ellipse at bottom right,
+            #E0DCD5 0%,
+            #EFEBE5 20%,
+            var(--off-white-color) 50%
+        );
+}
 
 #artwork-detail h1 {
     font-family: var(--secondary-font);
@@ -244,7 +273,7 @@
 
 #buying-options-heading {
     color: var(--dark-accent-color);
-    font-size: 1.4rem;
+    font-size: clamp(1.5rem, 2.5vw, 1.75rem);
     line-height: 1.4;
 }
 
