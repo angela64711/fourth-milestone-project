@@ -54,7 +54,7 @@
 
 #collections-list p {
     color: var(--text-color);
-    font-size: 1.125;
+    font-size: 1.125rem;
     margin-bottom: 1.5rem;
 }
 

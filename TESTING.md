@@ -6,6 +6,21 @@
 
 
 
+### CSS
+
+I used the recommended [W3C Jigsaw CSS Validator](https://jigsaw.w3.org/css-validator/) to validate all seven custom CSS stylesheets. All files passed with zero errors. The remaining warnings relate to CSS custom properties (`var()`), which the validator cannot statically check due to their dynamic nature.
+
+| Directory | File | Screenshot | Notes |
+| --- | --- | --- | --- |
+| static | [art.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/art.css) | ![screenshot](documentation/validation/css-static-art.png) | Validated by direct input |
+| static | [base.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/base.css) | ![screenshot](documentation/validation/css-static-base.png) | Validated by direct input |
+| static | [commissions.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/commissions.css) | ![screenshot](documentation/validation/css-static-commissions.png) | Validated by direct input |
+| static | [home.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/home.css) | ![screenshot](documentation/validation/css-static-home.png) | Validated by URL |
+| static | [pages.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/pages.css) | ![screenshot](documentation/validation/css-static-pages.png) | Validated by direct input |
+| static | [profile.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/profile.css) | ![screenshot](documentation/validation/css-static-profile.png) | Validated by direct input |
+| static | [dashboard.css](https://github.com/angela64711/fourth-milestone-project/blob/main/static/css/dashboard.css) | ![screenshot](documentation/validation/css-static-dashboard.png) | Validated by direct input |
+
+
 
 ### JavaScript
 
@@ -150,6 +165,30 @@ I've tested my deployed project to check for responsiveness issues.
 | Messages | ![screenshot](documentation/browsers/chrome-messages.png) | ![screenshot](documentation/browsers/firefox-messages.png) | ![screenshot](documentation/browsers/edge-messages.png) | Works as expected |
 | 404 | ![screenshot](documentation/browsers/chrome-404.png) | ![screenshot](documentation/browsers/firefox-404.png) | ![screenshot](documentation/browsers/edge-404.png) | Works as expected |
 
+
+## Accessibility and Colour Contrast
+
+Accessibility was considered throughout the development of the website, with particular attention to colour contrast, keyboard navigation, visible focus indicators and reduced-motion preferences.
+
+### Colour Contrast
+
+The website's colour palette was checked using a colour contrast checker to assess readability against WCAG accessibility guidelines.
+
+The primary text colours, dark blue (`#263E60`) and dark grey (`#383838`), provide strong contrast against the light background (`#F0EFEB`) and off-white (`#FDFCFA`) surfaces.
+
+The accent green (`#80E633`) against the dark blue (`#263E60`) achieves a contrast ratio of approximately **6.84:1**, meeting WCAG AA requirements for normal and large text, as well as AAA requirements for large text. It falls slightly below the AAA requirement for normal text.
+
+Although this combination meets WCAG AA text contrast requirements, green is used sparingly throughout the website, primarily for decorative details, underlines, buttons and hover effects rather than extended passages of text.
+
+During accessibility testing, the large green heading on the Where to Buy page was changed to dark blue, with a decorative green underline, to improve readability while preserving the website's visual identity.
+
+### Keyboard Accessibility
+
+Interactive elements, including navigation links, buttons and form controls, were designed to support keyboard navigation. Visible focus indicators help keyboard users identify the currently focused element.
+
+### Reduced Motion
+
+The website takes user motion preferences into consideration. Where reduced motion is requested through the user's operating system or browser settings, supported animations and motion effects are reduced or disabled to provide a more comfortable experience.
 
 
 
