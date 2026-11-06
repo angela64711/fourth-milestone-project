@@ -76,6 +76,8 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | profiles | [views.py](https://github.com/angela64711/fourth-milestone-project/blob/main/profiles/views.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/profiles/views.py) | ![screenshot](documentation/validation/py-profiles-views.png) | 
 
 
+
+
 ## Responsiveness
 
 
