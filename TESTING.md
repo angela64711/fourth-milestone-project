@@ -6,6 +6,23 @@
 
 
 
+
+### JavaScript
+
+
+I have used the recommended [JShint Validator](https://jshint.com) to validate all of my JS files. All files passed validation without errors or warnings. Screenshots of the validation results are provided below.
+
+| Directory | File | URL | Screenshot | 
+| --- | --- | --- | --- | --- |
+| static | [commission_pricing.js](https://github.com/angela64711/fourth-milestone-project/blob/main/static/js/commission_pricing.js) | | ![screenshot](documentation/validation/js-static-commission_pricing.png) |
+| static | [commissions.js](https://github.com/angela64711/fourth-milestone-project/blob/main/static/js/commissions.js) | | ![screenshot](documentation/validation/js-static-commissions.png) | 
+| static | [commission_payment.js](https://github.com/angela64711/fourth-milestone-project/blob/main/static/js/commission_payment.js) | | ![screenshot](documentation/validation/js-static-commission_payment.png) |
+| static | [collection_cover.js](https://github.com/angela64711/fourth-milestone-project/blob/main/static/js/collection_cover.js) | | ![screenshot](documentation/validation/js-static-collection_cover.png) |
+| static | [homepage.js](https://github.com/angela64711/fourth-milestone-project/blob/main/static/js/homepage.js) | | ![screenshot](documentation/validation/js-static-homepage.png) | 
+
+
+
+
 ## Responsiveness
 
 

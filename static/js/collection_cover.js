@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector("#cover-artwork-grid");

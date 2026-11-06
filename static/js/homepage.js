@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 
 document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("blois-video");
@@ -17,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `${isPlaying ? "Pause" : "Play"} Blois artwork video`
         );
 
-        button.innerHTML = isPlaying
-            ? '<i class="fa-solid fa-pause" aria-hidden="true"></i>'
+        button.innerHTML = isPlaying ? '<i class="fa-solid fa-pause" aria-hidden="true"></i>'
             : '<i class="fa-solid fa-play" aria-hidden="true"></i>';
     }
 

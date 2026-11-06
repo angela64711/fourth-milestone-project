@@ -1,4 +1,7 @@
 
+/* jshint esversion: 11 */
+/* global bootstrap */
+
 document.addEventListener("DOMContentLoaded", function () {
     const preferencesForm = document.querySelector("#preferences-form");
 

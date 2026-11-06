@@ -1,3 +1,5 @@
+/* jshint esversion: 11 */
+/* global Stripe */
 
 /*
  * Commission payment processing with Stripe Elements.
