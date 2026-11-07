@@ -84,7 +84,7 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | --- | --- | --- | --- | 
 | artworks | [admin.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/admin.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/admin.py) | ![screenshot](documentation/validation/py-artworks-admin.png) | 
 | artworks | [import_artworks.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/management/commands/import_artworks.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/management/commands/import_artworks.py) | ![screenshot](documentation/validation/py-artworks-import_artworks.png) |
-| artworks | [models.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/models.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/models.py) | ![screenshot](documentation/validation/py-artworks-models.png) ||
+| artworks | [models.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/models.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/models.py) | ![screenshot](documentation/validation/py-artworks-models.png) |
 | artworks | [test_models.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/test_models.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/test_models.py) | ![screenshot](documentation/validation/py-artworks-test_models.png) | 
 | artworks | [test_views.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/test_views.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/test_views.py) | ![screenshot](documentation/validation/py-artworks-test_views.png) | 
 | artworks | [urls.py](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/urls.py) | [PEP8 CI Link](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/angela64711/fourth-milestone-project/main/artworks/urls.py) | ![screenshot](documentation/validation/py-artworks-urls.png) | 
@@ -173,9 +173,12 @@ I've tested my deployed project to check for responsiveness issues.
 
 ## Browser Compatibility
 
+Browser compatibility was tested using Google Chrome, Mozilla Firefox and Microsoft Edge. The [FireShot browser extension](https://getfireshot.com/) was used to capture full-page screenshots, providing evidence of how the complete page layouts render across the three browsers, including content beyond the visible viewport.
+
 | Page | Chrome | Firefox | Edge | Notes |
 | --- | --- | --- | --- | --- |
 | Home | ![screenshot](documentation/browsers/chrome-home.png) | ![screenshot](documentation/browsers/firefox-home.png) | ![screenshot](documentation/browsers/edge-home.png) | Works as expected |
+| Art | ![screenshot](documentation/browsers/chrome-art.png) | ![screenshot](documentation/browsers/firefox-art.png) | ![screenshot](documentation/browsers/edge-art.png) | Works as expected |
 | Artworks | ![screenshot](documentation/browsers/chrome-artworks.png) | ![screenshot](documentation/browsers/firefox-artworks.png) | ![screenshot](documentation/browsers/edge-artworks.png) | Works as expected |
 | Artwork Detail | ![screenshot](documentation/browsers/chrome-artwork-detail.png) | ![screenshot](documentation/browsers/firefox-artwork-detail.png) | ![screenshot](documentation/browsers/edge-artwork-detail.png) | Works as expected |
 | In Situ | ![screenshot](documentation/browsers/chrome-in-situ.png) | ![screenshot](documentation/browsers/firefox-in-situ.png) | ![screenshot](documentation/browsers/edge-in-situ.png) | Works as expected |
@@ -183,18 +186,18 @@ I've tested my deployed project to check for responsiveness issues.
 | Collaborations | ![screenshot](documentation/browsers/chrome-collaborations.png) | ![screenshot](documentation/browsers/firefox-collaborations.png) | ![screenshot](documentation/browsers/edge-collaborations.png) | Works as expected |
 | Where to Buy | ![screenshot](documentation/browsers/chrome-where-to-buy.png) | ![screenshot](documentation/browsers/firefox-where-to-buy.png) | ![screenshot](documentation/browsers/edge-where-to-buy.png) | Works as expected |
 | Commissions | ![screenshot](documentation/browsers/chrome-commissions.png) | ![screenshot](documentation/browsers/firefox-commissions.png) | ![screenshot](documentation/browsers/edge-commissions.png) | Works as expected |
-| Commission Success | ![screenshot](documentation/browsers/chrome-commission-success.png) | ![screenshot](documentation/browsers/firefox-commission-success.png) | ![screenshot](documentation/browsers/edge-commission-success.png) | Works as expected |
 | Contact | ![screenshot](documentation/browsers/chrome-contact.png) | ![screenshot](documentation/browsers/firefox-contact.png) | ![screenshot](documentation/browsers/edge-contact.png) | Works as expected |
 | Register | ![screenshot](documentation/browsers/chrome-register.png) | ![screenshot](documentation/browsers/firefox-register.png) | ![screenshot](documentation/browsers/edge-register.png) | Works as expected |
 | Login | ![screenshot](documentation/browsers/chrome-login.png) | ![screenshot](documentation/browsers/firefox-login.png) | ![screenshot](documentation/browsers/edge-login.png) | Works as expected |
 | Logout | ![screenshot](documentation/browsers/chrome-logout.png) | ![screenshot](documentation/browsers/firefox-logout.png) | ![screenshot](documentation/browsers/edge-logout.png) | Works as expected |
 | Account | ![screenshot](documentation/browsers/chrome-account.png) | ![screenshot](documentation/browsers/firefox-account.png) | ![screenshot](documentation/browsers/edge-account.png) | Works as expected |
-| Favourites | ![screenshot](documentation/browsers/chrome-favourites.png) | ![screenshot](documentation/browsers/firefox-favourites.png) | ![screenshot](documentation/browsers/edge-favourites.png) | Works as expected |
 | Manage Artworks | ![screenshot](documentation/browsers/chrome-manage-artworks.png) | ![screenshot](documentation/browsers/firefox-manage-artworks.png) | ![screenshot](documentation/browsers/edge-manage-artworks.png) | Works as expected |
+| Artwork Overview | ![screenshot](documentation/browsers/chrome-artwork-overview.png) | ![screenshot](documentation/browsers/firefox-artwork-overview.png) | ![screenshot](documentation/browsers/edge-artwork-overview.png) | Works as expected |
 | Add Artwork | ![screenshot](documentation/browsers/chrome-add-artwork.png) | ![screenshot](documentation/browsers/firefox-add-artwork.png) | ![screenshot](documentation/browsers/edge-add-artwork.png) | Works as expected |
 | Edit Artwork | ![screenshot](documentation/browsers/chrome-edit-artwork.png) | ![screenshot](documentation/browsers/firefox-edit-artwork.png) | ![screenshot](documentation/browsers/edge-edit-artwork.png) | Works as expected |
 | Delete Artwork | ![screenshot](documentation/browsers/chrome-delete-artwork.png) | ![screenshot](documentation/browsers/firefox-delete-artwork.png) | ![screenshot](documentation/browsers/edge-delete-artwork.png) | Works as expected |
 | Manage Collections | ![screenshot](documentation/browsers/chrome-manage-collections.png) | ![screenshot](documentation/browsers/firefox-manage-collections.png) | ![screenshot](documentation/browsers/edge-manage-collections.png) | Works as expected |
+| Collection Overview | ![screenshot](documentation/browsers/chrome-collection-overview.png) | ![screenshot](documentation/browsers/firefox-collection-overview.png) | ![screenshot](documentation/browsers/edge-collection-overview.png) | Works as expected |
 | Add Collection | ![screenshot](documentation/browsers/chrome-add-collection.png) | ![screenshot](documentation/browsers/firefox-add-collection.png) | ![screenshot](documentation/browsers/edge-add-collection.png) | Works as expected |
 | Edit Collection | ![screenshot](documentation/browsers/chrome-edit-collection.png) | ![screenshot](documentation/browsers/firefox-edit-collection.png) | ![screenshot](documentation/browsers/edge-edit-collection.png) | Works as expected |
 | Delete Collection | ![screenshot](documentation/browsers/chrome-delete-collection.png) | ![screenshot](documentation/browsers/firefox-delete-collection.png) | ![screenshot](documentation/browsers/edge-delete-collection.png) | Works as expected |
@@ -417,6 +420,9 @@ At the time of writing, there are no known unresolved bugs. All six bugs documen
 [![GitHub issue custom search](https://img.shields.io/github/issues-search/angela64711/fourth-milestone-project?query=is%3Aissue%2Bis%3Aopen%2Blabel%3Abug&label=Unfixed%20Bugs&color=red)](https://www.github.com/angela64711/fourth-milestone-project/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 
+ ### Known Limitation — Stripe Webhooks
+
+Stripe webhooks have not been implemented in the current version. Payment confirmation currently relies on the application's checkout flow, which may be interrupted by unexpected browser or network failures. Webhook integration is identified as a future improvement to provide independent payment confirmation and improve order-processing reliability.
 
 > [!IMPORTANT]  
 > There are no remaining bugs that I am aware of, though, even after thorough testing, I cannot rule out the possibility.

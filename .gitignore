@@ -4,5 +4,3 @@ env.py
 *.pyc
 __pycache__/
 staticfiles/
-README_DRAFT.md
-TESTING_DRAFT.md
