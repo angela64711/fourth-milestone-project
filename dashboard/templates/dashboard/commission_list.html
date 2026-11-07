@@ -52,7 +52,7 @@
         </aside>
 
         <!-- Commission management -->
-        <main class="col-12 col-lg-9 p-3 p-lg-4">
+        <section class="col-12 col-lg-9 p-3 p-lg-4">
 
             <div class="mb-4">
                 <h1 class="mb-1">Commission Orders</h1>
@@ -135,7 +135,7 @@
                     </h2>
 
                     <!-- Expandable order details -->
-                    <div id="order-details-{{ order.pk }}" class="accordion-collapse collapse"
+                    <div id="order-details-{{ order.pk }}" class="accordion-collapse collapse" role="region"
                         aria-labelledby="order-heading-{{ order.pk }}" data-bs-parent="#dashboard-commission-orders">
 
                         <div class="accordion-body">
@@ -308,7 +308,7 @@
 
             {% endif %}
 
-        </main>
+        </section>
     </div>
 </div>
 {% endblock %}

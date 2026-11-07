@@ -91,21 +91,21 @@
 
                                     <label for="{{ choice.id_for_label }}" class="choice-label">
 
-                                        <span>
+                                        <span class="choice-title">
                                             {{ choice.choice_label }}
                                         </span>
 
                                         {% if choice.data.value == "idea" %}
-                                        <p class="d-block">
+                                        <span class="choice-description d-block">
                                             Describe an idea, a feeling, or a
                                             concept, and let us interpret it
                                             through our artistic vision.
-                                        </p>
+                                        </span>
                                         {% else %}
-                                        <p class="d-block">
+                                        <span class="choice-description d-block">
                                             An unexpected creation, left
                                             entirely to our imagination.
-                                        </p>
+                                        </span>
                                         {% endif %}
                                     </label>
                                 </div>
@@ -276,7 +276,7 @@
                                             {{ choice.choice_label }}
                                         </span>
 
-                                        <p class="d-block">
+                                        <span class="choice-description d-block">
                                             {% if choice.data.value == "nature" %}
                                             Flowers, plants, landscapes and the natural world.
                                             {% elif choice.data.value == "classical" %}
@@ -286,7 +286,7 @@
                                             {% elif choice.data.value == "human" %}
                                             Portraits, memories, human connections and traces of the past.
                                             {% endif %}
-                                        </p>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -337,25 +337,25 @@
                                         </span>
 
                                         {% if choice.data.value == "digital" %}
-                                        <p class="d-block mt-2">
+                                        <span class="d-block mt-2">
                                             High-resolution digital file
-                                        </p>
+                                        </span>
                                         <strong class="format-price d-block">
                                             €180
                                         </strong>
 
                                         {% elif choice.data.value == "print" %}
-                                        <p class="d-block mt-2">
+                                        <span class="d-block mt-2">
                                             Fine art paper, unframed
-                                        </p>
+                                        </span>
                                         <strong class="format-price d-block">
                                             From €200
                                         </strong>
 
                                         {% else %}
-                                        <p class="d-block mt-2">
+                                        <span class="d-block mt-2">
                                             Professionally printed and framed
-                                        </p>
+                                        </span>
                                         <strong class="format-price d-block">
                                             From €260
                                         </strong>
@@ -446,7 +446,7 @@
 
 <!-- Authentication modal -->
 {% if not user.is_authenticated %}
-<div class="modal fade" id="commissionAuthModal" tabindex="-1" aria-labelledby="commissionAuthModalLabel"
+<div class="modal fade" id="commissionAuthModal" tabindex="-1" role="dialog" aria-labelledby="commissionAuthModalLabel"
     aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">

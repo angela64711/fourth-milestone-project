@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<main id="artwork-detail" class="py-4">
+<section id="artwork-detail" class="py-4">
     <div class="container">
 
         <!-- Back navigation -->
@@ -129,12 +129,12 @@
             </div>
         </div>
     </div>
-</main>
+</section>
 
 <!-- Favourite authentication modal -->
 
 {% if not user.is_authenticated %}
-<div class="modal fade" id="favouriteAuthModal" tabindex="-1" aria-labelledby="favouriteAuthModalLabel"
+<div class="modal fade" id="favouriteAuthModal" tabindex="-1" role="dialog" aria-labelledby="favouriteAuthModalLabel"
     aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">

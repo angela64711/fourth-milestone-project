@@ -5,6 +5,43 @@
 > Return back to the [README.md](README.md) file.
 
 
+### HTML
+
+I used the [W3C Nu HTML Checker](https://validator.w3.org/nu/) to validate the rendered HTML of each page by direct input. Screenshots of the successful validation results are provided below.
+
+| Directory | File | Screenshot |
+| --- | --- | --- |
+| artworks | [artwork_detail.html](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/templates/artworks/artwork_detail.html) | ![screenshot](documentation/validation/html-artworks-artwork_detail.png) |
+| artworks | [artworks.html](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/templates/artworks/artworks.html) | ![screenshot](documentation/validation/html-artworks-artworks.png) |
+| artworks | [collections.html](https://github.com/angela64711/fourth-milestone-project/blob/main/artworks/templates/artworks/collections.html) | ![screenshot](documentation/validation/html-artworks-collections.png) |
+| commissions | [checkout.html](https://github.com/angela64711/fourth-milestone-project/blob/main/commissions/templates/commissions/checkout.html) | ![screenshot](documentation/validation/html-commissions-checkout.png) |
+| commissions | [checkout_success.html](https://github.com/angela64711/fourth-milestone-project/blob/main/commissions/templates/commissions/checkout_success.html) | ![screenshot](documentation/validation/html-commissions-checkout_success.png) |
+| commissions | [commission.html](https://github.com/angela64711/fourth-milestone-project/blob/main/commissions/templates/commissions/commission.html) | ![screenshot](documentation/validation/html-commissions-commission.png) |
+| commissions | [customer_details.html](https://github.com/angela64711/fourth-milestone-project/blob/main/commissions/templates/commissions/customer_details.html) | ![screenshot](documentation/validation/html-commissions-customer_details.png) |
+| dashboard | [artwork_delete.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/artwork_delete.html) | ![screenshot](documentation/validation/html-dashboard-artwork_delete.png) |
+| dashboard | [artwork_form.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/artwork_form.html) | ![screenshot](documentation/validation/html-dashboard-artwork_form.png) |
+| dashboard | [artwork_list.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/artwork_list.html) | ![screenshot](documentation/validation/html-dashboard-artwork_list.png) |
+| dashboard | [artwork_overview.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/artwork_overview.html) | ![screenshot](documentation/validation/html-dashboard-artwork_overview.png) |
+| dashboard | [collection_delete.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/collection_delete.html) | ![screenshot](documentation/validation/html-dashboard-collection_delete.png) |
+| dashboard | [collection_form.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/collection_form.html) | ![screenshot](documentation/validation/html-dashboard-collection_form.png) |
+| dashboard | [collection_list.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/collection_list.html) | ![screenshot](documentation/validation/html-dashboard-collection_list.png) |
+| dashboard | [collection_overview.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/collection_overview.html) | ![screenshot](documentation/validation/html-dashboard-collection_overview.png) |
+| dashboard | [commission_list.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/commission_list.html) | ![screenshot](documentation/validation/html-dashboard-commission_list.png) |
+| dashboard | [message_list.html](https://github.com/angela64711/fourth-milestone-project/blob/main/dashboard/templates/dashboard/message_list.html) | ![screenshot](documentation/validation/html-dashboard-message_list.png) |
+| pages | [about.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/about.html) | ![screenshot](documentation/validation/html-pages-about.png) |
+| pages | [collaborations.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/collaborations.html) | ![screenshot](documentation/validation/html-pages-collaborations.png) |
+| pages | [contact.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/contact.html) | ![screenshot](documentation/validation/html-pages-contact.png) |
+| pages | [in-situ.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/in-situ.html) | ![screenshot](documentation/validation/html-pages-in-situ.png) |
+| pages | [index.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/index.html) | ![screenshot](documentation/validation/html-pages-index.png) |
+| pages | [retail.html](https://github.com/angela64711/fourth-milestone-project/blob/main/pages/templates/pages/retail.html) | ![screenshot](documentation/validation/html-pages-retail.png) |
+| profiles | [my_account.html](https://github.com/angela64711/fourth-milestone-project/blob/main/profiles/templates/profiles/my_account.html) | ![screenshot](documentation/validation/html-profiles-my_account.png) |
+| templates | [403.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/403.html) | ![screenshot](documentation/validation/html-templates-403.png) |
+| templates | [404.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/404.html) | ![screenshot](documentation/validation/html-templates-404.png) |
+| templates/account | [email_confirm.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/account/email_confirm.html) | ![screenshot](documentation/validation/html-templates-email_confirm.png) |
+| templates/account | [login.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/account/login.html) | ![screenshot](documentation/validation/html-templates-login.png) |
+| templates/account | [logout.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/account/logout.html) | ![screenshot](documentation/validation/html-templates-logout.png) |
+| templates/account | [signup.html](https://github.com/angela64711/fourth-milestone-project/blob/main/templates/account/signup.html) | ![screenshot](documentation/validation/html-templates-signup.png) |
+
 
 ### CSS
 

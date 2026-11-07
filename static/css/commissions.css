@@ -209,7 +209,7 @@ fieldset:disabled .choice-card:has(> input:disabled) {
     padding: 1.25rem;
 }
 
-#creative-direction .choice-label>span {
+.choice-title {
     display: block;
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
@@ -220,7 +220,7 @@ fieldset:disabled .choice-card:has(> input:disabled) {
     text-indent: -1.25rem;
 }
 
-#imagery .choice-label>span {
+.imagery-title {
     display: block;
     color: var(--dark-accent-color);
     font-family: var(--secondary-font);
@@ -229,9 +229,13 @@ fieldset:disabled .choice-card:has(> input:disabled) {
     line-height: 1.35;
 }
 
+.choice-description {
+    font-size: 1.25rem;
+}
+
 /* Green dots retain their decorative purpose. */
-#creative-direction .choice-label>span::before,
-#imagery .choice-label>span::before {
+.choice-title::before,
+#imagery .imagery-title::before {
     content: "•";
     color: var(--accent-color);
     font-size: 1.9rem;
@@ -239,8 +243,8 @@ fieldset:disabled .choice-card:has(> input:disabled) {
 }
 
 /* Descriptions below choice titles */
-#creative-direction .choice-label p,
-#imagery .choice-label p {
+#creative-direction .choice-description,
+#imagery .choice-label  .choice-description{
     margin-top: 0.9rem;
 }
 

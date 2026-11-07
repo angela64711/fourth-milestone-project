@@ -62,7 +62,7 @@
         </aside>
 
         <!-- Incoming messages -->
-        <main class="col-12 col-lg-9 p-3 p-lg-4">
+        <section class="col-12 col-lg-9 p-3 p-lg-4">
 
             <div class="mb-4">
                 <h1 class="mb-1">Incoming Messages</h1>
@@ -116,6 +116,7 @@
                     <!-- Expandable message details -->
                     <div id="message-details-{{ message.pk }}"
                         class="accordion-collapse collapse"
+                        role="region"
                         aria-labelledby="message-heading-{{ message.pk }}"
                         data-bs-parent="#dashboard-messages">
 
@@ -176,7 +177,7 @@
 
             {% endif %}
 
-        </main>
+        </section>
     </div>
 </div>
 {% endblock %}
